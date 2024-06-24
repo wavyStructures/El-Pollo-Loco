@@ -1,9 +1,10 @@
 let canvas;
 let world;
-let keyboard = new Keyboard();
+let keyboard;
 
 function init() {
     canvas = document.getElementById("canvas");
+    keyboard = new Keyboard();
     world = new World(canvas, keyboard);
 
     // character.src = '../img/I-1.png';

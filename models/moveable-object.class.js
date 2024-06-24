@@ -8,6 +8,9 @@ class MoveableObject {
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2.5;
+    
 
 loadImage(path){
     this.img = new Image();
@@ -22,22 +25,45 @@ loadImages(arr){
     })
 }
 
-    moveRight(){
-        console.log('moving right');
-    }
+playAnimation(images){
+    let i = this.currentImage % this.IMAGES_WALKING.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+}
 
-    moveLeft(){
+moveRight(){
+        console.log('moving right');
+}
+
+moveLeft(){
         setInterval(() => {    //ich möchte das das immer wieder gemacht wird
             this.x -= this.speed;
         }, 1000 / 60);    //damit es 60mal pro Sekunde ausgeführt wird
+}
+
+jump() {
+
     }
 
-    jump() {
+isAboveGround(){
+    return this.y < 80;
+}
 
+applyGravity(){
+    setInterval(() => {
+        if(this.isAboveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+    }else{
+        // this.isJumping = false;
+        this.speedY = 0;
     }
+    }, 1000 / 25)   //25mal pro Sekunde
 }
 
 
+}
 
 
 

@@ -34,24 +34,21 @@ class Character extends MoveableObject {
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+                this.otherDirection = false;
                 this.walking_sound.play();
-                if (this.x < this.world.level.level_end_x) {
-                    this.x += this.speed;
-                    this.otherDirection = false;
-                } else {
-                    this.x = this.world.level.level_end_x;
-                }
             }
+            // else {this.x = this.world.level.level_end_x;}}
+
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.walking_sound.play();
-                this.x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
+                this.walking_sound.play();
             }
 
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.speedY = 30;
-                // this.jump();
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
             }
 
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
@@ -75,10 +72,10 @@ class Character extends MoveableObject {
     }
 
 
-    // jump() {
-    //     if (!this.isJumping) {
-    //         this.speedY = 20;
-    //         this.isJumping = true;
-    //     }
-    // }
+    jump() {
+        // if (!this.isJumping) {
+        this.speedY = 30;
+        //     this.isJumping = true;
+        // }
+    }
 }

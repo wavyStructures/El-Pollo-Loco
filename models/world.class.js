@@ -13,10 +13,28 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach(
+                (enemy) => {
+                    if (
+                        this.character.isColliding(enemy)) {
+                        this.character.hit();
+                        if (this.character.energy <= 0) {
+                            console.log('Game Over');
+                            // this.character.playAnimation(this.character.IMAGES_DEAD);
+                        }
+                    };
+                }
+            );
+        }, 200);  //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
     }
 
     draw() {
@@ -41,7 +59,6 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-            //x wird umgedreht
             this.flipImage(mo);
         }
 

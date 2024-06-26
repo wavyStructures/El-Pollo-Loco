@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-
+    statusBar = new StatusBar();
     level = level1;
     canvas;
     ctx;
@@ -43,6 +43,7 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+        this.addToMap(this.statusBar);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);
@@ -66,7 +67,7 @@ class World {
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
-            flipImageBack(mo);
+            this.flipImageBack(mo);
         }
     }
 

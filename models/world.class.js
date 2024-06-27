@@ -6,6 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    throwableObjects = [new ThrowableObject()];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -27,10 +28,12 @@ class World {
                     if (
                         this.character.isColliding(enemy)) {
                         this.character.hit();
-                        if (this.character.energy <= 0) {
-                            console.log('Game Over');
-                            // this.character.playAnimation(this.character.IMAGES_DEAD);
-                        }
+                        this.statusBar.setPercentage(this.character.energy);
+
+                        // if (this.character.energy <= 0) {
+                        //     console.log('Game Over');
+
+                        // }
                     };
                 }
             );
@@ -43,9 +46,14 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
+        // ------------  space for fixed objects ----------------
         this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+
+        this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;

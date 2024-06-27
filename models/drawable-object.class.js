@@ -9,16 +9,6 @@ class DrawableObject {
 
 
 
-
-
-    x = 120;
-    y = 280;
-    img;
-    width = 100;
-    height = 150;
-    imageCache = {};
-    currentImage = 0;
-
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;

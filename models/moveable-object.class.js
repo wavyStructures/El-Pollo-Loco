@@ -72,8 +72,11 @@ jump() {
     }
 
 isAboveGround(){
+    if(this instanceof ThrowableObject){  //should always fall
+        return true;
+    }else{    
     return this.y < 80;
-}
+}}
 
 applyGravity(){
     setInterval(() => {
@@ -81,7 +84,6 @@ applyGravity(){
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
     }else{
-        // this.isJumping = false;
         this.speedY = 0;
     }
     }, 1000 / 25)   //25mal pro Sekunde

@@ -10,7 +10,7 @@ body {
   justify-content: center;
   box-sizing: border-box;
   margin: 0;
-  height: 100dvh;
+  height: 95dvh;
   max-height: 100dvh;
   background-image: url("../img/desert.jpg");
   /* background-image: url("../img/cactus_wueste.png"); */
@@ -19,6 +19,7 @@ body {
   font-family: "zabars", Arial, Helvetica, sans-serif;
   font-size: 10px;
   cursor: default;
+  /* margin: 0; */
 }
 
 h1 {
@@ -26,6 +27,7 @@ h1 {
   letter-spacing: 7px;
   text-shadow: 4px 3px 2px rgb(125, 28, 28);
   color: brown;
+  margin: 0;
 }
 
 canvas {
@@ -33,14 +35,17 @@ canvas {
   display: block;
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 720px) {
   canvas {
     width: 100%;
   }
 }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (max-height: 480px) {
   canvas {
     height: 100vh;
+  }
+  h1 {
+    display: none;
   }
 }

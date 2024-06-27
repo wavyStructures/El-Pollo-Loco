@@ -6,7 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -14,30 +14,44 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach(
-                (enemy) => {
-                    if (
-                        this.character.isColliding(enemy)) {
-                        this.character.hit();
-                        this.statusBar.setPercentage(this.character.energy);
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);                                //wird jede fünftel-Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
+    }
 
-                        // if (this.character.energy <= 0) {
-                        //     console.log('Game Over');
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+        }
+    }
 
-                        // }
-                    };
-                }
-            );
-        }, 200);  //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
+    checkCollisions() {
+
+        this.level.enemies.forEach(
+            (enemy) => {
+                if (
+                    this.character.isColliding(enemy)) {
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
+
+                    // if (this.character.energy <= 0) {
+                    //     console.log('Game Over');
+
+                    // }
+                };
+            }
+        );
+        //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
     }
 
     draw() {

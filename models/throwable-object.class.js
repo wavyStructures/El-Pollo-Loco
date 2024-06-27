@@ -1,4 +1,4 @@
-class ThrowableObject extends DrawableObject {
+class ThrowableObject extends MoveableObject {
 
     IMAGES = [
         '../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -12,25 +12,25 @@ class ThrowableObject extends DrawableObject {
     //     '../img/6_salsa_bottle/bottle_rotation/bottle_splash/2_splash.png'
     // ]
 
-    constructor() {
+    constructor(x, y) {
         super().loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-
-        this.y = 400;
-        this.x = 800;
+        this.x = x;
+        this.y = y;
         this.height = 60;
         this.width = 50;
         this.loadImages(this.IMAGES);
         // this.loadImages(this.IMAGES_SPLASH);
-        this.throw(100, 150);
+        this.throw();
 
     }
 
-    throw(x, y) {
-        this.x = x;
-        this.y = y;
+    throw() {
+
         this.speedY = 30;
-        // this.applyGravity();
-        this.speedX = 20;
+        this.applyGravity();
+        setInterval(() => {
+            this.x += 10;
+        }, 25);
     }
 
 

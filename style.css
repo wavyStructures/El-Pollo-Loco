@@ -1,10 +1,46 @@
+@font-face {
+  font-family: "zabars";
+  src: url("/fonts/zabars.ttf");
+}
+
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  background-image: url("../img/desert.jpg");
+  /* background-image: url("../img/cactus_wueste.png"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "zabars", Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  cursor: default;
+}
+
+h1 {
+  font-size: 104px;
+  letter-spacing: 7px;
+  text-shadow: 4px 3px 2px rgb(125, 28, 28);
+  color: brown;
 }
 
 canvas {
   background-color: black;
+  display: block;
+}
+
+@media only screen and (max-width: 760px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  canvas {
+    height: 100vh;
+  }
 }

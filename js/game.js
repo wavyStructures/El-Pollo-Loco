@@ -3,6 +3,7 @@ let world;
 let keyboard;
 
 function init() {
+    initLevel();
     canvas = document.getElementById("canvas");
     keyboard = new Keyboard();
     world = new World(canvas, keyboard);
@@ -21,6 +22,10 @@ function init() {
 
     console.log('My Character is: ', world.character);
 }
+
+// function startGame() {
+//     this.initLevel();
+// }
 
 window.addEventListener('keydown', (e) => {
     console.log(e);

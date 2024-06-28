@@ -38,7 +38,7 @@ hit(){
         this.energy = 0;
     }else{
     this.lastHit = new Date().getTime();
-    console.log(this.lastHit);
+    // console.log(this.lastHit);
     }
 }
 

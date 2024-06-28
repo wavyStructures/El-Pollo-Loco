@@ -38,28 +38,33 @@ class Endboss extends MoveableObject {
         '../img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
 
+    hadFirstContact = false;
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.x = 2300;
         this.animate();
     }
 
     animate() {
-
-
+        let i = 0;
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            if (i < 10) { this.playAnimation(this.IMAGES_WALKING); } else {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
+            i++;
+            if (world.character.x > 1800 && !this.hadFirstContact) {
+                i = 0;
+                this.hadFirstContact = true;
+                this.playAnimation(this.IMAGES_ATTACK);
+            }
         }, 200);
     }
-
-    // IMAGES_DEAD = [
-    //     'img/6_salsa_bottle/bottle_1.png',
-    //     'img/6_salsa_bottle/bottle_2.png',
-    //     'img/6_salsa_bottle/bottle_3.png',
-    //     'img/6_salsa_bottle/bottle_4.png'
-    // ];
 
 }
 

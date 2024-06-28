@@ -28,7 +28,7 @@ function init() {
 // }
 
 window.addEventListener('keydown', (e) => {
-    console.log(e);
+    // console.log(e);
     switch (e.keyCode) {
         case 37:
             keyboard.LEFT = true;
@@ -61,11 +61,11 @@ window.addEventListener('keydown', (e) => {
             keyboard.ESC = true;
             break;
     }
-    console.log('Key down:', e.key, keyboard);
+    // console.log('Key down:', e.key, keyboard);
 });
 
 window.addEventListener('keyup', (e) => {
-    console.log(e);
+    // console.log(e);
     switch (e.keyCode) {
         case 37:
             keyboard.LEFT = false;
@@ -98,5 +98,5 @@ window.addEventListener('keyup', (e) => {
             keyboard.ESC = false;
             break;
     }
-    console.log('Key down:', e.key, keyboard);
+    // console.log('Key down:', e.key, keyboard);
 });

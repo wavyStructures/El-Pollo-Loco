@@ -1,23 +1,23 @@
 class World {
-    character = new Character();
-    statusBar = new StatusBar();
-    level = level1;
-    canvas;
-    ctx;
-    keyboard;
-    camera_x = 0;
-    throwableObjects = [];
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        this.character = new Character();
+        this.statusBar = new StatusBar();
+        this.level = level1;
         this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
+        this.camera_x = 0;
+        this.throwableObjects = [];
+        console.log('Level:', this.level);
+        console.log('Background Objects:', this.level.backgroundObjects);
         this.draw();
         this.setWorld();
         this.run();
     }
 
     setWorld() {
+
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
     }
 
@@ -63,6 +63,9 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
         this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottles);
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
@@ -87,6 +90,7 @@ class World {
 
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
+        // mo.drawOffsetFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

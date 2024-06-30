@@ -7,7 +7,23 @@ class Keyboard {
         this.DOWN = false;
         this.SPACE = false;
         this.D = false;
+
+
+        // THROW_REQUEST_STOP = new Date().getTime();
+        // THROW_REQUEST_START = 0;
+
+        // this.bindKeyPressEvents();
+        // this.bindBtnsPressEvents();
     }
+
+
+    
+
+
+    }
+
+
+
 
     //     onKeydown(event) {
     //         switch (event.keyCode) {
@@ -29,4 +45,3 @@ class Keyboard {
     //         }
     // }
 
-}

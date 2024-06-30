@@ -3,6 +3,14 @@
   src: url("/fonts/zabars.ttf");
 }
 
+d-none {
+  display: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -32,7 +40,13 @@ h1 {
 
 canvas {
   background-color: black;
+  background-size: 720px 480px;
+  position: relative;
   display: block;
+}
+
+#hud {
+  display: none;
 }
 
 @media only screen and (max-width: 720px) {

@@ -41,6 +41,13 @@ class Character extends MoveableObject {
         this.animate();
     }
 
+    offset = {
+        top: 120,
+        right: 30,
+        bottom: 30,
+        left: 40
+    }
+
 
     animate() {
         setInterval(() => {

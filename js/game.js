@@ -1,17 +1,36 @@
 let canvas;
-let world;
+
 let keyboard;
+let world;
 
 function init() {
-    initLevel();
+
+    console.log('Initializing game...');
     canvas = document.getElementById("canvas");
+    canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
     keyboard = new Keyboard();
+    console.log('Keyboard initialized:', keyboard);
+
+    initLevel1(); // Ensure level1 is initialized
+    console.log('Level:', level1); // Ensure level1 is defined and initialized
+
+
     world = new World(canvas, keyboard);
+    console.log('World initialized:', world);
 
-    // character.src = '../img/I-1.png';
 
+
+    // initLevel();
+
+
+
+    // canvas = document.getElementById("canvas");
+    // canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
+    // keyboard = new Keyboard();
     // world = new World(canvas, keyboard);
-    // gamescreen.style.display = "block";
+
+
+
     // optionsScreen();
     // playAudio();
     // mobileControls();
@@ -20,12 +39,31 @@ function init() {
     //     ctx.drawImage(character, 20, 20, 50, 150);
     // }, 2000);
 
-    console.log('My Character is: ', world.character);
 }
 
-// function startGame() {
-//     this.initLevel();
+function startGame() {
+    console.log('Starting game...');
+
+    initLevel();
+}
+
+function initLevel() {
+    initLevel1();
+}
+
+// function bindBtnsPressEvents() {
+
+//     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+//         e.preventDefault();
+//         keyboard.LEFT = true;
+//     });
+
+//     document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+//         e.preventDefault();
+//         keyboard.LEFT = false;
+//     });
 // }
+
 
 window.addEventListener('keydown', (e) => {
     // console.log(e);
@@ -100,3 +138,4 @@ window.addEventListener('keyup', (e) => {
     }
     // console.log('Key down:', e.key, keyboard);
 });
+

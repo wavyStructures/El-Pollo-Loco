@@ -1,5 +1,4 @@
 let canvas;
-
 let keyboard;
 let world;
 
@@ -7,7 +6,7 @@ function init() {
 
     console.log('Initializing game...');
     canvas = document.getElementById("canvas");
-    canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
+    // canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
     keyboard = new Keyboard();
     console.log('Keyboard initialized:', keyboard);
 

@@ -27,7 +27,7 @@ class DrawableObject {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (error) {
             console.warn('loading img failed: ', error);
-            console.log('img : ', this.img.src);
+            console.log('img : ', this.img);
         }
 
     }

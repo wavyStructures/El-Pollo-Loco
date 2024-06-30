@@ -3,6 +3,11 @@
   src: url("/fonts/zabars.ttf");
 }
 
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .d-none {
   display: none;
 }
@@ -12,13 +17,7 @@ button:hover {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  margin: 0;
-  height: 95dvh;
+  height: 100dvh;
   max-height: 100dvh;
   background-image: url("../img/desert.jpg");
   background-position: center;
@@ -27,6 +26,11 @@ body {
   font-size: 10px;
   color: brown;
   cursor: default; /* margin: 0; */
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
 }
 
 a {

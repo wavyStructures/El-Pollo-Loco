@@ -15,12 +15,7 @@ class Keyboard {
         // this.bindKeyPressEvents();
         // this.bindBtnsPressEvents();
     }
-
-
-    
-
-
-    }
+}
 
 
 

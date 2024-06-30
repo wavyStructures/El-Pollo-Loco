@@ -9,17 +9,17 @@ class StatusBarBottles extends DrawableObject {
         '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
     ];
 
-    percentage = 100;
+    percentage = 0;
 
     constructor() {
 
         super();
         this.loadImages(this.IMAGES);
         this.x = 50;
-        this.y = 20;
+        this.y = 120;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(100);
+        this.setPercentage(0);
     }
 
     setPercentage(percentage) {
@@ -29,6 +29,9 @@ class StatusBarBottles extends DrawableObject {
     }
 
     resolveImageIndex() {
+        if (this.percentage > 100) {
+            this.percentage = 100;
+        }
         if (this.percentage == 100) {
             return 5;
         }

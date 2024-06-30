@@ -3,6 +3,8 @@ class World {
     constructor(canvas, keyboard) {
         this.character = new Character();
         this.statusBar = new StatusBar();
+        this.statusBarCoins = new StatusBarCoins();
+        this.statusBarBottles = new StatusBarBottles();
         this.level = level1;
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -61,8 +63,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
         this.addToMap(this.statusBar);
-        // this.addToMap(this.statusBarCoins);
-        // this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottles);
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);

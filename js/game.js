@@ -17,38 +17,38 @@ function init() {
     world = new World(canvas, keyboard);
     console.log('World initialized:', world);
 
-
-
-    // initLevel();
-
-
-
-    // canvas = document.getElementById("canvas");
-    // canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
-    // keyboard = new Keyboard();
-    // world = new World(canvas, keyboard);
-
-
-
-    // optionsScreen();
-    // playAudio();
-    // mobileControls();
-
-    // setTimeout(function () {
-    //     ctx.drawImage(character, 20, 20, 50, 150);
-    // }, 2000);
-
 }
 
-function startGame() {
-    console.log('Starting game...');
+// initLevel();
 
-    initLevel();
-}
+// function initLevel() {
+//     initLevel1();
+// }
 
-function initLevel() {
-    initLevel1();
-}
+// canvas = document.getElementById("canvas");
+// canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
+// keyboard = new Keyboard();
+// world = new World(canvas, keyboard);
+
+
+
+// optionsScreen();
+// playAudio();
+// mobileControls();
+
+// setTimeout(function () {
+//     ctx.drawImage(character, 20, 20, 50, 150);
+// }, 2000);
+
+// }
+
+// function startGame() {
+//     console.log('Starting game...');
+
+//     initLevel();
+// }
+
+
 
 // function bindBtnsPressEvents() {
 

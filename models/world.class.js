@@ -9,8 +9,6 @@ class World {
         this.keyboard = keyboard;
         this.camera_x = 0;
         this.throwableObjects = [];
-        console.log('Level:', this.level);
-        console.log('Background Objects:', this.level.backgroundObjects);
         this.draw();
         this.setWorld();
         this.run();
@@ -63,8 +61,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
         this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarCoins);
-        this.addToMap(this.statusBarBottles);
+        // this.addToMap(this.statusBarCoins);
+        // this.addToMap(this.statusBarBottles);
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
@@ -84,6 +82,8 @@ class World {
     }
 
     addToMap(mo) {
+        // console.log('angekommen in addToMap ist unser mo:', mo);
+        // console.log('und angekommen ist  mo.img:', mo);
         if (mo.otherDirection) {
             this.flipImage(mo);
         }

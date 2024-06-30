@@ -38,8 +38,6 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/1_idle/idle/I-9.png',
         '../img/2_character_pepe/1_idle/idle/I-10.png',
     ];
-
-
     IMAGES_LONG_IDLE = ['../img/2_character_pepe/1_idle/long_idle/I-11.png',
         '../img/2_character_pepe/1_idle/long_idle/I-12.png',
         '../img/2_character_pepe/1_idle/long_idle/I-13.png',
@@ -59,7 +57,7 @@ class Character extends MoveableObject {
     constructor() {
         super();
         this.world = world;
-        this.loadImage[this.IMAGES_IDLE[0]];
+        this.loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);

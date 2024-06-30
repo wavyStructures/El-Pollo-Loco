@@ -45,21 +45,25 @@
                     <h2>Play!</h2>
                 </div>
                 <div class="instructionsAndLegalNotice">
-                    <a class="link-instructions" href="instructions.html" target="_blank">instructions</a>
+                    <a class="link-instructions" href="instructions.html" target="_blank">Instructions</a>
                     <a class="link-legal-notice" href="legal_notice.html" target="blank">Legal Notice</a>
                 </div>
             </div>
         </div>
-        <div class="overlay you-lost d-none"> </div>
+        <div class="overlay you-lost d-none">
+            <img src="../img/9_intro_outro_screens/game_over/oh no you lost!.png">
+        </div>
 
-        <div class="overlay you-won d-none"> </div>
+        <div class="overlay you-won d-none">
+            <img src="../img/9_intro_outro_screens/win/win_1.png">
+        </div>
 
 
 
         <canvas id="canvas" width="720" height="480"> </canvas>
 
         <div class="overlay mobile-buttons d-none">
-            <div id="hud" class="d-none">
+            <div id="hud">
                 <div class="panel">
 
                 </div>
@@ -94,12 +98,9 @@
 
 
 
-
-
-
-    <div class="turn-around-phone">
-        <div class="animate-smartphone-rotation">
-            <img src="./img/icons/smartphone_rotate.png" />
+    <div class="turn-around-phone d-none">
+        <div class="smartphone-rotation">
+            <img src="../img/rotate_smartphone.png" />
         </div>
 
         <p>Rotate your phone</p>

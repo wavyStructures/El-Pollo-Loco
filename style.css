@@ -3,7 +3,7 @@
   src: url("/fonts/zabars.ttf");
 }
 
-d-none {
+.d-none {
   display: none;
 }
 
@@ -21,13 +21,19 @@ body {
   height: 95dvh;
   max-height: 100dvh;
   background-image: url("../img/desert.jpg");
-  /* background-image: url("../img/cactus_wueste.png"); */
   background-position: center;
   background-repeat: no-repeat;
   font-family: "zabars", Arial, Helvetica, sans-serif;
   font-size: 10px;
-  cursor: default;
-  /* margin: 0; */
+  color: brown;
+  cursor: default; /* margin: 0; */
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: brown;
+  font-size: 24px;
 }
 
 h1 {
@@ -35,7 +41,25 @@ h1 {
   letter-spacing: 7px;
   text-shadow: 4px 3px 2px rgb(125, 28, 28);
   color: brown;
-  margin: 0;
+}
+
+h2 {
+  font-size: 48px;
+  letter-spacing: 0.5px;
+}
+
+.start-screen-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
+}
+
+.instructionsAndLegalNotice {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
 }
 
 canvas {
@@ -47,6 +71,18 @@ canvas {
 
 #hud {
   display: none;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.smartphone-rotation > img {
+  width: 24px;
 }
 
 @media only screen and (max-width: 720px) {

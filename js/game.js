@@ -8,29 +8,20 @@ function init() {
     canvas = document.getElementById("canvas");
     // canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
     keyboard = new Keyboard();
-    console.log('Keyboard initialized:', keyboard);
+    // console.log('Keyboard initialized:', keyboard);
 
     initLevel1(); // Ensure level1 is initialized
-    console.log('Level:', level1); // Ensure level1 is defined and initialized
+    // console.log('Level:', level1); // Ensure level1 is defined and initialized
 
 
     world = new World(canvas, keyboard);
-    console.log('World initialized:', world);
-
+    // console.log('World initialized:', world);
 }
 
-// initLevel();
-
-// function initLevel() {
-//     initLevel1();
+// function startGame() {
+//     initLevel();
+//     //responsive hide or show
 // }
-
-// canvas = document.getElementById("canvas");
-// canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
-// keyboard = new Keyboard();
-// world = new World(canvas, keyboard);
-
-
 
 // optionsScreen();
 // playAudio();
@@ -40,12 +31,6 @@ function init() {
 //     ctx.drawImage(character, 20, 20, 50, 150);
 // }, 2000);
 
-// }
-
-// function startGame() {
-//     console.log('Starting game...');
-
-//     initLevel();
 // }
 
 

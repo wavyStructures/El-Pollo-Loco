@@ -1,6 +1,5 @@
 class MoveableObject extends DrawableObject {
 
-
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -8,13 +7,9 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
 
-
-
     constructor() {
         super();
     }
-
-
 
 
     //character.isColliding(chicken)
@@ -76,7 +71,7 @@ class MoveableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {  //should always fall
             return true;
         } else {
-            return this.y < 80;
+            return this.y < 130;
         }
     }
 
@@ -85,12 +80,9 @@ class MoveableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else {
-                this.speedY = 0;
             }
-        }, 1000 / 25)   //25mal pro Sekunde
+        }, 1000 / 25);
     }
-
 
 }
 

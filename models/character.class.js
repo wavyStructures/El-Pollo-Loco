@@ -1,6 +1,6 @@
 class Character extends MoveableObject {
     x = 120;
-    y = 140;
+    y = 120;
     width = 150;
     height = 300;
     speed = 10;
@@ -76,7 +76,6 @@ class Character extends MoveableObject {
         left: 40
     }
 
-
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
@@ -105,6 +104,8 @@ class Character extends MoveableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                // this.world.gameOver();
+                // this.world.clearAllIntervals();
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -121,11 +122,4 @@ class Character extends MoveableObject {
         }, 50);
     }
 
-
-    jump() {
-        // if (!this.isJumping) {
-        this.speedY = 30;
-        //     this.isJumping = true;
-        // }
-    }
 }

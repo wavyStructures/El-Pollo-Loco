@@ -1,8 +1,8 @@
 class AudioHandler extends MoveableObject {
     width = 20;
     height = 20;
-    y = 70;
-    x = 240;
+    y = 30;
+    x = 640;
     canvas;
     audioOnImage = '../img/audio_on.svg';
     audioOffImage = '../img/audio_off.svg';
@@ -28,9 +28,9 @@ class AudioHandler extends MoveableObject {
 
     turnAudioOnAndOff() {
         this.audioOn = !this.audioOn;
-        world.audioOnOff = this.audioOn;
+        world.audioOn = this.audioOn;
         this.loadImage(this.audioOn ? this.audioOnImage : this.audioOffImage);
-        localStorage.setItem('audioOnOff', JSON.stringify(world.audioOnOff));
+        localStorage.setItem('audioOn', JSON.stringify(world.audioOn));
 
         // Pause walking sound for world.character if audio is turned off
         if (this.audioOn && world.character && world.character.walking_sound) {

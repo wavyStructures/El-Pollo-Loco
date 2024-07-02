@@ -12,8 +12,12 @@ class World {
         this.camera_x = 0;
         this.throwableObjects = [];
 
-        this.audioOnOff = JSON.parse(localStorage.getItem('audioOnOff'));
-        this.audioHandler = new AudioHandler(this.canvas, this.audioOnOff);
+        this.audioOn = JSON.parse(localStorage.getItem('audioOn')) || false;
+        this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
+
+        this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn')) || false;
+        this.fullscreenHandler = new FullScreen(this.canvas, this);
+
 
         this.draw();
         this.setWorld();
@@ -30,6 +34,20 @@ class World {
     //     // this.fullScreen = new FullScreen(this.canvas);
     //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
     // }
+
+    collectBottle() {
+
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.statusBarBottles.increase();
+                this.level.bottles.splice(index, 1);
+            }
+        })
+
+
+    }
+
+
 
     run() {
         setInterval(() => {
@@ -76,6 +94,7 @@ class World {
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.audioHandler);
+        this.addToMap(this.fullscreenHandler);
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);

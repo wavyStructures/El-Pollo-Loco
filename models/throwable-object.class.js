@@ -11,6 +11,7 @@ class ThrowableObject extends MoveableObject {
     //     '../img/6_salsa_bottle/bottle_rotation/bottle_splash/1_splash.png',
     //     '../img/6_salsa_bottle/bottle_rotation/bottle_splash/2_splash.png'
     // ]
+    throw_sound = new Audio('audio/throw.mp3');
 
     constructor(x, y) {
         super().loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');

@@ -77,6 +77,11 @@ class Character extends MoveableObject {
     }
 
     animate() {
+        this.animateWalkingAndJumping();
+        this.animateImages();
+    }
+
+    animateWalkingAndJumping() {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -98,8 +103,8 @@ class Character extends MoveableObject {
 
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
         }, 1000 / 60);
-
-
+    }
+    animateImages() {
         setInterval(() => {
 
             if (this.isDead()) {
@@ -121,5 +126,5 @@ class Character extends MoveableObject {
             }
         }, 50);
     }
-
 }
+

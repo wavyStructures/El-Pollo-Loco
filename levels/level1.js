@@ -63,12 +63,12 @@ function initLevel1() {
         //     new Coin(),
         // ],
         // [
-        //     new Bottle(),
-        //     new Bottle(),
-        //     new Bottle(),
-        //     new Bottle(),
-        //     new Bottle(),
-        //     new Bottle()
+        // new Bottle(),
+        // new Bottle(),
+        // new Bottle(),
+        // new Bottle(),
+        // new Bottle(),
+        // new Bottle()
         // ]
 
     );

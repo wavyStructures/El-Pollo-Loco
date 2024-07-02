@@ -11,8 +11,13 @@ class World {
         this.keyboard = keyboard;
         this.camera_x = 0;
         this.throwableObjects = [];
+
+        this.audioOnOff = JSON.parse(localStorage.getItem('audioOnOff'));
+        this.audioHandler = new AudioHandler(this.canvas, this.audioOnOff);
+
         this.draw();
         this.setWorld();
+        // this.setIcons();
         this.run();
     }
 
@@ -20,6 +25,11 @@ class World {
 
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
     }
+
+    // setIcons() {
+    //     // this.fullScreen = new FullScreen(this.canvas);
+    //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
+    // }
 
     run() {
         setInterval(() => {
@@ -65,6 +75,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+        this.addToMap(this.audioHandler);
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);

@@ -1,6 +1,7 @@
 class World {
     fullscreenOn = false;
 
+
     constructor(canvas, keyboard) {
         this.character = new Character();
         this.statusBar = new StatusBar();
@@ -93,6 +94,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+
         this.addToMap(this.audioHandler);
         this.addToMap(this.fullscreenHandler);
 
@@ -101,6 +103,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;

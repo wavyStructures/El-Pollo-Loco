@@ -1,4 +1,5 @@
 class World {
+    fullscreenOn = false;
 
     constructor(canvas, keyboard) {
         this.character = new Character();
@@ -12,12 +13,11 @@ class World {
         this.camera_x = 0;
         this.throwableObjects = [];
 
-        this.audioOn = JSON.parse(localStorage.getItem('audioOn')) || false;
+        this.audioOn = JSON.parse(localStorage.getItem('audioOn'));
         this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
 
-        this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn')) || false;
-        this.fullscreenHandler = new FullScreen(this.canvas, this);
-
+        this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn'));
+        this.fullscreenHandler = new FullScreen(this.canvas);
 
         this.draw();
         this.setWorld();
@@ -35,17 +35,17 @@ class World {
     //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
     // }
 
-    collectBottle() {
+    // collectBottle() {
 
-        this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
-                this.statusBarBottles.increase();
-                this.level.bottles.splice(index, 1);
-            }
-        })
+    //     this.level.bottles.forEach((bottle, index) => {
+    //         if (this.character.isColliding(bottle)) {
+    //             this.statusBarBottles.increase();
+    //             this.level.bottles.splice(index, 1);
+    //         }
+    //     })
 
 
-    }
+    // }
 
 
 

@@ -1,7 +1,7 @@
 class World {
     fullscreenOn = false;
-    amountOfBottles;
-    amountOfCoins;
+    // amountOfBottles;
+    // amountOfCoins;
 
 
 
@@ -50,6 +50,17 @@ class World {
         })
     }
 
+    collectCoin() {
+
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.increaseStatusBar(this.statusBarCoins, 20);
+                this.level.coins.splice(index, 1);
+            }
+        })
+    }
+
+
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -61,13 +72,15 @@ class World {
         if (this.keyboard.D && this.amountOfBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
-            this.amountOfBottles--;
+            decreaseStatusBar(this.statusBarBottles, 20);
+            // this.amountOfBottles--;
 
         }
     }
 
     checkCollisions() {
         this.collectBottle();
+        this.collectCoin();
         this.level.enemies.forEach(
             (enemy) => {
                 if (
@@ -151,6 +164,11 @@ class World {
 
     increaseStatusBar(statusBar, value) {
         statusBar.percentage += value;
+        statusBar.setPercentage(statusBar.percentage);
+    }
+
+    decreaseStatusBar(statusBar, value) {
+        statusBar.percentage -= value;
         statusBar.setPercentage(statusBar.percentage);
     }
 }

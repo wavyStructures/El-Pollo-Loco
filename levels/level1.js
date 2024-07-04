@@ -55,7 +55,6 @@ function initLevel1() {
             new Coin(),
             new Coin(),
             new Coin(),
-
             new Coin(),
             new Coin(),
             new Coin(),

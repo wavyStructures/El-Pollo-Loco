@@ -13,7 +13,6 @@ function init() {
     initLevel1(); // Ensure level1 is initialized
     // console.log('Level:', level1); // Ensure level1 is defined and initialized
 
-
     world = new World(canvas, keyboard);
     // console.log('World initialized:', world);
 }

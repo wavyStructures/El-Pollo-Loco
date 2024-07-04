@@ -40,17 +40,17 @@ class World {
     //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
     // }
 
-    // collectBottle() {
+    collectBottle() {
 
-    //     this.level.bottles.forEach((bottle, index) => {
-    //         if (this.character.isColliding(bottle)) {
-    //             this.statusBarBottles.increase();
-    //             this.level.bottles.splice(index, 1);
-    //         }
-    //     })
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                // this.statusBarBottles.increase();
+                this.level.bottles.splice(index, 1);
+                console.log('this.level.bottles:', this.level.bottles);
+            }
+        })
+    }
 
-
-    // }
 
 
 
@@ -66,11 +66,13 @@ class World {
         if (this.keyboard.D && this.amountOfBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.amountOfBottles--;
+
         }
     }
 
     checkCollisions() {
-
+        this.collectBottle();
         this.level.enemies.forEach(
             (enemy) => {
                 if (
@@ -85,6 +87,7 @@ class World {
                 };
             }
         );
+
         //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
     }
 

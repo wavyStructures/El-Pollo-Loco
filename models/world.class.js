@@ -1,7 +1,5 @@
 class World {
     fullscreenOn = false;
-    // amountOfBottles;
-    // amountOfCoins;
 
 
 
@@ -35,8 +33,7 @@ class World {
 
     setWorld() {
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
-        this.amountOfCoins = 0;
-        this.amountOfBottles = 0;
+
     }
 
     // setIcons() {
@@ -73,7 +70,9 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.amountOfBottles > 0) {
+        if (this.keyboard.D
+            // && this.amountOfBottles > 0
+        ) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             decreaseStatusBar(this.statusBarBottles, 20);

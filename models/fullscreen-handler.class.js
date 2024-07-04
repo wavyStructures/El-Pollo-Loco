@@ -8,6 +8,8 @@ class FullScreen extends MoveableObject {
     canvas;
     world;
 
+    isHovered = false;
+
 
     constructor(canvas) {
         super();

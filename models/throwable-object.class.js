@@ -1,23 +1,30 @@
 class ThrowableObject extends MoveableObject {
 
-    IMAGES = [
+    IMAGES_THROWING = [
         '../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
     ]
 
-    // IMAGES_SPLASH = [
-    //     '../img/6_salsa_bottle/bottle_rotation/bottle_splash/1_splash.png',
-    //     '../img/6_salsa_bottle/bottle_rotation/bottle_splash/2_splash.png'
-    // ]
+
+    IMAGES_SPLASHING = [
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        '../img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
+    ];
+
+
     throw_sound = new Audio('audio/throw.mp3');
 
     constructor(x, y) {
         super();
-        this.loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-        this.loadImages(this.IMAGES);
-        // this.loadImages(this.IMAGES_SPLASH);
+        this.loadImage(this.IMAGES_THROWING[0]);
+        this.loadImages(this.IMAGES_THROWING);
+        this.loadImages(this.IMAGES_SPLASHING);
         this.x = x;
         this.y = y;
         this.height = 70;
@@ -30,15 +37,33 @@ class ThrowableObject extends MoveableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
-        setInterval(() => {
-            this.x += 10;
-        }, 25);
+        this.throw_sound.play();
+        this.throwInterval =
+            setInterval(() => {
+                this.x += 10;
+            }, 25);
     }
 
     animate() {
-        this.playAnimation(this.IMAGES);
+        this.animationInterval = setInterval(() => {
+            if (this.isFlying()) {
+                this.playAnimation(this.IMAGES_THROWING);
+            } else {
+                this.playAnimation(this.IMAGES_SPLASHING);
+                this.cleanupAfterThrow();
+            }
+        }, 60);
     }
 
+    isFlying() {
+        return this.y < 321;
+    }
+
+    cleanupAfterThrow() {
+        clearInterval(this.animationInterval);
+        clearInterval(this.throwInterval);
+        //more objects to be removed e.g.
+    }
 
 
 }

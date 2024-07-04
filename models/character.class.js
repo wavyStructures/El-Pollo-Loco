@@ -55,9 +55,9 @@ class Character extends MoveableObject {
     long_idle_sound = new Audio('audio/long_idle.mp3');
 
     constructor() {
-        super();
+        super().loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
         this.world = world;
-        this.loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
+
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);

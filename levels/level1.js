@@ -55,7 +55,7 @@ function initLevel1() {
             new Coin(),
             new Coin(),
             new Coin(),
-            new Coin(),
+
             new Coin(),
             new Coin(),
             new Coin(),
@@ -63,7 +63,6 @@ function initLevel1() {
             new Coin(),
         ],
         [
-            new Bottle(),
             new Bottle(),
             new Bottle(),
             new Bottle(),

@@ -44,16 +44,11 @@ class World {
 
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                // this.statusBarBottles.increase();
+                this.increaseStatusBar(this.statusBarBottles, 20);
                 this.level.bottles.splice(index, 1);
-                console.log('this.level.bottles:', this.level.bottles);
             }
         })
     }
-
-
-
-
 
     run() {
         setInterval(() => {
@@ -152,6 +147,11 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-}
 
+
+    increaseStatusBar(statusBar, value) {
+        statusBar.percentage += value;
+        statusBar.setPercentage(statusBar.percentage);
+    }
+}
 //mo = moveableObject

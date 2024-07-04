@@ -1,5 +1,8 @@
 class World {
     fullscreenOn = false;
+    amountOfBottles;
+    amountOfCoins;
+
 
 
     constructor(canvas, keyboard) {
@@ -27,8 +30,9 @@ class World {
     }
 
     setWorld() {
-
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
+        this.amountOfCoins = 0;
+        this.amountOfBottles = 0;
     }
 
     // setIcons() {
@@ -50,6 +54,7 @@ class World {
 
 
 
+
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -58,7 +63,7 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.amountOfBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }

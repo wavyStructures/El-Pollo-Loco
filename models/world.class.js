@@ -10,7 +10,11 @@ class World {
         this.statusBar = new StatusBar();
         this.statusBarCoins = new StatusBarCoins();
         this.statusBarBottles = new StatusBarBottles();
+        this.statusBarEndboss = new StatusBarEndboss();
+
         this.level = level1;
+        this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss); // Find the endboss in the level
+
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
@@ -107,12 +111,29 @@ class World {
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
+
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
 
+
+        if (this.endboss) {
+            console.log(`Endboss position: ${this.endboss.x}, Camera position: ${this.camera_x}`);
+            console.log(`Is Endboss visible? ${this.endboss.isVisible(this.camera_x, this.canvas.width)}`);
+        }
+
+        if (this.endboss && this.endboss.isVisible(this.camera_x, this.canvas.width)) {
+            console.log('Drawing statusBarEndboss');
+            this.addToMap(this.statusBarEndboss);
+        }
+
         this.addToMap(this.audioHandler);
         this.addToMap(this.fullscreenHandler);
+
+        // if (this.endboss.isVisible(this.camera_x, this.canvas.width)) {
+        //     this.addToMap(this.statusBarEndboss);
+        // }
+
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
@@ -126,6 +147,10 @@ class World {
         let self = this;
         requestAnimationFrame(function () { self.draw() });
     }
+
+    // drawFixedObjects() {
+
+    // }
 
     addObjectsToMap(objects) {
         objects.forEach(o => {

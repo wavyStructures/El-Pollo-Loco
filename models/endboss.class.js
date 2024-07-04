@@ -42,6 +42,8 @@ class Endboss extends MoveableObject {
 
     hadFirstContact = false;
 
+
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -51,6 +53,25 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
         this.animate();
+        this.isVisible();
+    }
+
+    offset = {
+        top: 80,
+        bottom: 30,
+        left: 15,
+        right: 15
+    }
+
+
+    isVisible(camera_x, canvas_width) {
+        const endbossRightEdge = this.x + this.width;
+        const cameraRightEdge = camera_x + canvas_width;
+
+        console.log(`Endboss right edge: ${endbossRightEdge}, Camera right edge: ${cameraRightEdge}`);
+        console.log(`Endboss left edge: ${this.x}, Camera left edge: ${camera_x}`);
+
+        return endbossRightEdge > camera_x && this.x < cameraRightEdge;
     }
 
     animate() {

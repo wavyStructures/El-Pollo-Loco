@@ -14,6 +14,13 @@ class Bottle extends MoveableObject {
         '../img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
     ];
 
+    offset = {
+        top: 10,
+        bottom: 10,
+        left: 30,
+        right: 10
+    };
+
 
     constructor() {
         let randomize = Math.round(Math.random());

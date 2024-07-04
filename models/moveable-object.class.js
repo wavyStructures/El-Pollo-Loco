@@ -11,6 +11,12 @@ class MoveableObject extends DrawableObject {
         super();
     }
 
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    };
 
     //character.isColliding(chicken)
     // Bessere Formel zur Kollisionsberechnung (Genauer)

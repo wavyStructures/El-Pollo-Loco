@@ -76,6 +76,8 @@ class Character extends MoveableObject {
         left: 40
     }
 
+
+
     animate() {
         this.animateWalkingAndJumping();
         this.animateImages();

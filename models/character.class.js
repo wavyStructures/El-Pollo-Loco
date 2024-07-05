@@ -59,9 +59,8 @@ class Character extends MoveableObject {
 
 
     constructor() {
-        super().loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
-        this.world = world;
-
+        super(); this.world = world;
+        this.loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -143,8 +142,14 @@ class Character extends MoveableObject {
                 this.long_idle_sound.play();
                 this.isIdle = true;
             }
-        }, 300);
+        }, 200);
     }
+
+    // wakeUp() {
+    //     this.loadImage(this.IMAGES_LONG_IDLE[0]);
+    //     this.isIdle = false;
+
+    // }
 
     aKeyWasPressed() {
         return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE;

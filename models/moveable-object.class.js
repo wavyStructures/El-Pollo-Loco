@@ -28,10 +28,27 @@ class MoveableObject extends DrawableObject {
 
     // }
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
+        //     return this.x + this.width > mo.x &&
+        //         this.y + this.height > mo.y &&
+        //         this.x < mo.x &&
+        //         this.y < mo.y + mo.height
+        // }
+
+
+        let thisLeft = this.x + this.offset.left;
+        let thisRight = this.x + this.width - this.offset.right;
+        let thisTop = this.y + this.offset.top;
+        let thisBottom = this.y + this.height - this.offset.bottom;
+
+        let moLeft = mo.x + mo.offset.left;
+        let moRight = mo.x + mo.width - mo.offset.right;
+        let moTop = mo.y + mo.offset.top;
+        let moBottom = mo.y + mo.height - mo.offset.bottom;
+
+        return thisRight > moLeft &&
+            thisBottom > moTop &&
+            moRight > thisLeft &&
+            moBottom > thisTop;
     }
 
     hit() {

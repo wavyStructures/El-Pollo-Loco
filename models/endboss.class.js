@@ -68,8 +68,8 @@ class Endboss extends MoveableObject {
         const endbossRightEdge = this.x + this.width;
         const cameraRightEdge = camera_x + canvas_width;
 
-        console.log(`Endboss right edge: ${endbossRightEdge}, Camera right edge: ${cameraRightEdge}`);
-        console.log(`Endboss left edge: ${this.x}, Camera left edge: ${camera_x}`);
+        // console.log(`Endboss right edge: ${endbossRightEdge}, Camera right edge: ${cameraRightEdge}`);
+        // console.log(`Endboss left edge: ${this.x}, Camera left edge: ${camera_x}`);
 
         return endbossRightEdge > camera_x && this.x < cameraRightEdge;
     }

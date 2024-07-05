@@ -94,9 +94,10 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
-    wakeUp() {
-        this.long_idle_sound.pause();
-    }
+    // wakeUp() {
+    //     this.playAnimation(this.IMAGES_WALKING);
+    //     this.long_idle_sound.pause();
+    // }
     //aufrufen mit: this.wakeUp();  NOCH AUFRUFEN!!!
 
 }

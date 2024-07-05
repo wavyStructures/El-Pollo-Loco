@@ -51,6 +51,7 @@ class Character extends MoveableObject {
     ];
     world;
     isJumping = false;
+    isIdle = false;
     lastKeyPress = Date.now();
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump.mp3');
@@ -90,7 +91,7 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.wakeUp();
+
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
@@ -98,14 +99,14 @@ class Character extends MoveableObject {
             // else {this.x = this.world.level.level_end_x;}}
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.wakeUp();
+
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.wakeUp();
+
                 this.jump();
             }
 
@@ -132,12 +133,15 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.aKeyWasPressed()) {
                 this.lastKeyPressTime = Date.now();
+                this.isIdle = false;
             }
             if (this.noKeyPressed() && Date.now() - this.lastKeyPressTime <= 10000) {
                 this.playAnimation(this.IMAGES_IDLE);
+                this.isIdle = true;
             } else if (this.noKeyPressed() && Date.now() - this.lastKeyPressTime > 10000) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
                 this.long_idle_sound.play();
+                this.isIdle = true;
             }
         }, 300);
     }

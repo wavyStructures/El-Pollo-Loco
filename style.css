@@ -56,6 +56,27 @@ h1 {
 h2 {
   font-size: 48px;
   letter-spacing: 0.5px;
+  transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+  animation: blink-scale 1.5s infinite ease-in-out;
+}
+
+@keyframes blink-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+h2:hover {
+  transform: scale(1.1);
+  color: rgb(197 115 33);
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 
 .start-screen-top {
@@ -70,6 +91,14 @@ h2 {
   flex-direction: column;
   justify-content: left;
   align-items: center;
+}
+
+.link-instructions:hover,
+.link-legal-notice:hover {
+  transform: scale(1.1);
+  color: rgb(197 115 33);
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 
 canvas {

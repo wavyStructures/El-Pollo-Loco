@@ -1,5 +1,7 @@
 class World {
     fullscreenOn = false;
+    charactersBottles = 0;
+    charactersCoins = 0;
 
 
 
@@ -45,6 +47,8 @@ class World {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.increaseStatusBar(this.statusBarBottles, 20);
+                this.charactersBottles++;
+                console.log('charactersBottles: ', this.charactersBottles);
                 this.level.bottles.splice(index, 1);
             }
         })
@@ -55,6 +59,8 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.increaseStatusBar(this.statusBarCoins, 20);
                 this.level.coins.splice(index, 1);
+                console.log('charactersCoins: ', this.charactersCoins);
+                this.charactersCoins++;
             }
         })
     }
@@ -69,9 +75,11 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D
-            // && !this.character.isIdle() && on Ground
+            // && !this.character.isAboveGround()
             // && this.amountOfBottles > 0
         ) {
+            console.log('Throw Objects number: ', this.level.bottles.length);
+
             let xOffset = 80;
             let yOffset = 120;
 
@@ -82,7 +90,7 @@ class World {
 
             let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection);
             this.throwableObjects.push(bottle);
-            decreaseStatusBar(this.statusBarBottles, 20);
+            // decreaseStatusBar(this.statusBarBottles, 20);
             // this.amountOfBottles--;
 
 
@@ -134,8 +142,8 @@ class World {
 
 
         if (this.endboss) {
-            console.log(`Endboss position: ${this.endboss.x}, Camera position: ${this.camera_x}`);
-            console.log(`Is Endboss visible? ${this.endboss.isVisible(this.camera_x, this.canvas.width)}`);
+            // console.log(`Endboss position: ${this.endboss.x}, Camera position: ${this.camera_x}`);
+            // console.log(`Is Endboss visible? ${this.endboss.isVisible(this.camera_x, this.canvas.width)}`);
         }
 
         if (this.endboss && this.endboss.isVisible(this.camera_x, this.canvas.width)) {

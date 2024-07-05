@@ -73,4 +73,4 @@ class ThrowableObject extends MoveableObject {
     }
 
 
-}
+}   

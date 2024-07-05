@@ -42,7 +42,6 @@ class World {
     // }
 
     collectBottle() {
-
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.increaseStatusBar(this.statusBarBottles, 20);
@@ -52,7 +51,6 @@ class World {
     }
 
     collectCoin() {
-
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.increaseStatusBar(this.statusBarCoins, 20);
@@ -71,12 +69,22 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D
+            // && !this.character.isIdle() && on Ground
             // && this.amountOfBottles > 0
         ) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            let xOffset = 80;
+            let yOffset = 120;
+
+            // Adjust the xOffset based on the direction the character is facing
+            if (this.character.otherDirection) {
+                xOffset = -xOffset + 100; // If facing left, offset should be negative
+            }
+
+            let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             decreaseStatusBar(this.statusBarBottles, 20);
             // this.amountOfBottles--;
+
 
         }
     }
@@ -84,6 +92,7 @@ class World {
     checkCollisions() {
         this.collectBottle();
         this.collectCoin();
+        this.characterJumpingOnEnemy();
         this.level.enemies.forEach(
             (enemy) => {
                 if (
@@ -100,6 +109,14 @@ class World {
         );
 
         //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
+    }
+
+    characterJumpingOnEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isAboveGround() && this.character.isColliding(enemy)) {
+                enemy.isDead = true;
+            }
+        });
     }
 
     draw() {

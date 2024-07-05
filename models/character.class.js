@@ -90,6 +90,7 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.wakeUp();
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
@@ -97,12 +98,14 @@ class Character extends MoveableObject {
             // else {this.x = this.world.level.level_end_x;}}
 
             if (this.world.keyboard.LEFT && this.x > 0) {
+                this.wakeUp();
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.wakeUp();
                 this.jump();
             }
 

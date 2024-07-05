@@ -26,6 +26,22 @@ function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
+
+function closeFullscreen() {
+    if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { // Safari compatibility
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) { // Firefox compatibility
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) { // IE/Edge compatibility
+            document.msExitFullscreen();
+        }
+    }
+}
+
+
 // function startGame() {
 //     initLevel();
 //     //responsive hide or show

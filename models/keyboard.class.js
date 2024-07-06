@@ -1,5 +1,15 @@
 class Keyboard {
 
+    
+    static aKeyWasPressed(world) {
+        return world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN || world.keyboard.SPACE;
+    }
+
+    static noKeyPressed(world) {
+        return !world.keyboard.LEFT && !world.keyboard.RIGHT && !world.keyboard.UP && !world.keyboard.DOWN && !world.keyboard.SPACE;
+    }
+
+
     constructor() {
         this.LEFT = false;
         this.RIGHT = false;
@@ -9,12 +19,16 @@ class Keyboard {
         this.D = false;
 
 
+
+
         // THROW_REQUEST_STOP = new Date().getTime();
         // THROW_REQUEST_START = 0;
 
         // this.bindKeyPressEvents();
         // this.bindBtnsPressEvents();
     }
+    
+
 }
 
 

@@ -21,7 +21,6 @@ class Bottle extends MoveableObject {
         right: 10
     };
 
-
     constructor() {
         let randomize = Math.round(Math.random());
         super().loadImage(this.IMAGES_BOTTLE[randomize]);
@@ -29,7 +28,6 @@ class Bottle extends MoveableObject {
         this.animate();
         this.setInitialPosition();
     }
-
 
     setInitialPosition() {
         this.x = this.width + 150 + Math.random() * 2000;

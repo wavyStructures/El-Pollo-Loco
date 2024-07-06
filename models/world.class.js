@@ -78,8 +78,6 @@ class World {
             // && !this.character.isAboveGround()
             // && this.amountOfBottles > 0
         ) {
-            console.log('Throw Objects number: ', this.level.bottles.length);
-
             let xOffset = 80;
             let yOffset = 120;
 

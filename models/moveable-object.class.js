@@ -36,6 +36,30 @@ class MoveableObject extends DrawableObject {
             moBottom > thisTop;
     }
 
+    isCollidingFromSide(mo) {
+        let isCollidingFromLeft = this.x + this.width - 10 >= mo.x &&
+            this.x + this.width - 10 <= mo.x + mo.width &&
+            this.y < mo.y + mo.height &&
+            this.y + this.height > mo.y;
+        let isCollidingFromRight = this.x + 10 <= mo.x + mo.width &&
+            this.x + 10 >= mo.x &&
+            this.y < mo.y + mo.height &&
+            this.y + this.height > mo.y;
+        // console.log('isCollidingFromLeft, isCollidingFromRight:', isCollidingFromLeft, isCollidingFromRight);
+        return isCollidingFromLeft || isCollidingFromRight;
+    }
+
+    isCollidingFromTop(mo) {
+        let isCollidingFromTop = this.y + this.height >= mo.y &&
+            this.y + this.height <= mo.y + mo.height &&
+            this.x + 50 < mo.x + mo.width &&
+            this.x + this.width - 50 > mo.x;
+        console.log('isCollidingFromTop:', isCollidingFromTop);
+        return isCollidingFromTop;
+    }
+
+
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {

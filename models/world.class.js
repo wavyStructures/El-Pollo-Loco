@@ -70,7 +70,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);                                //wird jede fünftel-Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
+        }, 50);                                //wird jede fünftel-Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
     }
 
     checkThrowObjects() {
@@ -90,8 +90,6 @@ class World {
             this.throwableObjects.push(bottle);
             // decreaseStatusBar(this.statusBarBottles, 20);
             // this.amountOfBottles--;
-
-
         }
     }
 
@@ -104,33 +102,40 @@ class World {
     }
 
 
+    characterJumpingOnEnemy() {
+
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingFromTop(enemy)) {
+                enemy.isDead = true;
+                console.log('one enemy dying');
+                this.characterKillsEnemy(enemy);
+            }
+        });
+    }
+
+    characterKillsEnemy(killedEnemy) {
+
+        this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
+        console.log('number of remaining enemies:', this.level.enemies.length);
+    }
 
     enemyHurtsCharacter() {
-        this.level.enemies.forEach(
-            (enemy) => {
-                if (
-                    this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingFromSide(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
 
-                    // if (this.character.energy <= 0) {
-                    //     console.log('Game Over');
+                // if (this.character.energy <= 0) {
+                //     console.log('Game Over');
 
-                    // }
-                };
-            }
+                // }
+            };
+        }
         );
     }
 
 
 
-    characterJumpingOnEnemy() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isAboveGround() && this.character.isColliding(enemy)) {
-                enemy.isDead = true;
-            }
-        });
-    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

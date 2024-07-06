@@ -30,14 +30,12 @@ class ThrowableObject extends MoveableObject {
         this.height = 70;
         this.width = 60;
         this.otherDirection = direction;
-
         this.animate();
         this.throw();
 
     }
 
     throw() {
-        this.character.loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
         this.speedY = 30;
         this.applyGravity();
         this.throw_sound.play();

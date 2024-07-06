@@ -98,7 +98,14 @@ class World {
     checkCollisions() {
         this.collectBottle();
         this.collectCoin();
+
         this.characterJumpingOnEnemy();
+        this.enemyHurtsCharacter();
+    }
+
+
+
+    enemyHurtsCharacter() {
         this.level.enemies.forEach(
             (enemy) => {
                 if (
@@ -113,9 +120,9 @@ class World {
                 };
             }
         );
-
-        //wird jede Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
     }
+
+
 
     characterJumpingOnEnemy() {
         this.level.enemies.forEach((enemy) => {

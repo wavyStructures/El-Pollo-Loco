@@ -2,7 +2,7 @@ class World {
     fullscreenOn = false;
     charactersBottles = 0;
     charactersCoins = 0;
-
+    buyBottleTriggered = false;
 
 
     constructor(canvas, keyboard) {
@@ -43,34 +43,12 @@ class World {
     //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
     // }
 
-    collectBottle() {
-        this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
-                this.increaseStatusBar(this.statusBarBottles, 20);
-                this.charactersBottles++;
-                console.log('charactersBottles: ', this.charactersBottles);
-                this.level.bottles.splice(index, 1);
-            }
-        })
-    }
-
-    collectCoin() {
-        this.level.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin)) {
-                this.increaseStatusBar(this.statusBarCoins, 20);
-                this.level.coins.splice(index, 1);
-                console.log('charactersCoins: ', this.charactersCoins);
-                this.charactersCoins++;
-            }
-        })
-    }
-
-
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 50);                                //wird jede fünftel-Sekunde für ALLE Gegner ausgeführt, also bei 5 Gegnern 5mal
+            this.buyBottleTriggered = false;
+        }, 50);
     }
 
     checkThrowObjects() {
@@ -96,6 +74,10 @@ class World {
     checkCollisions() {
         this.collectBottle();
         this.collectCoin();
+        if (!this.buyBottleTriggered) {
+            this.buyBottle();
+            this.buyBottleTriggered = true; // Set flag to true after calling buyBottle()
+        }
 
         this.characterJumpingOnEnemy();
         this.characterThrowsBottle();
@@ -149,7 +131,43 @@ class World {
         );
     }
 
+    collectBottle() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.increaseStatusBar(this.statusBarBottles, 20);
+                this.charactersBottles++;
+                console.log('charactersBottles: ', this.charactersBottles);
+                this.level.bottles.splice(index, 1);
+            }
+        })
+    }
 
+    buyBottle() {
+        if (this.keyboard.B && this.charactersCoins >= 5) {
+            console.log('charactersCoins before are: ', this.charactersCoins);
+
+            this.charactersCoins -= 5;
+            this.statusBarCoins.setCoins(this.charactersCoins);
+            console.log('charactersCoins after are: ', this.charactersCoins);
+
+
+            console.log('charactersBottles before: ', this.charactersBottles);
+            this.increaseStatusBar(this.statusBarBottles, 20);
+            this.charactersBottles++;
+            console.log('charactersBottles after: ', this.charactersBottles);
+        }
+    }
+
+    collectCoin() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.increaseStatusBar(this.statusBarCoins, 20);
+                this.level.coins.splice(index, 1);
+                console.log('charactersCoins: ', this.charactersCoins);
+                this.charactersCoins++;
+            }
+        })
+    }
 
 
     draw() {

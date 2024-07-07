@@ -54,7 +54,7 @@ class MoveableObject extends DrawableObject {
             this.y + this.height <= mo.y + mo.height &&
             this.x + 50 < mo.x + mo.width &&
             this.x + this.width - 50 > mo.x;
-        console.log('isCollidingFromTop:', isCollidingFromTop);
+        // console.log('isCollidingFromTop:', isCollidingFromTop);
         return isCollidingFromTop;
     }
 

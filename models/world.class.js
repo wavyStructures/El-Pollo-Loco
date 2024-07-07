@@ -114,7 +114,6 @@ class World {
     }
 
     characterKillsEnemy(killedEnemy) {
-
         this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
         console.log('number of remaining enemies:', this.level.enemies.length);
     }
@@ -149,24 +148,11 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarEndboss);
 
-
-        if (this.endboss) {
-            // console.log(`Endboss position: ${this.endboss.x}, Camera position: ${this.camera_x}`);
-            // console.log(`Is Endboss visible? ${this.endboss.isVisible(this.camera_x, this.canvas.width)}`);
-        }
-
-        if (this.endboss && this.endboss.isVisible(this.camera_x, this.canvas.width)) {
-            console.log('Drawing statusBarEndboss');
-            this.addToMap(this.statusBarEndboss);
-        }
 
         this.addToMap(this.audioHandler);
         this.addToMap(this.fullscreenHandler);
-
-        // if (this.endboss.isVisible(this.camera_x, this.canvas.width)) {
-        //     this.addToMap(this.statusBarEndboss);
-        // }
 
 
         this.ctx.translate(this.camera_x, 0);

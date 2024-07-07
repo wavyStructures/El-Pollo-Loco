@@ -2,11 +2,11 @@ class Keyboard {
 
     
     static aKeyWasPressed(world) {
-        return world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN || world.keyboard.SPACE || world.keyboard.D;
+        return world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN || world.keyboard.SPACE || world.keyboard.D || world.keyboard.B;
     }
 
     static noKeyPressed(world) {
-        return !world.keyboard.LEFT && !world.keyboard.RIGHT && !world.keyboard.UP && !world.keyboard.DOWN && !world.keyboard.SPACE && !world.keyboard.D;
+        return !world.keyboard.LEFT && !world.keyboard.RIGHT && !world.keyboard.UP && !world.keyboard.DOWN && !world.keyboard.SPACE && !world.keyboard.D && !world.keyboard.B;
     }
 
 
@@ -17,6 +17,7 @@ class Keyboard {
         this.DOWN = false;
         this.SPACE = false;
         this.D = false;
+        this.B = false;
 
 
 

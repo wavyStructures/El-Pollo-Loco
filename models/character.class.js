@@ -151,13 +151,6 @@ class Character extends MoveableObject {
         this.isIdle = false;
     }
 
-    // aKeyWasPressed() {
-    //     return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE;
-    // }
-
-    // noKeyPressed() {
-    //     return !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.world.keyboard.SPACE;
-    // }
 
 }
 

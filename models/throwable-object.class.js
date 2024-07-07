@@ -36,7 +36,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     throw() {
-        this.speedY = 30;
+        this.speedY = 20;
         this.applyGravity();
         this.throw_sound.play();
 

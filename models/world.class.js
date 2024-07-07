@@ -76,7 +76,7 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D
             // && !this.character.isAboveGround()
-            // && this.amountOfBottles > 0
+            && this.charactersBottles > 0
         ) {
             let xOffset = 80;
             let yOffset = 120;
@@ -88,8 +88,8 @@ class World {
 
             let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection);
             this.throwableObjects.push(bottle);
-            // decreaseStatusBar(this.statusBarBottles, 20);
-            // this.amountOfBottles--;
+            this.decreaseStatusBar(this.statusBarBottles, 20);
+            this.charactersBottles--;
         }
     }
 
@@ -98,6 +98,7 @@ class World {
         this.collectCoin();
 
         this.characterJumpingOnEnemy();
+        this.characterThrowsBottle();
         this.enemyHurtsCharacter();
     }
 
@@ -111,6 +112,21 @@ class World {
                 this.characterKillsEnemy(enemy);
             }
         });
+    }
+
+    characterThrowsBottle() {
+        this.throwableObjects.forEach((bottle, index) => {
+
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
+                    enemy.isDead = true;
+                    console.log('bottle killing enemy');
+                    this.throwableObjects.splice(index, 1);
+                    console.log('charactersBottles: ', this.charactersBottles);
+                }
+            });
+        })
+
     }
 
     characterKillsEnemy(killedEnemy) {

@@ -20,6 +20,8 @@ class World {
         this.keyboard = keyboard;
         this.camera_x = 0;
         this.throwableObjects = [];
+        this.lastBottleThrowTime = 0;
+        this.bottleThrowCooldown = 500;
 
         this.audioOn = JSON.parse(localStorage.getItem('audioOn'));
         this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
@@ -52,10 +54,11 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D
-            // && !this.character.isAboveGround()
-            // && this.charactersBottles > 0
-        ) {
+        let currentTime = Date.now();
+        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown)
+        // && !this.character.isAboveGround()
+        // && this.charactersBottles > 0
+        {
             let xOffset = 80;
             let yOffset = 120;
 
@@ -68,6 +71,7 @@ class World {
             this.throwableObjects.push(bottle);
             this.decreaseStatusBar(this.statusBarBottles, 20);
             this.charactersBottles--;
+            this.lastBottleThrowTime = currentTime;
         }
     }
 
@@ -98,23 +102,24 @@ class World {
 
     characterThrowsBottle() {
         this.throwableObjects.forEach((bottle, index) => {
-
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
                     enemy.isDead = true;
-                    console.log('bottle killing enemy');
                     this.throwableObjects.splice(index, 1);
+
                     console.log('charactersBottles: ', this.charactersBottles);
-                }
+                } else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
+                    console.log('Endboss hit detected');
 
-                else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
                     this.endboss.hit();
+                    this.statusBarEndboss.setPercentage(this.endboss.energy);
                     console.log('endboss was hit and now has ', this.endboss.energy);
+
+                    // Remove the bottle after hitting the endboss
+                    this.throwableObjects.splice(index, 1);
                 }
-
             });
-        })
-
+        });
     }
 
     characterKillsEnemy(killedEnemy) {

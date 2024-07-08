@@ -68,7 +68,10 @@ class Endboss extends MoveableObject {
         let endbossInterval = setInterval(() => {
             if (this.energy === 0) {
                 this.playAnimation(this.IMAGES_DEAD);
-                clearInterval(endbossInterval);
+                setTimeout(
+                    () => {
+                        clearInterval(endbossInterval);
+                    }, this.IMAGES_DEAD.length * 200); // Adjust the timeout duration as needed
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.hadFirstContact) {
@@ -86,49 +89,55 @@ class Endboss extends MoveableObject {
         this.moveLeft();
     }
 
-    // hadFirstContact() {
-    //     return World.character.x >= 2200;
-    // }
-
-    // hit() {
-    //     this.energy -= 20;
-    //     this.isHurt = true;
-    //     setTimeout(() => this.isHurt = false, 1000);
-    // }
-
-    // isHurt() {
-    //     return this.isHurt;
-    // }
-
-    // animate() {
-    //     setInterval(() => {
-    //         if (this.isHurt) {
-    //             this.playAnimation(this.IMAGES_HURT);
-    //         } else if (this.isDead) {
-    //             this.playAnimation(this.IMAGES_DEAD);
-    //             characterWins();
-    //         } else {
-    //             basicAnimationEndboss();
-    //         }
-    //     }, 200);
-
-    // }
-
-
-
-    // basicAnimationEndboss() {
-
-    //     let i = 0;
-    //     setInterval(() => {
-    //         if (i < 10) { this.playAnimation(this.IMAGES_WALKING); } else {
-    //             this.playAnimation(this.IMAGES_ATTACK);
-    //         }
-    //         i++;
-    //         if (!this.hadFirstContact) {
-    //             i = 0;
-    //             this.hadFirstContact = true;
-    //             this.playAnimation(this.IMAGES_ATTACK);
-    //         }
-    //     }, 200);
-    // }
+    hit() {
+        this.energy -= 10; // Reduce energy by 10 for each hit
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
 }
+// hadFirstContact() {
+//     return World.character.x >= 2200;
+// }
+
+// hit() {
+//     this.energy -= 20;
+//     this.isHurt = true;
+//     setTimeout(() => this.isHurt = false, 1000);
+// }
+
+// isHurt() {
+//     return this.isHurt;
+// }
+
+// animate() {
+//     setInterval(() => {
+//         if (this.isHurt) {
+//             this.playAnimation(this.IMAGES_HURT);
+//         } else if (this.isDead) {
+//             this.playAnimation(this.IMAGES_DEAD);
+//             characterWins();
+//         } else {
+//             basicAnimationEndboss();
+//         }
+//     }, 200);
+
+// }
+
+
+
+// basicAnimationEndboss() {
+
+//     let i = 0;
+//     setInterval(() => {
+//         if (i < 10) { this.playAnimation(this.IMAGES_WALKING); } else {
+//             this.playAnimation(this.IMAGES_ATTACK);
+//         }
+//         i++;
+//         if (!this.hadFirstContact) {
+//             i = 0;
+//             this.hadFirstContact = true;
+//             this.playAnimation(this.IMAGES_ATTACK);
+//         }
+//     }, 200);
+// }

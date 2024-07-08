@@ -2,8 +2,9 @@ class Endboss extends MoveableObject {
     height = 400;
     width = 250;
     y = 60;
-    energy = 200;
-    speed = 40;
+    energy = 100;
+    speed = 5;
+
 
     IMAGES_WALKING = ['../img/4_enemie_boss_chicken/1_walk/G1.png',
         '../img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -53,7 +54,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
         this.animate();
-        this.isVisible();
+        // this.isVisible();
     }
 
     offset = {
@@ -63,33 +64,71 @@ class Endboss extends MoveableObject {
         right: 15
     }
 
-
-    isVisible(camera_x, canvas_width) {
-        const endbossRightEdge = this.x + this.width;
-        const cameraRightEdge = camera_x + canvas_width;
-
-        // console.log(`Endboss right edge: ${endbossRightEdge}, Camera right edge: ${cameraRightEdge}`);
-        // console.log(`Endboss left edge: ${this.x}, Camera left edge: ${camera_x}`);
-
-        return endbossRightEdge > camera_x && this.x < cameraRightEdge;
-    }
-
     animate() {
-        let i = 0;
-        setInterval(() => {
-            if (i < 10) { this.playAnimation(this.IMAGES_WALKING); } else {
+        let endbossInterval = setInterval(() => {
+            if (this.energy === 0) {
+                this.playAnimation(this.IMAGES_DEAD);
+                clearInterval(endbossInterval);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.hadFirstContact) {
                 this.playAnimation(this.IMAGES_ALERT);
-            }
-            i++;
-            if (
-                // world.character.x > 1800 && 
-                !this.hadFirstContact) {
-                i = 0;
+                this.walkLeft();
                 this.hadFirstContact = true;
-                this.playAnimation(this.IMAGES_ATTACK);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.walkLeft();
             }
         }, 200);
     }
 
-}
+    walkLeft() {
+        this.moveLeft();
+    }
 
+    // hadFirstContact() {
+    //     return World.character.x >= 2200;
+    // }
+
+    // hit() {
+    //     this.energy -= 20;
+    //     this.isHurt = true;
+    //     setTimeout(() => this.isHurt = false, 1000);
+    // }
+
+    // isHurt() {
+    //     return this.isHurt;
+    // }
+
+    // animate() {
+    //     setInterval(() => {
+    //         if (this.isHurt) {
+    //             this.playAnimation(this.IMAGES_HURT);
+    //         } else if (this.isDead) {
+    //             this.playAnimation(this.IMAGES_DEAD);
+    //             characterWins();
+    //         } else {
+    //             basicAnimationEndboss();
+    //         }
+    //     }, 200);
+
+    // }
+
+
+
+    // basicAnimationEndboss() {
+
+    //     let i = 0;
+    //     setInterval(() => {
+    //         if (i < 10) { this.playAnimation(this.IMAGES_WALKING); } else {
+    //             this.playAnimation(this.IMAGES_ATTACK);
+    //         }
+    //         i++;
+    //         if (!this.hadFirstContact) {
+    //             i = 0;
+    //             this.hadFirstContact = true;
+    //             this.playAnimation(this.IMAGES_ATTACK);
+    //         }
+    //     }, 200);
+    // }
+}

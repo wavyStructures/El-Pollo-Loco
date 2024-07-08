@@ -54,7 +54,7 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D
             // && !this.character.isAboveGround()
-            && this.charactersBottles > 0
+            // && this.charactersBottles > 0
         ) {
             let xOffset = 80;
             let yOffset = 120;
@@ -88,7 +88,7 @@ class World {
     characterJumpingOnEnemy() {
 
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingFromTop(enemy)) {
+            if (this.character.isCollidingFromTop(enemy) && !(enemy instanceof Endboss)) {
                 enemy.isDead = true;
                 console.log('one enemy dying');
                 this.characterKillsEnemy(enemy);
@@ -106,6 +106,12 @@ class World {
                     this.throwableObjects.splice(index, 1);
                     console.log('charactersBottles: ', this.charactersBottles);
                 }
+
+                else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
+                    this.endboss.hit();
+                    console.log('endboss was hit and now has ', this.endboss.energy);
+                }
+
             });
         })
 

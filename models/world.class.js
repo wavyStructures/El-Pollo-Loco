@@ -7,7 +7,7 @@ class World {
 
     constructor(canvas, keyboard) {
         this.character = new Character();
-        this.statusBar = new StatusBar();
+        this.statusBarHealth = new StatusBarHealth();
         this.statusBarCoins = new StatusBarCoins();
         this.statusBarBottles = new StatusBarBottles();
         this.statusBarEndboss = new StatusBarEndboss();
@@ -126,7 +126,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromSide(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.statusBarHealth.setPercentage(this.character.energy);
 
                 // if (this.character.energy <= 0) {
                 //     console.log('Game Over');
@@ -185,7 +185,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
 
-        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarEndboss);

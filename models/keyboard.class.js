@@ -44,28 +44,28 @@ class Keyboard {
         window.addEventListener('keydown', (e) => {
             switch (e.keyCode) {
                 case 37:
-                    this.keyboard.LEFT = true;
+                    keyboard.LEFT = true;
                     break;
                 case 39:
-                    this.keyboard.RIGHT = true;
+                    keyboard.RIGHT = true;
                     break;
                 case 38:
-                    this.keyboard.UP = true;
+                    keyboard.UP = true;
                     break;
                 case 40:
-                    this.keyboard.DOWN = true;
+                    keyboard.DOWN = true;
                     break;
                 case 32:
-                    this.keyboard.SPACE = true;
+                    keyboard.SPACE = true;
                     break;
                 case 66:
-                    this.keyboard.B = true;
+                    keyboard.B = true;
                     break;
                 case 68:
-                    this.keyboard.D = true;
+                    keyboard.D = true;
                     break;
                 case 27:
-                    this.keyboard.ESC = true;
+                    keyboard.ESC = true;
                     break;
             }
         });
@@ -73,28 +73,28 @@ class Keyboard {
         window.addEventListener('keyup', (e) => {
             switch (e.keyCode) {
                 case 37:
-                    this.keyboard.LEFT = false;
+                    keyboard.LEFT = false;
                     break;
                 case 39:
-                    this.keyboard.RIGHT = false;
+                    keyboard.RIGHT = false;
                     break;
                 case 38:
-                    this.keyboard.UP = false;
+                    keyboard.UP = false;
                     break;
                 case 40:
-                    this.keyboard.DOWN = false;
+                    keyboard.DOWN = false;
                     break;
                 case 32:
-                    this.keyboard.SPACE = false;
+                    keyboard.SPACE = false;
                     break;
                 case 66:
-                    this.keyboard.B = false;
+                    keyboard.B = false;
                     break;
                 case 68:
-                    this.keyboard.D = false;
+                    keyboard.D = false;
                     break;
                 case 27:
-                    this.keyboard.ESC = false;
+                    keyboard.ESC = false;
                     break;
             }
         });

@@ -44,10 +44,15 @@
 </head>
 
 <body onload="init()">
+    <div id="turn-phone-overlay" class="turn-phone-overlay d-none">
+        <div class="img"><img class="turn-phone-img" src="../img/rotate_smartphone.png"></div>
+    </div>
     <div id="content">
         <div class="heading">
             <h1>El Pollo Loco</h1>
         </div>
+
+
         <div id="startScreen" class="start-screen">
             <div class="start-screen-top" id="startGame" onclick="startGame()">
                 <div class="play">
@@ -59,38 +64,34 @@
                 </div>
             </div>
         </div>
+
+
         <div class="overlay you-lost d-none">
             <img src="../img/9_intro_outro_screens/game_over/ohyoulost.png">
         </div>
+
+
 
         <div class="overlay you-won d-none">
             <img src="../img/9_intro_outro_screens/win/win_1.png">
         </div>
 
 
+        <div class="canvas-div">
+            <canvas id="canvas" width="720" height="480"> </canvas>
 
-        <canvas id="canvas" width="720" height="480"> </canvas>
-
-        <div class="overlay mobile-buttons d-none">
-            <div id="hud">
-                <div class="panel">
-                </div>
+            <div id="bottom-info-mobile" class="bottom-info-mobile d-none">
                 <div class="panel">
                     <div class="panel-wrapper">
-                        <button id="btnLeft">LEFT</button>
-                        <button id="btnRight">RIGHT</button>
-                    </div>
-                    <div class="panel-wrapper">
-
-                        <button id="btnJump">JUMP</button>
-                        <button id="btnThrow">THROW</button>
-                        <button id="btnBuy">BUY</button>
+                        <button id="btnLeft" class="mobile-buttons"><img src="../img/Arrow-left.svg"></button>
+                        <button id="btnRight" class="mobile-buttons"><img src="../img/Arrow-right.svg"></button>
+                        <button id="btnJump" class="mobile-buttons"><img src="../img/Arrow-up.svg"> </button>
+                        <button id="btnThrow" class="mobile-buttons"><img src="../img/Throw-bottle.svg"> </button>
+                        <button id="btnBuy" class="mobile-buttons"><img src="../img/Buy-bottle.svg"> </button>
 
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div id="bottom-info" class="bottom-info">
@@ -99,6 +100,8 @@
             <span>D = Throw Bottle</span>
             <span>B = Buy Bottle <br>(5 coins = 1 bottle) </span>
         </div>
+
+
 
 
     </div>

@@ -6,12 +6,12 @@ class SmallChicken extends MoveableObject {
     height = 40;
 
 
-    IMAGES_WALKING = ['../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        '../img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
+    IMAGES_WALKING = ['./img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        './img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
     IMAGES_DEAD = [
-        '../img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+        './img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
     isDead = false;
@@ -22,7 +22,7 @@ class SmallChicken extends MoveableObject {
         bottom: 2,
     };
     constructor() {
-        super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
 
         this.x = 730 + Math.random() * 500;

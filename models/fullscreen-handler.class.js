@@ -15,7 +15,7 @@ class FullScreen extends MoveableObject {
         super();
         this.canvas = canvas;
         this.world = world;
-        this.loadImage('../img/fullscreen.svg');
+        this.loadImage('./img/fullscreen.svg');
         this.addEventListeners();
     }
 

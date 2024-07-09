@@ -4,8 +4,8 @@ class AudioHandler extends MoveableObject {
     y = 30;
     x = 640;
     canvas;
-    audioOnImage = '../img/audio_on.svg';
-    audioOffImage = '../img/audio_off.svg';
+    audioOnImage = './img/audio_on.svg';
+    audioOffImage = './img/audio_off.svg';
 
     constructor(canvas, audioOn) {
         super();

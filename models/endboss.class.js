@@ -53,6 +53,9 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
+        this.energy = 100;
+        console.log('endboss energy at constructor: ', this.energy);
+
         this.animate();
         // this.isVisible();
     }
@@ -66,22 +69,38 @@ class Endboss extends MoveableObject {
 
     animate() {
         let endbossInterval = setInterval(() => {
+
             if (this.energy === 0) {
+                console.log('endboss energy at if zero: ', this.energy);
                 this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(
-                    () => {
-                        clearInterval(endbossInterval);
-                    }, this.IMAGES_DEAD.length * 200); // Adjust the timeout duration as needed
-                showWinOverlay();
-            } else if (this.isHurt()) {
+                // setTimeout(
+                //     () => {
+                //         clearInterval(endbossInterval);
+                //         showWinOverlay();
+                //     }, this.IMAGES_DEAD.length * 300);
+
+            }
+
+
+            else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.hadFirstContact) {
+            }
+
+
+            else if (this.hit()) {
+                this.playAnimation(this.IMAGES_ATTACK);
+                this.jump();
+            }
+
+            else if (this.hadFirstContact() && !this.hit()) {
                 this.playAnimation(this.IMAGES_ALERT);
                 this.walkLeft();
                 this.hadFirstContact = true;
-            } else {
+            }
+
+            else {
                 this.playAnimation(this.IMAGES_WALKING);
-                this.walkLeft();
+                // this.walkLeft();
             }
         }, 200);
     }
@@ -96,10 +115,11 @@ class Endboss extends MoveableObject {
             this.energy = 0;
         }
     }
+
+    hadFirstContact() {
+        return World.character.x >= 2200;
+    }
 }
-// hadFirstContact() {
-//     return World.character.x >= 2200;
-// }
 
 // hit() {
 //     this.energy -= 20;

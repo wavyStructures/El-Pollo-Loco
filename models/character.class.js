@@ -116,7 +116,7 @@ class Character extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 // this.world.gameOver();
-                // this.world.clearAllIntervals();
+                this.world.clearAllIntervals();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
@@ -137,7 +137,7 @@ class Character extends MoveableObject {
             if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime <= 10000) {
                 this.playAnimation(this.IMAGES_IDLE);
                 this.isIdle = true;
-            } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 10000) {
+            } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 20000) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
                 this.long_idle_sound.play();
                 this.isIdle = true;

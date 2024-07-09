@@ -111,7 +111,7 @@ class World {
                 } else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
                     console.log('Endboss hit detected');
 
-                    this.endboss.hit();
+                    this.endboss.hit(10);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
                     console.log('endboss was hit and now has ', this.endboss.energy);
 
@@ -187,7 +187,12 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+        this.addObjectsToMap(this.level.clouds);
+
         this.ctx.translate(-this.camera_x, 0);
+
+
+
         // ------------  space for fixed objects ----------------
 
         this.addToMap(this.statusBarHealth);
@@ -201,13 +206,15 @@ class World {
 
 
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
 
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
+
+        this.addObjectsToMap(this.level.enemies);
+
         this.ctx.translate(-this.camera_x, 0);
+
 
         let self = this;
         requestAnimationFrame(function () { self.draw() });

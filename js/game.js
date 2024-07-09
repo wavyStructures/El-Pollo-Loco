@@ -130,4 +130,21 @@ function hideStartInfo() {
 // }
 
 
+function showWinOverlay() {
+    document.getElementById('winOverlay').classList.remove('d-none');
+}
+
+
+
+
+
+
+//     const restartButton = document.getElementById('playAgainButton');
+//     restartButton.classList.remove('d-none');
+//     restartButton.classList.add('flex');
+//     if (world) { world.removeEnemiesAndBars();
+//or   clearAllIntervals
+//     }
+// }
+
 

@@ -72,6 +72,7 @@ class Endboss extends MoveableObject {
                     () => {
                         clearInterval(endbossInterval);
                     }, this.IMAGES_DEAD.length * 200); // Adjust the timeout duration as needed
+                showWinOverlay();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.hadFirstContact) {

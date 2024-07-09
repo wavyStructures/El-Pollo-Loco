@@ -90,6 +90,10 @@ h2:hover {
   padding: 8px 24px;
 }
 
+.canvas-div {
+  padding: 20px;
+}
+
 .instructionsAndLegalNotice {
   display: flex;
   flex-direction: column;
@@ -188,6 +192,22 @@ button {
 
 .smartphone-rotation > img {
   width: 24px;
+}
+
+.you-won,
+.you-lost {
+  position: absolute;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: yellow;
+  background-image: url("./img/desert.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (max-width: 720px) {

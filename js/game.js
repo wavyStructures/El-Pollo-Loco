@@ -2,11 +2,15 @@ let canvas;
 let keyboard;
 let world;
 
+function startPage() {
+    canvas = document.getElementById("canvas");
+    canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
+
+}
+
 function init() {
 
     console.log('Initializing game...');
-    canvas = document.getElementById("canvas");
-    // canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
     keyboard = new Keyboard();
     // console.log('Keyboard initialized:', keyboard);
 
@@ -105,10 +109,15 @@ function closeFullscreen() {
 }
 
 
-// function startGame() {
-//     initLevel();
-//     //responsive hide or show
-// }
+function startGame() {
+    init();
+    hideStartInfo();    //responsive hide or show
+}
+
+function hideStartInfo() {
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('startGame').classList.add('d-none');
+}
 
 // optionsScreen();
 // playAudio();

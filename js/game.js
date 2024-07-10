@@ -1,6 +1,8 @@
 let canvas;
 let keyboard;
 let world;
+let sounds = new Sounds();
+let audioMute = true;
 
 function startPage() {
     canvas = document.getElementById("canvas");
@@ -17,7 +19,7 @@ function init() {
     initLevel1(); // Ensure level1 is initialized
     // console.log('Level:', level1); // Ensure level1 is defined and initialized
 
-    world = new World(canvas, keyboard);
+    world = new World(canvas, sounds, keyboard);
     // console.log('World initialized:', world);
     checkScreenSize();
 }
@@ -33,7 +35,6 @@ function adaptToMobile() {
 
     // showTurnInfo();
     adaptInnerWidth();
-
 }
 
 function checkMobileBtns() {
@@ -88,10 +89,22 @@ function adaptInnerWidth() {
     }
 }
 
+function toggleAudio() {
+    let audioIcon = document.getElementById('audioIcon');
+    if (!audioMute) {
+        audioIcon.setAttribute('src', './icons/audio_off.svg');
+    } else {
+        audioIcon.setAttribute('src', './icons/audio_on.svg');
+    }
+    audioMute = !audioMute;
+}
+
 
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
+
+
 
 
 // function closeFullscreen() {

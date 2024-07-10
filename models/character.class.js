@@ -53,9 +53,9 @@ class Character extends MoveableObject {
     isJumping = false;
     isIdle = false;
     lastKeyPress = Date.now();
-    walking_sound = new Audio('audio/running.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
-    long_idle_sound = new Audio('audio/long_idle.mp3');
+    // walking_sound = new Audio('audio/walking.mp3');
+    // jump_sound = new Audio('audio/jump.mp3');
+    // long_idle_sound = new Audio('audio/long_idle.mp3');
 
 
     constructor() {
@@ -88,19 +88,19 @@ class Character extends MoveableObject {
 
     animateWalkingAndJumping() {
         setInterval(() => {
-            this.walking_sound.pause();
+            // this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
 
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
+                // this.walking_sound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
 
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
+                // this.walking_sound.play();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {

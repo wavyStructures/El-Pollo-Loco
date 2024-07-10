@@ -5,7 +5,7 @@ class World {
     buyBottleTriggered = false;
 
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, sounds, keyboard) {
         this.character = new Character();
         this.statusBarHealth = new StatusBarHealth();
         this.statusBarCoins = new StatusBarCoins();
@@ -18,20 +18,18 @@ class World {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
+        this.sounds = sounds;
         this.camera_x = 0;
         this.throwableObjects = [];
         this.lastBottleThrowTime = 0;
         this.bottleThrowCooldown = 500;
 
-        // this.audioOn = JSON.parse(localStorage.getItem('audioOn'));
-        // this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
+        this.sounds = new AudioHandler(this.canvas, this.audioOn);
 
-        // this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn'));
-        // this.fullscreenHandler = new FullScreen(this.canvas);
+
 
         this.draw();
         this.setWorld();
-        // this.setIcons();
         this.run();
     }
 
@@ -90,7 +88,6 @@ class World {
 
 
     characterJumpingOnEnemy() {
-
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromTop(enemy) && !(enemy instanceof Endboss)) {
                 enemy.isDead = true;
@@ -147,25 +144,22 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.increaseStatusBar(this.statusBarBottles, 20);
                 this.charactersBottles++;
-                console.log('charactersBottles: ', this.charactersBottles);
                 this.level.bottles.splice(index, 1);
+                this.sounds.playSound(this.sounds.bottle_sound);
             }
         })
     }
 
     buyBottle() {
         if (this.keyboard.B && this.charactersCoins >= 5) {
-            console.log('charactersCoins before are: ', this.charactersCoins);
 
             this.charactersCoins -= 5;
             this.statusBarCoins.setCoins(this.charactersCoins);
-            console.log('charactersCoins after are: ', this.charactersCoins);
 
-
-            console.log('charactersBottles before: ', this.charactersBottles);
             this.increaseStatusBar(this.statusBarBottles, 20);
             this.charactersBottles++;
-            console.log('charactersBottles after: ', this.charactersBottles);
+            this.sounds.playSound(this.sounds.buy_bottle_sound);
+
         }
     }
 
@@ -174,8 +168,8 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.increaseStatusBar(this.statusBarCoins, 20);
                 this.level.coins.splice(index, 1);
-                console.log('charactersCoins: ', this.charactersCoins);
                 this.charactersCoins++;
+                this.sounds.playSound(this.sounds.coin_sound);
             }
         })
     }
@@ -196,18 +190,16 @@ class World {
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarEndboss);
 
-        // this.addToMap(this.audioHandler);
-        // this.addToMap(this.fullscreenHandler);
 
-        // ------------  space for moving objects ----------------
+        // ------------  space for more moving objects ----------------
         this.ctx.translate(this.camera_x, 0);
+
+
+        this.addObjectsToMap(this.level.enemies);
 
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
-
-        this.addObjectsToMap(this.level.enemies);
-
         this.ctx.translate(-this.camera_x, 0);
 
 

@@ -4,6 +4,7 @@ class Endboss extends MoveableObject {
     y = 60;
     energy = 100;
     speed = 5;
+    hitCount = 0;
 
 
     IMAGES_WALKING = ['./img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -67,54 +68,82 @@ class Endboss extends MoveableObject {
         right: 15
     }
 
+
+
     animate() {
         let endbossInterval = setInterval(() => {
-
+            console.log('Endboss energy in animate: ', this.energy);
             if (this.energy === 0) {
-                console.log('endboss energy at if zero: ', this.energy);
+                console.log('Endboss energy at if zero: ', this.energy);
                 this.playAnimation(this.IMAGES_DEAD);
-                // setTimeout(
-                //     () => {
-                //         clearInterval(endbossInterval);
-                //         showWinOverlay();
-                //     }, this.IMAGES_DEAD.length * 300);
-
-            }
-
-
-            else if (this.isHurt()) {
+                setTimeout(() => {
+                    clearInterval(endbossInterval);
+                    this.showWinOverlay();
+                }, this.IMAGES_DEAD.length); // Adjust timing as needed
+            } else if (this.isHurt()) {
+                console.log('Endboss is hurt');
                 this.playAnimation(this.IMAGES_HURT);
-            }
-
-
-            else if (this.hit()) {
+            } else if (this.hadFirstContact) {
+                console.log('Endboss had first contact');
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.jump();
-            }
-
-            else if (this.hadFirstContact() && !this.hit()) {
-                this.playAnimation(this.IMAGES_ALERT);
+            } else {
+                console.log('Endboss default action');
+                this.playAnimation(this.IMAGES_WALKING);
                 this.walkLeft();
                 this.hadFirstContact = true;
             }
-
-            else {
-                this.playAnimation(this.IMAGES_WALKING);
-                // this.walkLeft();
-            }
         }, 200);
     }
+
+    hurtAnimation() {
+        // Implement hurt animation logic
+        console.log('Endboss hurt animation');
+    }
+
+    deadAnimation() {
+        // Implement dead animation logic
+        console.log('Endboss dead animation');
+    }
+    //     if (this.energy === 0) {
+    //         console.log('endboss energy at if zero: ', this.energy);
+    //         this.playAnimation(this.IMAGES_DEAD);
+    //         // setTimeout(
+    //         //     () => {
+    //         //         clearInterval(endbossInterval);
+    //         //         showWinOverlay();
+    //         //     }, this.IMAGES_DEAD.length * 300);
+
+    //     }
+
+
+    //     else if (this.isHurt()) {
+    //         this.playAnimation(this.IMAGES_HURT);
+    //     }
+
+
+    //     else if (this.hit()) {
+    //         this.playAnimation(this.IMAGES_ATTACK);
+    //         this.jump();
+    //     }
+
+    //     else if (this.hadFirstContact() && !this.hit()) {
+    //         this.playAnimation(this.IMAGES_ALERT);
+    //         this.walkLeft();
+    //         this.hadFirstContact = true;
+    //     }
+
+    //     else {
+    //         this.playAnimation(this.IMAGES_WALKING);
+    //         // this.walkLeft();
+    //     }
+    // }, 200);
+
 
     walkLeft() {
         this.moveLeft();
     }
 
-    hit() {
-        this.energy -= 10; // Reduce energy by 10 for each hit
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
-    }
 
     hadFirstContact() {
         return World.character.x >= 2200;

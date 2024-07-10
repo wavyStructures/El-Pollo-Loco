@@ -190,21 +190,16 @@ class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
-
-
-
         // ------------  space for fixed objects ----------------
-
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarEndboss);
 
-
         this.addToMap(this.audioHandler);
         this.addToMap(this.fullscreenHandler);
 
-
+        // ------------  space for moving objects ----------------
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.throwableObjects);

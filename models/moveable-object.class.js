@@ -66,7 +66,14 @@ class MoveableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
-            // console.log(this.lastHit);
+            if (this instanceof Endboss) {
+                this.hitCount++;
+                this.hurtAnimation();
+                if (this.hitCount >= 5) {
+                    this.energy = 0;
+                    this.deadAnimation();
+                }
+            }
         }
     }
 

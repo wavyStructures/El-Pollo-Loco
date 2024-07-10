@@ -23,11 +23,11 @@ class World {
         this.lastBottleThrowTime = 0;
         this.bottleThrowCooldown = 500;
 
-        this.audioOn = JSON.parse(localStorage.getItem('audioOn'));
-        this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
+        // this.audioOn = JSON.parse(localStorage.getItem('audioOn'));
+        // this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
 
-        this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn'));
-        this.fullscreenHandler = new FullScreen(this.canvas);
+        // this.fullscreenOn = JSON.parse(localStorage.getItem('fullscreenOn'));
+        // this.fullscreenHandler = new FullScreen(this.canvas);
 
         this.draw();
         this.setWorld();
@@ -196,8 +196,8 @@ class World {
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarEndboss);
 
-        this.addToMap(this.audioHandler);
-        this.addToMap(this.fullscreenHandler);
+        // this.addToMap(this.audioHandler);
+        // this.addToMap(this.fullscreenHandler);
 
         // ------------  space for moving objects ----------------
         this.ctx.translate(this.camera_x, 0);

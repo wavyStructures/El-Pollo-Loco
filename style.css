@@ -116,9 +116,39 @@ canvas {
   display: block;
 }
 
-/* #hud {
-  display: none;
-} */
+.canvas-bottom-info {
+  position: relative;
+}
+
+.icon-container {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  display: flex;
+  align-items: center;
+}
+
+.full-screen {
+  width: 22px;
+  margin: 16px 24px 0 0;
+  cursor: pointer;
+  transition: transform 125ms;
+}
+
+.full-screen:hover {
+  transform: scale(1.1);
+}
+
+.audio-icon {
+  width: 25px;
+  margin: 16px 8px 0 0;
+  cursor: pointer;
+  transition: transform 125ms;
+}
+
+.audio-icon:hover {
+  transform: scale(1.1);
+}
 
 .turn-phone-overlay {
   position: absolute;

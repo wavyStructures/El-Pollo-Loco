@@ -15,8 +15,8 @@
     <script src="models/moveable-object.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
 
-    <script src="models/audio-handler.class.js"></script>
-    <script src="models/fullscreen-handler.class.js"></script>
+    <!-- <script src="models/audio-handler.class.js"></script> -->
+    <!-- <script src="models/fullscreen-handler.class.js"></script> -->
     <script src="models/keyboard.class.js"></script>
     <script src="models/world.class.js"></script>
 
@@ -65,6 +65,12 @@
             </div>
             <div class="canvas-bottom-info">
                 <canvas id="canvas" width="720" height="480"> </canvas>
+
+                <div id="icon-container" class="icon-container">
+                    <img id="audioIcon" onclick="toggleAudio()" class="audio-icon" src="./img/audio_off.svg">
+                    <audio id="bgMusic" style="display:none" src="./audio/jarabe-tapatio-mariachi.mp3"></audio>
+                    <img onclick="toggleFullScreen()" id="fullScreen" class="full-screen" src="./img/fullscreen.svg">
+                </div>
 
                 <div id="bottom-info-mobile" class="bottom-info-mobile d-none">
                     <div class="panel">

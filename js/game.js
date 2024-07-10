@@ -115,8 +115,12 @@ function startGame() {
 }
 
 function hideStartInfo() {
-    document.getElementById('startScreen').classList.add('d-none');
-    document.getElementById('startGame').classList.add('d-none');
+
+    document.getElementById('startScreenTop').classList.remove('flex');
+    document.getElementById('startScreenTop').classList.add('d-none');
+
+    document.getElementById('bottom-info').classList.remove('flex');
+    document.getElementById('bottom-info').classList.add('d-none');
 }
 
 // optionsScreen();

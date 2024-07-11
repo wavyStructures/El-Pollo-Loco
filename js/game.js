@@ -140,10 +140,7 @@ function hideStartInfo() {
 
 
 
-function showWinOverlay() {
-    document.getElementById('winOverlay').classList.remove('d-none');
-    document.getElementById('winOverlay').classList.add('flex');
-}
+
 
 
 

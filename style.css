@@ -183,7 +183,7 @@ canvas {
 }
 
 .mobile-buttons {
-  width: 50pxpx;
+  width: 50px;
   height: 50px;
   border-radius: 50%;
   display: flex;
@@ -239,9 +239,12 @@ button {
 
 .you-won,
 .you-lost {
+  display: flex;
+  flex-direction: column;
   position: absolute;
+  top: 0;
+  left: 0;
   text-align: center;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   z-index: 1;
@@ -256,6 +259,34 @@ button {
 .you-won > img,
 .you-lost > img {
   width: 80vw;
+  /* position: absolute;
+  top: 20%;
+  left: 10%; */
+}
+
+.endscreen-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 42px;
+
+  > button {
+    width: 15rem;
+    height: 5rem;
+    color: #f9e2a7;
+    font-weight: 600;
+    font-size: 52px;
+    font-family: "zabars", Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+  }
+
+  > button:hover {
+    transform: scale(1.1);
+    color: #f1b51b;
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
 }
 
 @media only screen and (max-width: 720px) {

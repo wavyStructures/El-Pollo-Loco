@@ -78,7 +78,10 @@ class Endboss extends MoveableObject {
         this.moveLeft();
     }
 
-
+    showWinOverlay() {
+        document.getElementById('winOverlay').classList.remove('d-none');
+        document.getElementById('winOverlay').classList.add('flex');
+    }
 
 }
 

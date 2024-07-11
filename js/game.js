@@ -123,8 +123,9 @@ function clearAllIntervals() {
 
 
 function startGame() {
+    sounds.playSound(sounds.come_on_sound);
     init();
-    hideStartInfo();    //responsive hide or show
+    hideStartInfo();
 }
 
 function hideStartInfo() {
@@ -136,15 +137,7 @@ function hideStartInfo() {
     document.getElementById('bottom-info').classList.add('d-none');
 }
 
-// optionsScreen();
-// playAudio();
-// mobileControls();
 
-// setTimeout(function () {
-//     ctx.drawImage(character, 20, 20, 50, 150);
-// }, 2000);
-
-// }
 
 
 function showWinOverlay() {

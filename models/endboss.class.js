@@ -68,30 +68,37 @@ class Endboss extends MoveableObject {
         right: 15
     }
 
-
+    checkFirstContact() {
+        return world.character.x >= 2200;
+    }
 
     animate() {
         let endbossInterval = setInterval(() => {
-            console.log('Endboss energy in animate: ', this.energy);
             if (this.energy === 0) {
-                console.log('Endboss energy at if zero: ', this.energy);
                 this.playAnimation(this.IMAGES_DEAD);
                 setTimeout(() => {
                     clearInterval(endbossInterval);
                     this.showWinOverlay();
-                }, this.IMAGES_DEAD.length); // Adjust timing as needed
+                }, this.IMAGES_DEAD.length);
+
+
             } else if (this.isHurt()) {
                 console.log('Endboss is hurt');
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.hadFirstContact) {
+
+
+            } else if (this.checkFirstContact()) {
                 console.log('Endboss had first contact');
+                console.log('x of character:', world.character.x);
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.jump();
+                this.hadFirstContact = true;
+
+
             } else {
                 console.log('Endboss default action');
                 this.playAnimation(this.IMAGES_WALKING);
                 this.walkLeft();
-                this.hadFirstContact = true;
             }
         }, 200);
     }
@@ -145,9 +152,9 @@ class Endboss extends MoveableObject {
     }
 
 
-    hadFirstContact() {
-        return World.character.x >= 2200;
-    }
+    // hadFirstContact() {
+    //         return world.character.x >= 2200;
+    //     }
 }
 
 // hit() {

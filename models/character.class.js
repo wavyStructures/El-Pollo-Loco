@@ -139,7 +139,7 @@ class Character extends MoveableObject {
                 this.isIdle = true;
             } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 20000) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
-                this.long_idle_sound.play();
+                // this.long_idle_sound.play();
                 this.isIdle = true;
             }
         }, 200);

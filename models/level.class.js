@@ -5,7 +5,7 @@ class Level {
     coins;
     bottles;
     level_end_x = 2400;
-
+    sounds = new Sounds();
 
 
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {

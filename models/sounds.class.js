@@ -3,7 +3,7 @@ class Sounds {
     constructor() {
         this.allSounds = [
             this.background_music_sound = new Audio('./audio/jarabe-tapatio-mariachi.mp3'),
-            this.letsPlay_sound = new Audio('./audio/come_on.mp3'),
+            this.come_on_sound = new Audio('./audio/come_on.mp3'),
             this.bottle_sound = new Audio('./audio/bottle.mp3'),
             this.buy_bottle_sound = new Audio('./audio/buy_bottle.mp3'),
             this.coin_sound = new Audio('./audio/coin.mp3'),

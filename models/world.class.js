@@ -24,7 +24,7 @@ class World {
         this.lastBottleThrowTime = 0;
         this.bottleThrowCooldown = 500;
 
-        this.sounds = new AudioHandler(this.canvas, this.audioOn);
+        // this.sounds = new Sounds(this.canvas, this.audioOn);
 
 
 
@@ -53,7 +53,7 @@ class World {
 
     checkThrowObjects() {
         let currentTime = Date.now();
-        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown)
+        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && !this.character.isAboveGround())
         // && !this.character.isAboveGround()
         // && this.charactersBottles > 0
         {

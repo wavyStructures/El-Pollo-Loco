@@ -4,6 +4,13 @@ class Character extends MoveableObject {
     width = 150;
     height = 300;
     speed = 10;
+    offset = {
+        top: 120,
+        right: 30,
+        bottom: 30,
+        left: 40
+    }
+
     IMAGES_WALKING = ['./img/2_character_pepe/2_walk/W-21.png', './img/2_character_pepe/2_walk/W-22.png',
         './img/2_character_pepe/2_walk/W-23.png', './img/2_character_pepe/2_walk/W-24.png',
         './img/2_character_pepe/2_walk/W-25.png', './img/2_character_pepe/2_walk/W-26.png'];
@@ -61,23 +68,22 @@ class Character extends MoveableObject {
     constructor() {
         super();
         this.world = world;
-        this.loadImage(this.IMAGES_IDLE[0]);
+        this.loadImage('./img/2_character_pepe/2_walk/W-21.png');
+        this.loadCharacterImages();
+        this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
+        this.animate();
+    }
+
+    loadCharacterImages() {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
-        this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
-        this.animate();
     }
 
-    offset = {
-        top: 120,
-        right: 30,
-        bottom: 30,
-        left: 40
-    }
+
 
     animate() {
         this.animateWalkingAndJumping();

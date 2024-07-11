@@ -38,10 +38,6 @@ class World {
 
     }
 
-    // setIcons() {
-    //     // this.fullScreen = new FullScreen(this.canvas);
-    //     this.audioHandler = new AudioHandler(this.canvas, this.audioOn);
-    // }
 
     run() {
         setInterval(() => {

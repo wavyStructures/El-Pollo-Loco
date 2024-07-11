@@ -69,7 +69,7 @@ class MoveableObject extends DrawableObject {
             if (this instanceof Endboss) {
                 this.hitCount++;
                 this.hurtAnimation();
-                if (this.hitCount >= 5) {
+                if (this.hitCount >= 10) {
                     this.energy = 0;
                     this.deadAnimation();
                 }

@@ -5,6 +5,7 @@ let sounds = new Sounds();
 let audioMute = true;
 
 function startPage() {
+
     canvas = document.getElementById("canvas");
     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
 }
@@ -12,6 +13,8 @@ function startPage() {
 function init() {
 
     console.log('Initializing game...');
+
+
     keyboard = new Keyboard();
     // console.log('Keyboard initialized:', keyboard);
 
@@ -20,6 +23,7 @@ function init() {
 
     world = new World(canvas, sounds, keyboard);
     // console.log('World initialized:', world);
+    document.getElementById('startScreenAndCanvas').classList.remove('d-none');
     checkScreenSize();
 }
 
@@ -98,10 +102,6 @@ function toggleAudio() {
     audioMute = !audioMute;
 }
 
-
-function clearAllIntervals() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
-}
 
 
 

@@ -250,5 +250,11 @@ class World {
         statusBar.percentage -= value;
         statusBar.setPercentage(statusBar.percentage);
     }
+
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) {
+            window.clearInterval(i);
+        }
+    }
 }
 //mo = moveableObject

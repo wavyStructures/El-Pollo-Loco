@@ -2,7 +2,6 @@ class Cloud extends MoveableObject {
     y = 20;
     height = 250;
     width = 500;
-    speed = 20;
     static lastCloudX = 50;
 
     constructor() {

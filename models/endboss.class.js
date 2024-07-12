@@ -20,7 +20,6 @@ class Endboss extends MoveableObject {
         this.loadEndbossImages();
         this.x = 2500;
         this.energy = 100;
-        console.log('endboss energy at constructor: ', this.energy);
         this.animate();
     }
 
@@ -80,6 +79,8 @@ class Endboss extends MoveableObject {
     showWinOverlay() {
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
+
+        document.getElementById('startScreenAndCanvas').classList.add('d-none');
     }
 
 }

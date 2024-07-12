@@ -49,42 +49,45 @@
     </div>
     <div id="content">
         <h1>El Pollo Loco</h1>
-        <div id="startScreenAndCanvas" class="start-screen-canvas">
-            <div id="startScreenTop" class="start-screen-top flex" onclick="startGame()">
-                <h2>Play!</h2>
-                <div class="instructionsAndLegalNotice">
-                    <a class="link-instructions" href="instructions.html" target="_blank">Instructions</a>
-                    <a class="link-legal-notice" href="legal_notice.html" target="blank">Legal Notice</a>
-                </div>
-            </div>
-            <div class="canvas-bottom-info">
-                <canvas id="canvas" width="720" height="480"> </canvas>
-
-                <div id="icon-container" class="icon-container">
-                    <img id="audioIcon" onclick="toggleAudio()" class="audio-icon" src="./img/audio_off.svg">
-                    <audio id="bgMusic" style="display:none" src="./audio/jarabe-tapatio-mariachi.mp3"></audio>
-                    <img onclick="toggleFullScreen()" id="fullScreen" class="full-screen" src="./img/fullscreen.svg">
-                </div>
-
-                <div id="bottom-info-mobile" class="bottom-info-mobile d-none">
-                    <div class="panel">
-                        <div class="panel-wrapper">
-                            <button id="btnLeft" class="mobile-buttons"><img src="./img/Arrow-left.svg"></button>
-                            <button id="btnRight" class="mobile-buttons"><img src="./img/Arrow-right.svg"></button>
-                            <button id="btnJump" class="mobile-buttons"><img src="./img/Arrow-up.svg"> </button>
-                            <button id="btnThrow" class="mobile-buttons"><img src="./img/Throw-bottle.svg"> </button>
-                            <button id="btnBuy" class="mobile-buttons"><img src="./img/Buy-bottle.svg"> </button>
-
-                        </div>
+        <div id="fullScreenDiv">
+            <div id="startScreenAndCanvas" class="start-screen-canvas">
+                <div id="startScreenTop" class="start-screen-top flex" onclick="startGame()">
+                    <h2>Play!</h2>
+                    <div class="instructionsAndLegalNotice">
+                        <a class="link-instructions" href="instructions.html" target="_blank">Instructions</a>
+                        <a class="link-legal-notice" href="legal_notice.html" target="blank">Legal Notice</a>
                     </div>
                 </div>
+                <div class="canvas-bottom-info">
+                    <canvas id="canvas" width="720" height="480"> </canvas>
+
+                    <div id="icon-container" class="icon-container">
+                        <img id="audioIcon" onclick="toggleAudio()" class="audio-icon" src="./img/audio_off.svg">
+                        <audio id="bgMusic" style="display:none" src="./audio/jarabe-tapatio-mariachi.mp3"></audio>
+                        <img onclick="fullscreen()" id="fullScreen" class="full-screen" src="./img/fullscreen.svg">
+                    </div>
+
+                    <div id="bottom-info-mobile" class="bottom-info-mobile d-none">
+                        <div class="panel">
+                            <div class="panel-wrapper">
+                                <button id="btnLeft" class="mobile-buttons"><img src="./img/Arrow-left.svg"></button>
+                                <button id="btnRight" class="mobile-buttons"><img src="./img/Arrow-right.svg"></button>
+                                <button id="btnJump" class="mobile-buttons"><img src="./img/Arrow-up.svg"> </button>
+                                <button id="btnThrow" class="mobile-buttons"><img src="./img/Throw-bottle.svg">
+                                </button>
+                                <button id="btnBuy" class="mobile-buttons"><img src="./img/Buy-bottle.svg"> </button>
+
+                            </div>
+                        </div>
+                    </div>
 
 
-                <div id="bottom-info" class="bottom-info flex">
-                    <span>Arrow Left/Right = Walk</span>
-                    <span>Space = Jump</span>
-                    <span>D = Throw Bottle</span>
-                    <span>B = Buy Bottle <br>(5 coins = 1 bottle) </span>
+                    <div id="bottom-info" class="bottom-info flex">
+                        <span>Arrow Left/Right = Walk</span>
+                        <span>Space = Jump</span>
+                        <span>D = Throw Bottle</span>
+                        <span>B = Buy Bottle <br>(5 coins = 1 bottle) </span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -117,6 +117,14 @@ canvas {
   display: block;
 }
 
+#canvas {
+  display: block;
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .canvas-bottom-info {
   position: relative;
 }

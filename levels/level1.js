@@ -16,12 +16,20 @@ function initLevel1() {
             new Endboss()
         ],
         [
-            new Cloud('./img/5_background/layers/4_clouds/1.png', -20),
-            new Cloud('./img/5_background/layers/4_clouds/2.png', 300),
-            new Cloud('./img/5_background/layers/4_clouds/1.png', 700),
-            new Cloud('./img/5_background/layers/4_clouds/2.png', 1000),
-            new Cloud('./img/5_background/layers/4_clouds/1.png', 1300),
-            new Cloud('./img/5_background/layers/4_clouds/2.png', 1600)
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud()
         ],
         [
             new BackgroundObject('./img/5_background/layers/4_clouds/air.png', -719),

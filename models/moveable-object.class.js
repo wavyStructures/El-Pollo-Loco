@@ -13,8 +13,9 @@ class MoveableObject extends DrawableObject {
         right: 0,
     };
 
-    constructor() {
+    constructor(sounds) {
         super();
+        this.sounds = sounds;
     }
 
     isColliding(mo) {

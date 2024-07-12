@@ -218,16 +218,11 @@ class World {
     }
 
     addToMap(mo) {
-        // console.log('angekommen in addToMap ist unser mo:', mo);
-        // console.log('und angekommen ist  mo.img:', mo);
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-        // mo.drawOffsetFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }

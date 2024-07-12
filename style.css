@@ -58,6 +58,7 @@ h1 {
   letter-spacing: 7px;
   text-shadow: 4px 3px 2px rgb(125, 28, 28);
   color: brown;
+  text-align: center;
 }
 
 h2 {
@@ -239,7 +240,7 @@ button {
 
 .you-won,
 .you-lost {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   position: absolute;
   top: 0;
@@ -274,7 +275,7 @@ button {
   > button {
     width: 15rem;
     height: 5rem;
-    color: #f9e2a7;
+    color: #fffdd4;
     font-weight: 600;
     font-size: 52px;
     font-family: "zabars", Arial, Helvetica, sans-serif;

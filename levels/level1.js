@@ -3,20 +3,25 @@ function initLevel1() {
 
     level1 = new Level(
         [
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new Chicken(),
-            // new SmallChicken(),
-            // new SmallChicken(),
-            // new SmallChicken(),
-            // new SmallChicken(),
-            // new SmallChicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new SmallChicken(),
+            new SmallChicken(),
+            new SmallChicken(),
+            new SmallChicken(),
+            new SmallChicken(),
             new Endboss()
         ],
         [
-            new Cloud()
+            new Cloud('./img/5_background/layers/4_clouds/1.png', -20),
+            new Cloud('./img/5_background/layers/4_clouds/2.png', 300),
+            new Cloud('./img/5_background/layers/4_clouds/1.png', 700),
+            new Cloud('./img/5_background/layers/4_clouds/2.png', 1000),
+            new Cloud('./img/5_background/layers/4_clouds/1.png', 1300),
+            new Cloud('./img/5_background/layers/4_clouds/2.png', 1600)
         ],
         [
             new BackgroundObject('./img/5_background/layers/4_clouds/air.png', -719),

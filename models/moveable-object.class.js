@@ -6,11 +6,6 @@ class MoveableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-
-    constructor() {
-        super();
-    }
-
     offset = {
         top: 0,
         bottom: 0,
@@ -18,6 +13,9 @@ class MoveableObject extends DrawableObject {
         right: 0,
     };
 
+    constructor() {
+        super();
+    }
 
     isColliding(mo) {
         let thisLeft = this.x + this.offset.left;
@@ -125,11 +123,7 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
-    // wakeUp() {
-    //     this.playAnimation(this.IMAGES_WALKING);
-    //     this.long_idle_sound.pause();
-    // }
-    //aufrufen mit: this.wakeUp();  NOCH AUFRUFEN!!!
+
 
 }
 

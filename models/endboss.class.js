@@ -21,7 +21,6 @@ class Endboss extends MoveableObject {
         this.x = 2500;
         this.energy = 100;
         console.log('endboss energy at constructor: ', this.energy);
-
         this.animate();
     }
 

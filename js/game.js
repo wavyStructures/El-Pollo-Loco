@@ -7,7 +7,6 @@ let audioMute = true;
 function startPage() {
     canvas = document.getElementById("canvas");
     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
-
 }
 
 function init() {
@@ -121,8 +120,15 @@ function clearAllIntervals() {
 //     }
 // }
 
+function removeWinOverlay() {
+    document.getElementById('winOverlay').classList.remove('flex');
+    document.getElementById('winOverlay').classList.add('d-none');
+}
+
+
 
 function startGame() {
+    removeWinOverlay();
     sounds.playSound(sounds.come_on_sound);
     init();
     hideStartInfo();

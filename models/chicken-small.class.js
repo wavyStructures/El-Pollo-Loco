@@ -36,7 +36,7 @@ class SmallChicken extends MoveableObject {
             }
             if (this.isDead === true) {
                 this.playAnimation(SMALL_CHICKEN_DEAD);
-                this.sounds.playSound(this.sounds.small_chicken_dies);
+                // this.sounds.playSound(this.sounds.small_chicken_dies);
             }
         }, 200);
     }

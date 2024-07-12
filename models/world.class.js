@@ -1,36 +1,40 @@
 class World {
     fullscreenOn = false;
+    statusBarHealth;
+    statusBarCoins
+    statusBarBottles;
+    statusBarEndboss;
     charactersBottles = 0;
     charactersCoins = 0;
     buyBottleTriggered = false;
-
+    throwableObjects = [];
+    lastBottleThrowTime = 0;
+    bottleThrowCooldown = 500;
 
     constructor(canvas, sounds, keyboard) {
         this.character = new Character();
-        this.statusBarHealth = new StatusBarHealth();
-        this.statusBarCoins = new StatusBarCoins();
-        this.statusBarBottles = new StatusBarBottles();
-        this.statusBarEndboss = new StatusBarEndboss();
-
         this.level = level1;
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss); // Find the endboss in the level
-
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
         this.sounds = sounds;
         this.camera_x = 0;
-        this.throwableObjects = [];
-        this.lastBottleThrowTime = 0;
-        this.bottleThrowCooldown = 500;
+        this.startWorld();
+    }
 
-        // this.sounds = new Sounds(this.canvas, this.audioOn);
-
-
-
+    startWorld() {
+        this.addStatusBars();
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+    addStatusBars() {
+        this.statusBarHealth = new StatusBarHealth();
+        this.statusBarCoins = new StatusBarCoins();
+        this.statusBarBottles = new StatusBarBottles();
+        this.statusBarEndboss = new StatusBarEndboss();
     }
 
     setWorld() {

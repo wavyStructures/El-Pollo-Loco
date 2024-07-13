@@ -39,7 +39,6 @@ class World {
 
     setWorld() {
         this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
-
     }
 
 
@@ -91,6 +90,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromTop(enemy) && !(enemy instanceof Endboss)) {
                 enemy.isDead = true;
+                this.sounds.playSound(this.sounds.chicken_dead_sound);
                 console.log('one enemy dying');
                 this.characterKillsEnemy(enemy);
             }
@@ -106,13 +106,11 @@ class World {
 
                     console.log('charactersBottles: ', this.charactersBottles);
                 } else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
-                    console.log('Endboss hit detected');
 
                     this.endboss.hit(10);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
                     console.log('endboss was hit and now has ', this.endboss.energy);
 
-                    // Remove the bottle after hitting the endboss
                     this.throwableObjects.splice(index, 1);
                 }
             });
@@ -121,7 +119,6 @@ class World {
 
     characterKillsEnemy(killedEnemy) {
         this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
-        console.log('number of remaining enemies:', this.level.enemies.length);
     }
 
     enemyHurtsCharacter() {

@@ -3,9 +3,10 @@ let keyboard;
 let world;
 let sounds = new Sounds();
 let audioMute = true;
+let bgMusic;
+let gameIsOn = false;
 
 // function startPage() {
-
 //     canvas = document.getElementById("canvas");
 //     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
 // }
@@ -17,15 +18,20 @@ function startPage() {
     canvas.style.backgroundPosition = 'center';
     adaptCanvasBackground();
     canvas.onclick = startGame;
+
+    bgMusic = document.getElementById('bgMusic');
+    if (!audioMute) {
+        bgMusic.play();
+    }
 }
+
 
 function init() {
 
     console.log('Initializing game...');
-
-
     keyboard = new Keyboard();
     // console.log('Keyboard initialized:', keyboard);
+    // sounds = new Sounds();
 
     initLevel1(); // Ensure level1 is initialized
     // console.log('Level:', level1); // Ensure level1 is defined and initialized
@@ -34,6 +40,9 @@ function init() {
     // console.log('World initialized:', world);
     document.getElementById('startScreenAndCanvas').classList.remove('d-none');
     checkScreenSize();
+    // let bgMusic = document.getElementById('bgMusic');
+    bgMusic.pause();
+    gameIsOn = true;
 }
 
 function checkScreenSize() {
@@ -44,7 +53,6 @@ function checkScreenSize() {
 
 function adaptToMobile() {
     checkMobileBtns();
-
     // showTurnInfo();
     adaptInnerWidth();
 }
@@ -112,10 +120,13 @@ function adaptCanvasBackground() {
 
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
+    // let bgMusic = document.getElementById('bgMusic');
     if (!audioMute) {
         audioIcon.setAttribute('src', './icons/audio_off.svg');
+        bgMusic.pause();
     } else {
         audioIcon.setAttribute('src', './icons/audio_on.svg');
+        if (gameIsOn) { bgMusic.pause(); } else { bgMusic.play(); }
     }
     audioMute = !audioMute;
 }
@@ -158,7 +169,8 @@ function removeWinOverlay() {
 
 
 function startGame() {
-    // canvas.onclick = startGame;
+    let bgMusic = document.getElementById('bgMusic');
+    bgMusic.pause();
     removeWinOverlay();
     sounds.playSound(sounds.come_on_sound);
     init();

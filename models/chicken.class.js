@@ -26,6 +26,7 @@ class Chicken extends MoveableObject {
     animate() {
         setInterval(() => {    //ich möchte das das immer wieder gemacht wird
             this.moveLeft();
+            this.sounds.playSound(this.sounds.chicken);
         }, 1000 / 60);    //damit es 60mal pro Sekunde ausgeführt wird
 
         setInterval(() => {

@@ -8,12 +8,13 @@ class Level {
     sounds = new Sounds();
 
 
-    constructor(enemies, clouds, backgroundObjects, coins, bottles) {
+    constructor(enemies, clouds, backgroundObjects, coins, bottles, sounds) {
 
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.bottles = bottles;
         this.coins = coins;
+        this.sounds = sounds;
     }
 }

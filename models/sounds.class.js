@@ -13,6 +13,7 @@ class Sounds {
             this.isHurt_sound = new Audio('./audio/male-hurt.mp3'),
             this.character_dying_sound = new Audio('./audio/character_dying.mp3'),
             this.small_chicken_dies_sound = new Audio('./audio/small_chicken_dies.mp3'),
+            this.chicken_sound = new Audio('./audio/chicken.mp3'),
             this.chicken_dead_sound = new Audio('./audio/chicken_dead.mp3'),
             this.endboss_alert_sound = new Audio('./audio/endboss_alert.mp3'),
             this.endboss_hit_sound = new Audio('./audio/endboss_hit.mp3'),

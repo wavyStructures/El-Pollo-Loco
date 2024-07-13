@@ -120,37 +120,22 @@ function toggleAudio() {
     audioMute = !audioMute;
 }
 
-// function toggleFullScreen() {
-
-//     if (!document.fullscreenElement) {
-//         let fullScreenDiv = document.getElementById('fullScreenDiv');
-//         fullScreenDiv.requestFullscreen();
-//     } else {
-//         fullScreenDiv.exitFullscreen();
-//     }
-// }
-
 
 function fullscreen() {
     let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
     if (fullscreenElement) {
-        exitFullscreen();
+        closeFullscreen();
     } else {
         let fullscreen = document.getElementById('fullScreenDiv');
         enterFullscreen(fullscreen);
     }
-
 }
 
 function enterFullscreen(element) {
     document.getElementById('canvas').style.width = '-webkit-fill-available';
     document.getElementById('canvas').style.height = '-webkit-fill-available';
-    // document.getElementById('fullScrenButton').style.display = 'none';
-    // document.getElementById('exitFullScreenButton').style.display = 'block';
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-        element.msRequestFullscreen();
     } else if (element.webkitRequestFullscreen) {  // iOS Safari
         element.webkitRequestFullscreen();
     }
@@ -161,30 +146,9 @@ function closeFullscreen() {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) { /* Safari */
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
-        document.msExitFullscreen();
     }
 }
 
-//     }
-
-//     handleFullscreenChange() {
-//         this.world.fullscreenOn = !document.fullscreenElement;
-
-
-// function closeFullscreen() {
-//     if (document.fullscreenElement) {
-//         if (document.exitFullscreen) {
-//             document.exitFullscreen();
-//         } else if (document.webkitExitFullscreen) { // Safari compatibility
-//             document.webkitExitFullscreen();
-//         } else if (document.mozCancelFullScreen) { // Firefox compatibility
-//             document.mozCancelFullScreen();
-//         } else if (document.msExitFullscreen) { // IE/Edge compatibility
-//             document.msExitFullscreen();
-//         }
-//     }
-// }
 
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');

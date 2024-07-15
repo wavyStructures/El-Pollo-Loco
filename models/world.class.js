@@ -12,7 +12,7 @@ class World {
     bottleThrowCooldown = 500;
 
     constructor(canvas, sounds, keyboard) {
-        this.character = new Character();
+        this.character = new Character(sounds);
         this.level = level1;
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss); // Find the endboss in the level
         this.canvas = canvas;
@@ -175,38 +175,40 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-
-        this.addObjectsToMap(this.level.clouds);
+        this.drawBackgroundObjects();
 
         this.ctx.translate(-this.camera_x, 0);
         // ------------  space for fixed objects ----------------
+        this.drawFixedObjects();
+        // ------------  space for more moving objects ----------------
+        this.ctx.translate(this.camera_x, 0);
+        this.drawMoveableObjects();
+        this.ctx.translate(-this.camera_x, 0);
+        let self = this;
+        requestAnimationFrame(function () { self.draw() });
+    }
+
+    drawBackgroundObjects() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+    }
+
+    drawFixedObjects() {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarEndboss);
+    }
 
 
-        // ------------  space for more moving objects ----------------
-        this.ctx.translate(this.camera_x, 0);
-
+    drawMoveableObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
 
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
-        this.ctx.translate(-this.camera_x, 0);
-
-
-        let self = this;
-        requestAnimationFrame(function () { self.draw() });
     }
-
-    // drawFixedObjects() {
-
-    // }
 
     addObjectsToMap(objects) {
         objects.forEach(o => {

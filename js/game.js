@@ -172,19 +172,18 @@ function removeLostOverlay() {
 }
 
 function restartPage() {
+    location.reload();
     removeWinOverlay();
     removeLostOverlay();
-    location.reload();
 }
 
 function startGame() {
     let bgMusic = document.getElementById('bgMusic');
     bgMusic.pause();
-    removeWinOverlay();
-    removeLostOverlay();
     sounds.playSound(sounds.come_on_sound);
     init();
-    hideStartInfo();
+    hideStartInfo(); removeWinOverlay();
+    removeLostOverlay();
 }
 
 function hideStartInfo() {

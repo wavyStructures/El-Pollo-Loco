@@ -14,15 +14,13 @@ class Character extends MoveableObject {
     isJumping = false;
     isIdle = false;
     lastKeyPress = Date.now();
-    // walking_sound = new Audio('audio/walking.mp3');
-    // jump_sound = new Audio('audio/jump.mp3');
-    // long_idle_sound = new Audio('audio/long_idle.mp3');
+    sounds;
 
 
-    constructor() {
+    constructor(sounds) {
         super();
         this.world = world;
-        this.sounds = this.sounds;
+        this.sounds = sounds;
         this.loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadCharacterImages();
         this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
@@ -66,7 +64,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
 
                 this.jump();
-                // this.sounds.playSound(this.sounds.jumping_sound);
+                this.sounds.playSound(this.sounds.jumping_sound);
             }
 
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen

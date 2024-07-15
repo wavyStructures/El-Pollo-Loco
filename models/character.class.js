@@ -22,6 +22,7 @@ class Character extends MoveableObject {
     constructor() {
         super();
         this.world = world;
+        this.sounds = this.sounds;
         this.loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadCharacterImages();
         this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
@@ -65,6 +66,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
 
                 this.jump();
+                // this.sounds.playSound(this.sounds.jumping_sound);
             }
 
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
@@ -73,16 +75,16 @@ class Character extends MoveableObject {
 
     animateImages() {
         let animationInterval = setInterval(() => {
-            if (this.isDead()) {
+            if (this.energy === 0) {
                 this.playAnimation(CHARACTER_DEAD);
                 clearInterval(animationInterval); // Stop checking for animations
-
-                setTimeout(() => {
-                    this.world.clearAllIntervals();
-                    setTimeout(() => {
-                        this.showLostOverlay();
-                    }, 200);
-                }, 50);
+                this.showLostOverlay();
+                // setTimeout(() => {
+                //     this.world.clearAllIntervals();
+                //     setTimeout(() => {
+                //         this.showLostOverlay();
+                //     }, 200);
+                // }, 50);
             } else if (this.isHurt()) {
                 this.playAnimation(CHARACTER_HURT);
             } else if (this.isAboveGround()) {

@@ -6,10 +6,7 @@ class Bottle extends MoveableObject {
     width = 60;
     height = 70;
 
-    // static lastBottleX = 320;
-    // offset = { top: 10, bottom: 10, left: 30, right: 10 };
-
-    IMAGES_BOTTLE = [
+        IMAGES_BOTTLE = [
         './img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         './img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
     ];

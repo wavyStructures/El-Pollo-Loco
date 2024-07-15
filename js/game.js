@@ -6,10 +6,6 @@ let audioMute = true;
 let bgMusic;
 let gameIsOn = false;
 
-// function startPage() {
-//     canvas = document.getElementById("canvas");
-//     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
-// }
 
 function startPage() {
     canvas = document.getElementById("canvas");
@@ -166,12 +162,26 @@ function removeWinOverlay() {
     document.getElementById('winOverlay').classList.add('d-none');
 }
 
+function removeLostOverlay() {
+    if (removeLostOverlay) {
+        document.getElementById('lostOverlay').classList.remove('flex');
+        document.getElementById('lostOverlay').classList.add('d-none');
 
+        // sounds.playSound(sounds.oh_no_sound);
+    }
+}
+
+function restartPage() {
+    removeWinOverlay();
+    removeLostOverlay();
+    location.reload();
+}
 
 function startGame() {
     let bgMusic = document.getElementById('bgMusic');
     bgMusic.pause();
     removeWinOverlay();
+    removeLostOverlay();
     sounds.playSound(sounds.come_on_sound);
     init();
     hideStartInfo();

@@ -46,21 +46,15 @@ class Character extends MoveableObject {
 
     animateWalkingAndJumping() {
         setInterval(() => {
-            // this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-
                 this.moveRight();
                 this.otherDirection = false;
-                // this.walking_sound.play();
             }
-
             if (this.world.keyboard.LEFT && this.x > 0) {
-
                 this.moveLeft();
                 this.otherDirection = true;
                 this.sounds.playSound(this.sounds.walking_sound);
             }
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.sounds.playSound(this.sounds.jumping_sound);
@@ -73,12 +67,12 @@ class Character extends MoveableObject {
         let animationInterval = setInterval(() => {
             if (this.energy === 0) {
                 this.playAnimation(CHARACTER_DEAD);
-                clearInterval(animationInterval); // Stop checking for animations
+                clearInterval(animationInterval);
                 this.sounds.playSound(this.sounds.character_dying_sound);
+                this.sounds.stopSound(this.sounds.walking_sound);
                 this.showLostOverlay();
             } else if (this.isHurt()) {
                 this.playAnimation(CHARACTER_HURT);
-
             } else if (this.isAboveGround()) {
                 this.playAnimation(CHARACTER_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -113,8 +107,7 @@ class Character extends MoveableObject {
 
     showLostOverlay() {
         clearAllIntervals();
-        console.log('lost clear all intervals was one before');
-        // this.sounds.playSound(this.sounds.you_lose_sound);
+        this.sounds.playSound(this.sounds.you_lose_sound);
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
     }

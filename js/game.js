@@ -8,7 +8,8 @@ let gameIsOn = false;
 
 function startPage() {
     canvas = document.getElementById("canvas");
-    canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
+    canvas.style.backgroundImage = 'url("/EPL/img/9_intro_outro_screens/start/startscreen_1.png")';
+    canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
     canvas.style.backgroundRepeat = 'no-repeat';
     canvas.style.backgroundPosition = 'center';
     adaptCanvasBackground();
@@ -38,7 +39,7 @@ function checkScreenSize() {
 
 function adaptToMobile() {
     checkMobileBtns();
-    showTurnInfo();
+    // showTurnInfo();
     adaptInnerWidth();
 }
 
@@ -68,15 +69,15 @@ function hideMobileBtns() {
 
 
 
-function showTurnInfo() {
-    if (window.innerWidth <= 700 && window.innerHeight > window.innerWidth) {
-        document.getElementById('turn-phone-overlay').classList.remove('d-none');
-        document.getElementById('turn-phone-overlay').classList.add('flex');
-    } else {
-        document.getElementById('turn-phone-overlay').classList.remove('d-none');
-        document.getElementById('turn-phone-overlay').classList.add('flex');
-    }
-}
+// function showTurnInfo() {
+//     if (window.innerWidth <= 700 && window.innerHeight > window.innerWidth) {
+//         document.getElementById('turn-phone-overlay').classList.remove('d-none');
+//         document.getElementById('turn-phone-overlay').classList.add('flex');
+//     } else {
+//         document.getElementById('turn-phone-overlay').classList.remove('d-none');
+//         document.getElementById('turn-phone-overlay').classList.add('flex');
+//     }
+// }
 
 /**
  * Adapts width and height of a canvas based on the window's inner width. If the window's inner width is less than 500, 
@@ -152,8 +153,6 @@ function removeLostOverlay() {
     if (removeLostOverlay) {
         document.getElementById('lostOverlay').classList.remove('flex');
         document.getElementById('lostOverlay').classList.add('d-none');
-
-        // sounds.playSound(sounds.oh_no_sound);
     }
 }
 
@@ -164,12 +163,16 @@ function restartPage() {
 }
 
 function startGame() {
-    let bgMusic = document.getElementById('bgMusic');
-    bgMusic.pause();
-    sounds.playSound(sounds.come_on_sound);
+    startGameSounds();
     init();
     hideStartInfo(); removeWinOverlay();
     removeLostOverlay();
+}
+
+function startGameSounds() {
+    let bgMusic = document.getElementById('bgMusic');
+    bgMusic.pause();
+    sounds.playSound(sounds.come_on_sound);
 }
 
 function hideStartInfo() {
@@ -180,9 +183,24 @@ function hideStartInfo() {
     document.getElementById('bottom-info').classList.add('d-none');
 }
 
+
+
 function clearAllIntervals() {
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
+    setTimeout(() => {
+        for (let i = 1; i < 9999; i++) {
+            window.clearInterval(i);
+        }
+    }, 1000);
+
+
+    // for (let i = 1; i < 9999; i++) {
+    //     window.clearInterval(i);
+    // }
+
+
 }
+
+// function stopGame() {
+//     for (let i = 1; i < 9999; i++) window.clearInterval(i);
+// }
 

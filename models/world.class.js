@@ -47,6 +47,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.buyBottleTriggered = false;
+            this.checkDeadEnemies();
         }, 50);
     }
 
@@ -134,6 +135,16 @@ class World {
             };
         }
         );
+    }
+
+    checkDeadEnemies() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy, index) => {
+                if (enemy.isDead) {
+                    this.level.enemies.splice(index, 1)
+                }
+            });
+        }, 18000);
     }
 
     collectBottle() {

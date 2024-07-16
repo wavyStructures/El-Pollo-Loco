@@ -15,9 +15,9 @@ class Chicken extends MoveableObject {
 
     constructor(sounds) {
         super().loadImage('./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
+        this.sounds = sounds;
         this.loadChickenImages();
         this.animate();
-        this.sounds = sounds;
     }
 
     loadChickenImages() {
@@ -33,7 +33,7 @@ class Chicken extends MoveableObject {
 
         setInterval(() => {
             this.playAnimation(CHICKEN_WALKING);
-            // this.sounds.playSound(this.sounds.chicken_sound);
+            this.sounds.playSound(this.sounds.chicken_sound);
         }, 200);
     }
 }   

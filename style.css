@@ -42,11 +42,6 @@ body {
   padding: 80px;
 }
 
-/* .heading {
-  display: flex;
-  justify-content: space-between;
-} */
-
 a {
   text-decoration: none;
   cursor: pointer;
@@ -60,6 +55,7 @@ h1 {
   text-shadow: 4px 3px 2px rgb(125, 28, 28);
   color: brown;
   text-align: center;
+  white-space: nowrap;
 }
 
 h2 {
@@ -176,7 +172,6 @@ canvas {
   border-style: solid;
   border-color: #6f1010;
   border-radius: 8px;
-
   /* 
   width: 100%;
   height: 100%;
@@ -200,7 +195,7 @@ canvas {
 
   align-items: center;
   justify-content: center;
-  padding: 0; /* Remove default padding */
+  padding: 0;
 
   background-color: rgb(251, 200, 112);
   color: brown;

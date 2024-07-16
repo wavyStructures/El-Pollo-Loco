@@ -5,7 +5,7 @@ class Level {
     coins;
     bottles;
     level_end_x = 2400;
-    sounds = new Sounds();
+    // sounds = new Sounds();
 
 
     constructor(enemies, clouds, backgroundObjects, coins, bottles, sounds) {
@@ -16,5 +16,23 @@ class Level {
         this.bottles = bottles;
         this.coins = coins;
         this.sounds = sounds;
+        this.createEnemies();
+    }
+
+    createEnemies() {
+        this.enemies = [
+            new Chicken(this.sounds),
+            new Chicken(this.sounds),
+            new Chicken(this.sounds),
+            new Chicken(this.sounds),
+            new Chicken(this.sounds),
+            new Chicken(this.sounds),
+            new SmallChicken(this.sounds),
+            new SmallChicken(this.sounds),
+            new SmallChicken(this.sounds),
+            new SmallChicken(this.sounds),
+            new SmallChicken(this.sounds),
+            new Endboss(this.sounds)
+        ];
     }
 }

@@ -7,12 +7,14 @@ let bgMusic;
 let gameIsOn = false;
 
 
+
 function startPage() {
     canvas = document.getElementById("canvas");
     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
     canvas.style.backgroundRepeat = 'no-repeat';
     canvas.style.backgroundPosition = 'center';
     adaptCanvasBackground();
+
     canvas.onclick = startGame;
 
     bgMusic = document.getElementById('bgMusic');
@@ -23,22 +25,15 @@ function startPage() {
 
 
 function init() {
-
     console.log('Initializing game...');
     keyboard = new Keyboard();
-    // console.log('Keyboard initialized:', keyboard);
-    // sounds = new Sounds();
-
-    initLevel1(); // Ensure level1 is initialized
-    // console.log('Level:', level1); // Ensure level1 is defined and initialized
-
+    initLevel1();
     world = new World(canvas, sounds, keyboard);
-    // console.log('World initialized:', world);
     document.getElementById('startScreenAndCanvas').classList.remove('d-none');
     checkScreenSize();
-    // let bgMusic = document.getElementById('bgMusic');
     bgMusic.pause();
     gameIsOn = true;
+    if (gameIsOn) { canvas.onclick = null };
 }
 
 function checkScreenSize() {

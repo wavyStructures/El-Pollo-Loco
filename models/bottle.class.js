@@ -6,7 +6,7 @@ class Bottle extends MoveableObject {
     width = 60;
     height = 70;
 
-        IMAGES_BOTTLE = [
+    IMAGES_BOTTLE = [
         './img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         './img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
     ];
@@ -25,6 +25,7 @@ class Bottle extends MoveableObject {
         this.animate();
         this.setInitialPosition();
     }
+
 
     setInitialPosition() {
         this.x = this.width + 150 + Math.random() * 2000;

@@ -14,6 +14,7 @@ class SmallChicken extends MoveableObject {
 
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        this.sounds = sounds;
         this.loadSmallChickenImages();
         this.x = 730 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
@@ -33,10 +34,12 @@ class SmallChicken extends MoveableObject {
         setInterval(() => {
             if (this.isDead === false) {
                 this.playAnimation(SMALL_CHICKEN_WALKING);
+                this.sounds.playSound(this.sounds.chicken_sound);
             }
             if (this.isDead === true) {
                 this.playAnimation(SMALL_CHICKEN_DEAD);
-                // this.sounds.playSound(this.sounds.small_chicken_dies);
+                this.sounds.playSound(this.sounds.small_chicken_dies_sound);
+
             }
         }, 200);
     }

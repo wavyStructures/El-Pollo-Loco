@@ -17,6 +17,7 @@ class Endboss extends MoveableObject {
     constructor() {
         super();
         this.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
+        this.sounds = sounds;
         this.loadEndbossImages();
         this.x = 2500;
         this.energy = 100;
@@ -48,6 +49,8 @@ class Endboss extends MoveableObject {
             } else if (this.isHurt()) {
                 console.log('Endboss is hurt');
                 this.playAnimation(ENDBOSS_HURT);
+                this.sounds.playSound(this.sounds.endboss_hurt_sound);
+
 
             } else if (this.checkFirstContact()) {
                 this.playAnimation(ENDBOSS_ATTACK);

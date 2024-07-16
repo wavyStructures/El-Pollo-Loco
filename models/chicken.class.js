@@ -1,6 +1,6 @@
 class Chicken extends MoveableObject {
 
-    x = 400 + Math.random() * 1000;
+    x = 405 + Math.random() * 3000;
     y = 370;
     width = 60;
     height = 60;
@@ -11,6 +11,8 @@ class Chicken extends MoveableObject {
         bottom: 4,
     };
     speed = 0.15 + Math.random() * 0.25;
+    energy = 5;
+    isDead = false;
 
 
     constructor(sounds) {
@@ -26,14 +28,20 @@ class Chicken extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {    //ich möchte das das immer wieder gemacht wird
+        setInterval(() => {
             this.moveLeft();
-
-        }, 1000 / 60);    //damit es 60mal pro Sekunde ausgeführt wird
+        }, 1000 / 60);
 
         setInterval(() => {
-            this.playAnimation(CHICKEN_WALKING);
-            this.sounds.playSound(this.sounds.chicken_sound);
+            if (!this.energy <= 0) {
+                this.playAnimation(CHICKEN_WALKING);
+                this.sounds.playSound(this.sounds.chicken_sound);
+            } else {
+                this.sounds.stopSound(this.sounds.chicken_sound);
+                this.isDead = true;
+                this.playAnimation(CHICKEN_DEAD);
+                this.sounds.playSound(this.sounds.chicken_dead_sound);
+            }
         }, 200);
     }
 }   

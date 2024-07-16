@@ -18,10 +18,10 @@ class Character extends MoveableObject {
 
 
     constructor(sounds) {
-        super();
+        super().loadImage(CHARACTER_IDLE[2]);
         this.world = world;
         this.sounds = sounds;
-        this.loadImage('./img/2_character_pepe/2_walk/W-21.png');
+        // this.;
         this.loadCharacterImages();
         this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
         this.animate();
@@ -58,15 +58,13 @@ class Character extends MoveableObject {
 
                 this.moveLeft();
                 this.otherDirection = true;
-                // this.walking_sound.play();
+                this.sounds.playSound(this.sounds.walking_sound);
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-
                 this.jump();
                 this.sounds.playSound(this.sounds.jumping_sound);
             }
-
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
         }, 1000 / 60);
     }
@@ -76,15 +74,11 @@ class Character extends MoveableObject {
             if (this.energy === 0) {
                 this.playAnimation(CHARACTER_DEAD);
                 clearInterval(animationInterval); // Stop checking for animations
+                this.sounds.playSound(this.sounds.character_dying_sound);
                 this.showLostOverlay();
-                // setTimeout(() => {
-                //     this.world.clearAllIntervals();
-                //     setTimeout(() => {
-                //         this.showLostOverlay();
-                //     }, 200);
-                // }, 50);
             } else if (this.isHurt()) {
                 this.playAnimation(CHARACTER_HURT);
+
             } else if (this.isAboveGround()) {
                 this.playAnimation(CHARACTER_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -105,7 +99,7 @@ class Character extends MoveableObject {
                 this.isIdle = true;
             } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 20000) {
                 this.playAnimation(CHARACTER_LONG_IDLE);
-                // this.long_idle_sound.play();
+                this.sounds.playSound(this.sounds.long_idle_sound);
                 this.isIdle = true;
             }
         }, 200);
@@ -118,10 +112,12 @@ class Character extends MoveableObject {
     }
 
     showLostOverlay() {
+        clearAllIntervals();
+        console.log('lost clear all intervals was one before');
+        // this.sounds.playSound(this.sounds.you_lose_sound);
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
     }
-
 
 }
 

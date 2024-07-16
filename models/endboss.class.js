@@ -80,6 +80,7 @@ class Endboss extends MoveableObject {
     }
 
     showWinOverlay() {
+        this.sounds.playSound(this.sounds.you_lose_sound);
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
 

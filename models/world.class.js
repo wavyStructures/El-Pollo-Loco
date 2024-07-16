@@ -221,7 +221,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -250,10 +250,8 @@ class World {
         statusBar.setPercentage(statusBar.percentage);
     }
 
-    clearAllIntervals() {
-        for (let i = 1; i < 9999; i++) {
-            window.clearInterval(i);
-        }
-    }
+
 }
+
+
 //mo = moveableObject

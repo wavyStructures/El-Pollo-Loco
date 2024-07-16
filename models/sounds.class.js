@@ -37,6 +37,14 @@ class Sounds {
             sound.pause();
         }
     }
+
+    stopSound(sound) {
+        sound.pause();
+    }
+
+    stopAllSounds() {
+        this.allSounds.forEach(sound => sound.pause());
+    }
 }
 
 // const sounds = new Sounds();

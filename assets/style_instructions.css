@@ -142,16 +142,12 @@ p {
 }
 
 @media only screen and (max-width: 720px) {
-  canvas {
-    width: 100svw;
-
-    h1 {
-      display: none;
-    }
+  h1 {
+    display: none;
   }
 }
 
-@media only screen and (max-height: 480px) {
+/* @media only screen and (max-height: 480px) {
   canvas {
     height: 100svh;
     width: 100svw;
@@ -184,9 +180,6 @@ p {
     .rotate-phone {
       display: flex;
       align-items: center;
-      /* justify-content: flex-start; */
-      /* padding-top: 240px; */
-      /* flex-direction: column; */
     }
   }
-}
+} */

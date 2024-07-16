@@ -6,23 +6,18 @@ let audioMute = true;
 let bgMusic;
 let gameIsOn = false;
 
-
-
 function startPage() {
     canvas = document.getElementById("canvas");
     canvas.style.backgroundImage = 'url("/img/9_intro_outro_screens/start/startscreen_1.png")';
     canvas.style.backgroundRepeat = 'no-repeat';
     canvas.style.backgroundPosition = 'center';
     adaptCanvasBackground();
-
     canvas.onclick = startGame;
-
     bgMusic = document.getElementById('bgMusic');
     if (!audioMute) {
         bgMusic.play();
     }
 }
-
 
 function init() {
     console.log('Initializing game...');
@@ -41,10 +36,9 @@ function checkScreenSize() {
     window.addEventListener('orientationchange', adaptToMobile);
 }
 
-
 function adaptToMobile() {
     checkMobileBtns();
-    // showTurnInfo();
+    showTurnInfo();
     adaptInnerWidth();
 }
 
@@ -55,7 +49,6 @@ function checkMobileBtns() {
         hideMobileBtns();
     }
 }
-
 
 function showMobileBtns() {
     document.getElementById('bottom-info').classList.remove('flex');
@@ -76,7 +69,7 @@ function hideMobileBtns() {
 
 
 function showTurnInfo() {
-    if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
+    if (window.innerWidth <= 700 && window.innerHeight > window.innerWidth) {
         document.getElementById('turn-phone-overlay').classList.remove('d-none');
         document.getElementById('turn-phone-overlay').classList.add('flex');
     } else {
@@ -111,7 +104,6 @@ function adaptCanvasBackground() {
 
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
-    // let bgMusic = document.getElementById('bgMusic');
     if (!audioMute) {
         audioIcon.setAttribute('src', './icons/audio_off.svg');
         bgMusic.pause();
@@ -151,7 +143,6 @@ function closeFullscreen() {
     }
 }
 
-
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');
     document.getElementById('winOverlay').classList.add('d-none');
@@ -182,7 +173,6 @@ function startGame() {
 }
 
 function hideStartInfo() {
-
     document.getElementById('startScreenTop').classList.remove('flex');
     document.getElementById('startScreenTop').classList.add('d-none');
 
@@ -190,22 +180,9 @@ function hideStartInfo() {
     document.getElementById('bottom-info').classList.add('d-none');
 }
 
-
-
-
-
-
-
-
-
-
-
-//     const restartButton = document.getElementById('playAgainButton');
-//     restartButton.classList.remove('d-none');
-//     restartButton.classList.add('flex');
-//     if (world) { world.removeEnemiesAndBars();
-//or   clearAllIntervals
-//     }
-// }
-
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
 

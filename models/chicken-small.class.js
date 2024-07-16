@@ -32,14 +32,17 @@ class SmallChicken extends MoveableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isDead === false) {
+            if (!this.isDead) {
                 this.playAnimation(SMALL_CHICKEN_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);
             }
-            if (this.isDead === true) {
-                this.playAnimation(SMALL_CHICKEN_DEAD);
-                this.sounds.playSound(this.sounds.small_chicken_dies_sound);
-
+            else {
+                if (!this.deadSoundPlayed) {
+                    this.deadSoundPlayed = true;
+                    this.sounds.stopSound(this.sounds.chicken_sound);
+                    this.playAnimation(SMALL_CHICKEN_DEAD);
+                    this.sounds.playSound(this.sounds.small_chicken_dies_sound);
+                }
             }
         }, 200);
     }

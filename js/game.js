@@ -7,17 +7,15 @@ let bgMusic;
 let gameIsOn = false;
 
 function startPage() {
-    canvas = document.getElementById("canvas");
-    canvas.style.backgroundImage = 'url("/EPL/img/9_intro_outro_screens/start/startscreen_1.png")';
-    canvas.style.backgroundImage = 'url("img/9_intro_outro_screens/start/startscreen_1.png")';
-    canvas.style.backgroundRepeat = 'no-repeat';
-    canvas.style.backgroundPosition = 'center';
-    adaptCanvasBackground();
-    canvas.onclick = startGame;
+    startPageCanvas();
     bgMusic = document.getElementById('bgMusic');
-    if (!audioMute) {
-        bgMusic.play();
-    }
+    if (!audioMute) { bgMusic.play(); }
+}
+
+function startPageCanvas() {
+    canvas = document.getElementById("canvas");
+    canvas.classList.add("start-page-background");
+    canvas.onclick = startGame;
 }
 
 function init() {
@@ -94,12 +92,12 @@ function adaptInnerWidth() {
         canvas.width = 720;
         canvas.height = 480;
     }
-    adaptCanvasBackground();
+    // adaptCanvasBackground();
 }
 
-function adaptCanvasBackground() {
-    canvas.style.backgroundSize = `${canvas.width}px ${canvas.height}px`;
-}
+// function adaptCanvasBackground() {
+//     canvas.style.backgroundSize = `${canvas.width}px ${canvas.height}px`;
+// }
 
 
 

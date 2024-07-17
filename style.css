@@ -108,15 +108,13 @@ h2:hover {
 }
 
 canvas {
-  background-color: black;
+  background-size: 720px 480px;
   position: relative;
   display: block;
 }
 
-#canvas {
-  display: block;
-  margin: 0 auto;
-  background-size: cover;
+.start-page-background {
+  background-image: url("img/9_intro_outro_screens/start/startscreen_1.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -238,6 +236,7 @@ button {
 
 .you-won {
   flex-direction: column;
+  /* display: flex; */
   position: absolute;
   top: 0;
   left: 0;
@@ -309,9 +308,9 @@ button {
 }
 
 @media screen and (max-width: 720px) {
-  canvas {
+  /* canvas {
     width: 100svw;
-  }
+  } */
   h1 {
     display: none;
   }
@@ -343,6 +342,7 @@ button {
     justify-content: flex-start;
     padding: 100px;
     flex-direction: column;
+    width: 100vw;
   }
 }
 
@@ -355,5 +355,40 @@ button {
     position: absolute;
     z-index: 1;
     gap: 24px;
+    top: 16px;
+    flex-direction: column;
+  }
+
+  canvas {
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .endscreen-buttons {
+    bottom: 0;
+
+    > button {
+      width: unset;
+      height: unset;
+      font-size: xx-large;
+    }
+  }
+
+  #content {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+  }
+
+  .bottom-info {
+    display: none;
+  }
+
+  .bottom-info-mobile {
+    position: absolute;
+    bottom: 8px;
   }
 }

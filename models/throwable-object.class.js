@@ -69,7 +69,8 @@ class ThrowableObject extends MoveableObject {
     }
 
     cleanupAfterThrow() {
-        clearInterval(this.animationInterval);
+        clearAllIntervals();
+        // this.animationInterval);
         // clearInterval(this.throwInterval......);
         //more objects to be removed e.g.
     }

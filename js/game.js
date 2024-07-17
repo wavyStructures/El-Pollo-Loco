@@ -186,20 +186,11 @@ function hideStartInfo() {
 
 
 function clearAllIntervals() {
-    setTimeout(() => {
-        for (let i = 1; i < 9999; i++) {
-            window.clearInterval(i);
-        }
-    }, 1000);
 
-
-    // for (let i = 1; i < 9999; i++) {
-    //     window.clearInterval(i);
-    // }
-
-
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
 }
-
 // function stopGame() {
 //     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 // }

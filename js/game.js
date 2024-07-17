@@ -114,33 +114,33 @@ function toggleAudio() {
 }
 
 
-function fullscreen() {
-    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-    if (fullscreenElement) {
-        closeFullscreen();
-    } else {
-        let fullscreen = document.getElementById('fullScreenDiv');
-        enterFullscreen(fullscreen);
-    }
-}
+// function fullscreen() {
+//     let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+//     if (fullscreenElement) {
+//         closeFullscreen();
+//     } else {
+//         let fullscreen = document.getElementById('fullScreenDiv');
+//         enterFullscreen(fullscreen);
+//     }
+// }
 
-function enterFullscreen(element) {
-    document.getElementById('canvas').style.width = '-webkit-fill-available';
-    document.getElementById('canvas').style.height = '-webkit-fill-available';
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
-        element.webkitRequestFullscreen();
-    }
-}
+// function enterFullscreen(element) {
+//     document.getElementById('canvas').style.width = '-webkit-fill-available';
+//     document.getElementById('canvas').style.height = '-webkit-fill-available';
+//     if (element.requestFullscreen) {
+//         element.requestFullscreen();
+//     } else if (element.webkitRequestFullscreen) {  // iOS Safari
+//         element.webkitRequestFullscreen();
+//     }
+// }
 
-function closeFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
-        document.webkitExitFullscreen();
-    }
-}
+// function closeFullscreen() {
+//     if (document.exitFullscreen) {
+//         document.exitFullscreen();
+//     } else if (document.webkitExitFullscreen) { /* Safari */
+//         document.webkitExitFullscreen();
+//     }
+// }
 
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');
@@ -161,6 +161,7 @@ function restartPage() {
 }
 
 function startGame() {
+    canvas.classList.remove("start-page-background");
     startGameSounds();
     init();
     hideStartInfo(); removeWinOverlay();

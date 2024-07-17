@@ -86,7 +86,6 @@ h2:hover {
 }
 
 .start-screen-top {
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
   padding: 8px 24px;
@@ -110,8 +109,6 @@ h2:hover {
 
 canvas {
   background-color: black;
-  /* background-size: cover; */
-  /* background-size: 720px 480px; */
   position: relative;
   display: block;
 }
@@ -228,13 +225,8 @@ button {
 }
 
 .bottom-info {
-  /* display: flex; */
   justify-content: space-between;
-  /* align-items: center; */
   padding: 8px 32px;
-  /* width: 75vw; */
-  /* margin-top: -64px; */
-
   z-index: 9;
   color: #771b1b;
   font-size: 21px;
@@ -287,9 +279,6 @@ button {
 
 .you-won > img {
   width: 80vw;
-  /* position: absolute;
-  top: 20%;
-  left: 10%; */
 }
 
 .endscreen-buttons {
@@ -354,5 +343,17 @@ button {
     justify-content: flex-start;
     padding: 100px;
     flex-direction: column;
+  }
+}
+
+@media screen and (max-height: 620px) and (orientation: landscape) {
+  h1 {
+    display: none;
+  }
+
+  .start-screen-top {
+    position: absolute;
+    z-index: 1;
+    gap: 24px;
   }
 }

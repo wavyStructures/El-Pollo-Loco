@@ -356,12 +356,19 @@ button {
     z-index: 1;
     gap: 24px;
     top: 16px;
+    left: 48px;
     flex-direction: column;
   }
 
+  .full-screen {
+    margin: 16px 8px 0 0;
+  }
+
   canvas {
-    height: 100%;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    /* height: 100%;
+    width: 100%; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

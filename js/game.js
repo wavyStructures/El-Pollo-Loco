@@ -42,9 +42,9 @@ function adaptToMobile() {
 }
 
 function checkMobileBtns() {
-    if (window.innerWidth <= 768) {
+    if (window.innerHeight <= 620 && window.matchMedia("(orientation: landscape)").matches) {
         showMobileBtns();
-    } else if (window.innerWidth > 768) {
+    } else {
         hideMobileBtns();
     }
 }

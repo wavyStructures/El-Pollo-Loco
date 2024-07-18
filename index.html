@@ -56,12 +56,15 @@
                     </div>
                 </div>
                 <div class="canvas-bottom-info">
-                    <canvas id="canvas" width="720" height="480"> </canvas>
+                    <div id="newFullScreen">
+                        <canvas id="canvas" width="720" height="480"> </canvas>
 
-                    <div id="icon-container" class="icon-container">
-                        <img id="audioIcon" onclick="toggleAudio()" class="audio-icon" src="./img/audio_off.svg">
-                        <audio id="bgMusic" style="display:none" src="./audio/jarabe-tapatio-mariachi.mp3"></audio>
-                        <img onclick="fullscreen()" id="fullScreen" class="full-screen" src="./img/fullscreen.svg">
+                        <div id="icon-container" class="icon-container">
+                            <img id="audioIcon" onclick="toggleAudio()" class="audio-icon" src="./img/audio_off.svg">
+                            <audio id="bgMusic" style="display:none" src="./audio/jarabe-tapatio-mariachi.mp3"></audio>
+                            <img id="fullScreen" onclick="checkToggleFullScreen()" class="full-screen"
+                                src="./img/fullscreen.svg">
+                        </div>
                     </div>
 
                     <div id="bottom-info-mobile" class="bottom-info-mobile d-none">
@@ -90,7 +93,7 @@
     </div>
 
 
-    </div>
+
     <div id="lostOverlay" class="overlay you-lost d-none">
         <img src="./img/9_intro_outro_screens/game_over/ohyoulost.png">
         <div class="endscreen-buttons">
@@ -98,8 +101,6 @@
             <button onclick="restartPage()">Back to start</button>
         </div>
     </div>
-
-
 
     <div id="winOverlay" class="overlay you-won d-none">
         <img src="./img/9_intro_outro_screens/win/win_1.png">

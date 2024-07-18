@@ -26,6 +26,10 @@ body {
   color: brown;
 }
 
+#fullScreenDiv {
+  display: block;
+}
+
 #content {
   display: flex;
   flex-direction: column;
@@ -400,4 +404,22 @@ button {
     position: absolute;
     bottom: 8px;
   }
+}
+
+body.fullscreen-mode #content {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+}
+
+body.fullscreen-mode #newFullScreen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.fullscreen-mode canvas {
+  width: 100% !important;
+  height: 100% !important;
 }

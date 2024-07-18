@@ -5,6 +5,7 @@ let sounds = new Sounds();
 let audioMute = true;
 let bgMusic;
 let gameIsOn = false;
+let fullscreenOn = false;
 
 function startPage() {
     startPageCanvas();
@@ -113,34 +114,34 @@ function toggleAudio() {
     audioMute = !audioMute;
 }
 
+function checkToggleFullScreen() {
+    if (gameIsOn) {
+        toggleFullScreen(document.getElementById('newFullScreen'));
+    } else {
+        toggleFullScreen(document.documentElement);
+    }
+}
 
-// function fullscreen() {
-//     let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-//     if (fullscreenElement) {
-//         closeFullscreen();
-//     } else {
-//         let fullscreen = document.getElementById('fullScreenDiv');
-//         enterFullscreen(fullscreen);
-//     }
-// }
+function toggleFullScreen(element) {
+    if (!fullscreenOn) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+            document.body.classList.add('fullscreen-mode');
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+    fullscreenOn = !fullscreenOn;
+}
 
-// function enterFullscreen(element) {
-//     document.getElementById('canvas').style.width = '-webkit-fill-available';
-//     document.getElementById('canvas').style.height = '-webkit-fill-available';
-//     if (element.requestFullscreen) {
-//         element.requestFullscreen();
-//     } else if (element.webkitRequestFullscreen) {  // iOS Safari
-//         element.webkitRequestFullscreen();
-//     }
-// }
 
-// function closeFullscreen() {
-//     if (document.exitFullscreen) {
-//         document.exitFullscreen();
-//     } else if (document.webkitExitFullscreen) { /* Safari */
-//         document.webkitExitFullscreen();
-//     }
-// }
+
+
+
+
+
 
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');
@@ -178,8 +179,8 @@ function hideStartInfo() {
     document.getElementById('startScreenTop').classList.remove('flex');
     document.getElementById('startScreenTop').classList.add('d-none');
 
-    document.getElementById('bottom-info').classList.remove('flex');
-    document.getElementById('bottom-info').classList.add('d-none');
+    // document.getElementById('bottom-info').classList.remove('flex');
+    // document.getElementById('bottom-info').classList.add('d-none');
 }
 
 

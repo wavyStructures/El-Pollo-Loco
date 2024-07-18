@@ -1,5 +1,5 @@
 class World {
-    fullscreenOn = false;
+    // fullscreenOn = false;
     statusBarHealth;
     statusBarCoins
     statusBarBottles;
@@ -141,6 +141,7 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
                 if (enemy.isDead) {
+
                     this.level.enemies.splice(index, 1)
                 }
             });

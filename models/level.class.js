@@ -4,6 +4,7 @@ class Level {
     backgroundObjects;
     coins;
     bottles;
+    sounds;
     level_end_x = 2400;
     // sounds = new Sounds();
 

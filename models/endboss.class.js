@@ -12,9 +12,9 @@ class Endboss extends MoveableObject {
     speed = 5;
     hitCount = 0;
     hadFirstContact = false;
+    isDead = false;
 
-
-    constructor() {
+    constructor(sounds) {
         super();
         this.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
         this.sounds = sounds;
@@ -32,54 +32,57 @@ class Endboss extends MoveableObject {
         this.loadImages(ENDBOSS_DEAD);
     }
 
-
-
     checkFirstContact() {
         return world.character.x >= 2200;
     }
 
     animate() {
-
-        let endbossInterval = setInterval(() => {
+        this.endbossInterval = setInterval(() => {
             if (this.energy === 0) {
-                this.playAnimation(ENDBOSS_DEAD);
-                clearInterval(endbossInterval);
-                this.showWinOverlay();
-
-            } else if (this.isHurt()) {
-                console.log('Endboss is hurt');
-                this.playAnimation(ENDBOSS_HURT);
-                this.sounds.playSound(this.sounds.endboss_hurt_sound);
-
-
+                console.log('endboss ZERO ENERGY');
+                this.deadAnimation();
+            }
+            else if (this.isHurt()) {
+                this.hurtAnimation();
             } else if (this.checkFirstContact()) {
-                this.playAnimation(ENDBOSS_ATTACK);
-                this.jump();
-                this.walkLeft();
-
-            } else {
+                this.attackAnimation();
+            }
+            else {
                 this.playAnimation(ENDBOSS_WALKING);
             }
         }, 200);
     }
 
-    hurtAnimation() {
-        // Implement hurt animation logic
-        console.log('Endboss hurt animation');
-    }
-
     deadAnimation() {
-        // Implement dead animation logic
-        console.log('Endboss dead animation');
+        setInterval(() => {
+            this.playAnimation(ENDBOSS_DEAD);
+        }, 200);
+        this.isDead = true;  // Add a flag to indicate the boss is dead
+        setTimeout(() => { this.endOfGame(); }, 1500);
     }
 
+    endOfGame() {
+        clearInterval(this.endbossInterval);
+        this.showWinOverlay();
+    }
 
+    hurtAnimation() {
+        this.playAnimation(ENDBOSS_HURT);
+        this.sounds.playSound(this.sounds.endboss_hurt_sound);
+    }
+
+    attackAnimation() {
+        this.playAnimation(ENDBOSS_ATTACK);
+        this.jump();
+        this.walkLeft();
+    }
 
     walkLeft() {
         this.moveLeft();
     }
 
     showWinOverlay() {
+
         this.sounds.playSound(this.sounds.you_lose_sound);
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
@@ -89,21 +92,3 @@ class Endboss extends MoveableObject {
 
 }
 
-
-
-
-// basicAnimationEndboss() {
-
-//     let i = 0;
-//     setInterval(() => {
-//         if (i < 10) { this.playAnimation(this.ENDBOSS_WALKING); } else {
-//             this.playAnimation(this.ENDBOSS_ATTACK);
-//         }
-//         i++;
-//         if (!this.hadFirstContact) {
-//             i = 0;
-//             this.hadFirstContact = true;
-//             this.playAnimation(this.ENDBOSS_ATTACK);
-//         }
-//     }, 200);
-// }

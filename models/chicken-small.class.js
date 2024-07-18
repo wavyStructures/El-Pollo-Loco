@@ -12,7 +12,7 @@ class SmallChicken extends MoveableObject {
         bottom: 2,
     };
 
-    constructor() {
+    constructor(sounds) {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.sounds = sounds;
         this.loadSmallChickenImages();

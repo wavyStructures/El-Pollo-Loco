@@ -38,7 +38,6 @@ function checkScreenSize() {
 
 function adaptToMobile() {
     checkMobileBtns();
-    // showTurnInfo();
     adaptInnerWidth();
 }
 
@@ -65,18 +64,6 @@ function hideMobileBtns() {
     document.getElementById('bottom-info-mobile').classList.add('d-none');
 }
 
-
-
-
-// function showTurnInfo() {
-//     if (window.innerWidth <= 700 && window.innerHeight > window.innerWidth) {
-//         document.getElementById('turn-phone-overlay').classList.remove('d-none');
-//         document.getElementById('turn-phone-overlay').classList.add('flex');
-//     } else {
-//         document.getElementById('turn-phone-overlay').classList.remove('d-none');
-//         document.getElementById('turn-phone-overlay').classList.add('flex');
-//     }
-// }
 
 /**
  * Adapts width and height of a canvas based on the window's inner width. If the window's inner width is less than 500, 
@@ -137,12 +124,6 @@ function toggleFullScreen(element) {
 }
 
 
-
-
-
-
-
-
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');
     document.getElementById('winOverlay').classList.add('d-none');
@@ -185,12 +166,12 @@ function hideStartInfo() {
 
 
 
-function clearAllIntervals() {
+// function clearAllIntervals() {
 
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
-}
+//     for (let i = 1; i < 9999; i++) {
+//         window.clearInterval(i);
+//     }
+// }
 // function stopGame() {
 //     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 // }

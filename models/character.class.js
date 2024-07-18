@@ -106,9 +106,8 @@ class Character extends MoveableObject {
     }
 
     showLostOverlay() {
-        clearAllIntervals();
 
-        console.log('lost clear all intervals was one before');
+
         this.sounds.playSound(this.sounds.you_lose_sound);
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');

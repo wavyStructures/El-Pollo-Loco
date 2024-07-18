@@ -64,10 +64,8 @@ class MoveableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
             if (this instanceof Endboss) {
                 this.hitCount++;
-                this.hurtAnimation();
-                if (this.hitCount >= 10) {
+                if (this.hitCount >= 8) {
                     this.energy = 0;
-                    this.deadAnimation();
                 }
             }
         }
@@ -79,6 +77,11 @@ class MoveableObject extends DrawableObject {
         return timepassed < 1;
     }
 
+    /**
+     * Checks if the object is dead by checking if its energy is equal to 0.
+     *
+     * @return {boolean} Returns true if the object's energy is 0, false otherwise.
+     */
     isDead() {
         return this.energy == 0;
     }

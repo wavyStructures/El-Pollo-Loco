@@ -92,7 +92,6 @@ class World {
             if (this.character.isCollidingFromTop(enemy) && !(enemy instanceof Endboss)) {
                 enemy.isDead = true;
                 this.sounds.playSound(this.sounds.chicken_dead_sound);
-                console.log('one enemy dying');
                 this.characterKillsEnemy(enemy);
             }
         });
@@ -104,10 +103,9 @@ class World {
                 if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
                     enemy.isDead = true;
                     this.throwableObjects.splice(index, 1);
-
                     console.log('charactersBottles: ', this.charactersBottles);
-                } else if (bottle.isCollidingFromSide(enemy) && (enemy instanceof Endboss)) {
 
+                } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
                     this.endboss.hit(10);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
                     console.log('endboss was hit and now has ', this.endboss.energy);
@@ -140,8 +138,7 @@ class World {
     checkDeadEnemies() {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
-                if (enemy.isDead) {
-
+                if (!(enemy instanceof Endboss) && enemy.isDead) {
                     this.level.enemies.splice(index, 1)
                 }
             });

@@ -6,6 +6,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .flex {
@@ -38,7 +39,6 @@ body {
   min-height: 100vh;
   padding: 24px;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 a {
@@ -68,30 +68,24 @@ h2 {
 
 h3 {
   font-size: 26px;
-  padding: 8px 0 3px 0;
+  padding: 12px 0 3px 0;
   letter-spacing: 2px;
+}
+
+h4 {
+  font-size: 21px;
+  padding: 5ch 0 3px 0;
 }
 
 p {
   font-size: 24px;
   font-weight: lighter;
+  text-align: center;
 }
 
 ul {
   font-size: 21px;
   font-weight: lighter;
-}
-
-@keyframes blink-scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 .single-box {
@@ -108,6 +102,10 @@ ul {
   outline: none;
   border: none;
   background-color: transparent;
+}
+
+.goBackButton > a {
+  font-size: 32px;
 }
 
 .goBackButton > a:hover {

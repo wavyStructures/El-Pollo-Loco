@@ -20,7 +20,6 @@ function startPageCanvas() {
 }
 
 function init() {
-    console.log('Initializing game...');
     keyboard = new Keyboard();
     initLevel1();
     world = new World(canvas, sounds, keyboard);
@@ -146,7 +145,8 @@ function startGame() {
     canvas.classList.remove("start-page-background");
     startGameSounds();
     init();
-    hideStartInfo(); removeWinOverlay();
+    hideStartInfo();
+    removeWinOverlay();
     removeLostOverlay();
 }
 

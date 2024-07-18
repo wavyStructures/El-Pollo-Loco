@@ -1,5 +1,4 @@
 class World {
-    // fullscreenOn = false;
     statusBarHealth;
     statusBarCoins
     statusBarBottles;
@@ -78,7 +77,7 @@ class World {
         this.collectCoin();
         if (!this.buyBottleTriggered) {
             this.buyBottle();
-            this.buyBottleTriggered = true; // Set flag to true after calling buyBottle()
+            this.buyBottleTriggered = true;
         }
 
         this.characterJumpingOnEnemy();
@@ -108,8 +107,6 @@ class World {
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
                     this.endboss.hit(10);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
-                    console.log('endboss was hit and now has ', this.endboss.energy);
-
                     this.throwableObjects.splice(index, 1);
                 }
             });
@@ -125,11 +122,6 @@ class World {
             if (this.character.isCollidingFromSide(enemy)) {
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
-
-                // if (this.character.energy <= 0) {
-                //     console.log('Game Over');
-
-                // }
             };
         }
         );

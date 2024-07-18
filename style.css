@@ -89,6 +89,10 @@ h2:hover {
   cursor: pointer;
 }
 
+h4 {
+  font-size: 21px;
+}
+
 .start-screen-top {
   justify-content: space-between;
   align-items: center;

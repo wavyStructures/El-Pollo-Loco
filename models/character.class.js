@@ -16,15 +16,13 @@ class Character extends MoveableObject {
     lastKeyPress = Date.now();
     sounds;
 
-
     constructor(sounds) {
-        super().loadImage(CHARACTER_IDLE[2]);
+        super().loadImage(CHARACTER_IDLE[0]);
         this.world = world;
         this.sounds = sounds;
-        // this.;
         this.loadCharacterImages();
-        this.applyGravity();  //sobald er erstellt wird soll er auch Gravitation haben
-        this.animate();
+        this.applyGravity();
+        setTimeout(() => { this.animate(); }, 1000);
     }
 
     loadCharacterImages() {

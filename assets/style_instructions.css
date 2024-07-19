@@ -1,6 +1,7 @@
 @font-face {
   font-family: "zabars";
   src: url("/fonts/zabars.ttf");
+  src: url("/EPL/fonts/zabars.ttf");
 }
 
 * {

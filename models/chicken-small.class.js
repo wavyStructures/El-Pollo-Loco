@@ -12,6 +12,11 @@ class SmallChicken extends MoveableObject {
         bottom: 2,
     };
 
+    /**
+     * Constructor for SmallChicken class.
+     *
+     * @param {type} sounds - The sounds for the chicken.
+     */
     constructor(sounds) {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.sounds = sounds;
@@ -21,11 +26,17 @@ class SmallChicken extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Loads the small chicken images for walking and dead states.
+     */
     loadSmallChickenImages() {
         this.loadImages(SMALL_CHICKEN_WALKING);
         this.loadImages(SMALL_CHICKEN_DEAD);
     }
 
+    /**
+     * Function to animate the small chicken's movement and actions.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

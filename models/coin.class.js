@@ -5,7 +5,6 @@ class Coin extends MoveableObject {
         './img/8_coin/coin_1.png',
         './img/8_coin/coin_2.png'
     ];
-
     offset = {
         left: 35,
         top: 35,
@@ -13,6 +12,9 @@ class Coin extends MoveableObject {
         bottom: 35,
     };
 
+    /**
+     * Initializes a new instance of the Coin class.
+     */
     constructor() {
         super().loadImage(this.IMAGES_COINS[0]);
         this.loadImages(this.IMAGES_COINS);
@@ -21,6 +23,9 @@ class Coin extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Initiates an animation loop to play the coin animation.
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_COINS);

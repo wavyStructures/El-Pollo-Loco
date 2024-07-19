@@ -10,7 +10,6 @@ class Keyboard {
 
     /**
      * Checks if any key on the keyboard is pressed.
-     *
      * @param {Object} world - The world object containing the keyboard state.
      * @return {boolean} Returns true if any key is pressed, false otherwise.
      */
@@ -20,7 +19,6 @@ class Keyboard {
 
     /**
      * Checks if no key is pressed in the given world.
-     *
      * @param {Object} world - The world object containing the keyboard state.
      * @return {boolean} Returns true if no key is pressed, false otherwise.
      */
@@ -38,7 +36,6 @@ class Keyboard {
 
     /**
      * Listens for keydown and keyup events to update keyboard state.
-     *
      */
     bindKeyPressEvents() {
         window.addEventListener('keydown', (e) => {
@@ -102,8 +99,6 @@ class Keyboard {
 
     /**
      * Binds touchstart and touchend events to the specified buttons to update the corresponding properties of the keyboard object.
-     *
-     * @return {void}
      */
     bindBtnPressEvents() {
         document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
@@ -148,15 +143,3 @@ class Keyboard {
         });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

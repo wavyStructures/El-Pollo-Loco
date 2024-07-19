@@ -1,6 +1,4 @@
 class StatusBarEndboss extends DrawableObject {
-
-
     IMAGES = [
         './img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
         './img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
@@ -10,9 +8,11 @@ class StatusBarEndboss extends DrawableObject {
         './img/7_statusbars/2_statusbar_endboss/blue/blue100.png',
     ];
 
-
     percentage = 100;
 
+    /**
+     * Constructor for initializing the StatusBarEndboss with images, position, size, and initial percentage.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -23,12 +23,20 @@ class StatusBarEndboss extends DrawableObject {
         this.setPercentage(100);
     }
 
+    /**
+     * Sets the percentage value and updates the image path accordingly.
+     * @param {number} percentage - The new percentage value to set.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves the index of the image to be used based on the percentage value.
+     * @return {number} The index of the image to be used.
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;
@@ -49,6 +57,4 @@ class StatusBarEndboss extends DrawableObject {
             return 0;
         }
     }
-
-
 }

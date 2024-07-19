@@ -15,6 +15,10 @@ class Chicken extends MoveableObject {
     isDead = false;
 
 
+    /**
+     * Creates a new instance of the Chicken class.
+     * @param {Object} sounds - The sounds object.
+     */
     constructor(sounds) {
         super().loadImage('./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.sounds = sounds;
@@ -27,6 +31,9 @@ class Chicken extends MoveableObject {
         this.loadImages(CHICKEN_DEAD);
     }
 
+    /**
+     * Function to animate the chicken object.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

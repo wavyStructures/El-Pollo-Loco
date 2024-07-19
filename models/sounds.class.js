@@ -1,5 +1,9 @@
 class Sounds {
 
+    /**
+     * Constructs a new instance of the Sounds class.
+     * @this {Sounds}
+     */
     constructor() {
         this.allSounds = [
             this.background_music_sound = new Audio('./audio/jarabe-tapatio-mariachi.mp3'),
@@ -25,8 +29,6 @@ class Sounds {
         ];
     }
 
-
-
     /**
      *  plays a sound if the variable audioMute is not active; otherwise the sound is paused.
      * @param {audioElement} sound 
@@ -39,14 +41,21 @@ class Sounds {
         }
     }
 
+    /**
+     * Pauses the given sound.
+     * @param {type} sound - The sound to be paused.
+     */
     stopSound(sound) {
         sound.pause();
     }
 
-    stopAllSounds() {
-        this.allSounds.forEach(sound => sound.pause());
+    /**
+     * Mutes all sounds by pausing each sound and resetting its time to 0.
+     */
+    muteAllSounds() {
+        this.allSounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
     }
 }
-
-// const sounds = new Sounds();
-// export default sounds;

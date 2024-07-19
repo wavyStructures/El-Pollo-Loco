@@ -16,6 +16,10 @@ class Character extends MoveableObject {
     lastKeyPress = Date.now();
     sounds;
 
+    /**
+     * Initializes the character with the provided sounds and sets up initial properties and actions.
+     * @param {type} sounds - The sounds associated with the character.
+     */
     constructor(sounds) {
         super().loadImage(CHARACTER_IDLE[0]);
         this.world = world;
@@ -25,6 +29,9 @@ class Character extends MoveableObject {
         setTimeout(() => { this.animate(); }, 1000);
     }
 
+    /**
+     * Loads images for various character actions like walking, jumping, hurt, dead, idle, and long idle.
+     */
     loadCharacterImages() {
         this.loadImages(CHARACTER_WALKING);
         this.loadImages(CHARACTER_JUMPING);
@@ -34,6 +41,9 @@ class Character extends MoveableObject {
         this.loadImages(CHARACTER_LONG_IDLE);
     }
 
+    /**
+     * Animates the character's different movements and actions.
+     */
     animate() {
         this.animateWalkingAndJumping();
         this.animateImages();
@@ -41,7 +51,14 @@ class Character extends MoveableObject {
         this.wakeUp();
     }
 
-
+    /**
+     * Animates the character's walking and jumping movements based on keyboard input, sets up an interval to handle different 
+     * character animations based on the character's state and keyboard input.
+     * If the right arrow key is pressed and the character is not at the end of the level, the character moves to the right.
+     * If the left arrow key is pressed and the character is not at the beginning, the character moves to the left.
+     * If the space bar is pressed and the character is not above the ground, the character jumps.
+     * The camera is positioned to follow the character's x-coordinate.
+     */
     animateWalkingAndJumping() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -61,6 +78,9 @@ class Character extends MoveableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Sets up an interval to handle different character animations based on the character's state and keyboard input.
+     */
     animateImages() {
         let animationInterval = setInterval(() => {
             if (this.energy === 0) {
@@ -79,6 +99,9 @@ class Character extends MoveableObject {
         }, 50);
     }
 
+    /**
+     * Sets up an interval to handle character idle animations based on keyboard input.
+     */
     animateIdle() {
         setInterval(() => {
             if (Keyboard.aKeyWasPressed(this.world)) {
@@ -97,19 +120,27 @@ class Character extends MoveableObject {
         }, 200);
     }
 
-
+    /**
+     * Loads the idle character image and sets the character's state to awake.
+     */
     wakeUp() {
         this.loadImage(CHARACTER_IDLE[0]);
         this.isIdle = false;
     }
 
+    /**
+     * Displays the lost overlay by playing the "you_lose_sound" sound,
+     * setting a timeout to mute all sounds and clear all intervals after 500ms,
+     * removing the 'd-none' class from the 'lostOverlay' element and adding the 'flex' class.
+     */
     showLostOverlay() {
-
-
         this.sounds.playSound(this.sounds.you_lose_sound);
+        setTimeout(() => {
+            this.sounds.muteAllSounds();
+            clearAllIntervals();
+        }, 500);
+
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
     }
-
 }
-

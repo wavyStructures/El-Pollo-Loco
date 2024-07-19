@@ -18,6 +18,9 @@ class Bottle extends MoveableObject {
         right: 10
     };
 
+    /**
+     * Initializes a new instance of the class.
+     */
     constructor() {
         let randomize = Math.round(Math.random());
         super().loadImage(this.IMAGES_BOTTLE[randomize]);
@@ -27,10 +30,17 @@ class Bottle extends MoveableObject {
     }
 
 
+    /**
+     * Sets the initial position of the object based on width and random values.
+     */
     setInitialPosition() {
         this.x = this.width + 150 + Math.random() * 2000;
     }
 
+    /**
+     * Animate the object by playing an animation loop using the IMAGES_BOTTLE array
+     * every 500 milliseconds.
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_BOTTLE);

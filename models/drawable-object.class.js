@@ -7,11 +7,21 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
+    /**
+     * Loads an image from the specified path.
+     *
+     * @param {type} path - The path of the image to load.
+     * @return {type} undefined
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+    /**
+     * Loads an array of image paths and stores them in the image cache.
+     * @param {Array<string>} arr - An array of image paths.
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -21,6 +31,10 @@ class DrawableObject {
         });
     }
 
+    /**
+     * Draws the image on the canvas using the specified context.
+     * @param {CanvasRenderingContext2D} ctx - The context to draw on.
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -31,7 +45,10 @@ class DrawableObject {
         }
     }
 
-
+    /**
+     * Draws a frame around the object if it is an instance of certain classes.
+     * @param {CanvasRenderingContext2D} ctx - The context to draw on.
+     */
     drawFrame(ctx) {
         if (this instanceof Character ||
             this instanceof Chicken ||

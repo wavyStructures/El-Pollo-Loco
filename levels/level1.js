@@ -1,4 +1,7 @@
 let level1;
+/**
+ * Initializes the level 1 of the game.
+*/
 function initLevel1() {
 
     level1 = new Level(

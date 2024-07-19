@@ -10,6 +10,12 @@ class World {
     lastBottleThrowTime = 0;
     bottleThrowCooldown = 500;
 
+    /**
+     * Constructor function for creating a new World instance.
+     * @param {Canvas} canvas - The canvas element to render the world on.
+     * @param {Sounds} sounds - The sounds object for audio in the world.
+     * @param {Keyboard} keyboard - The keyboard object for user input.
+     */
     constructor(canvas, sounds, keyboard) {
         this.character = new Character(sounds);
         this.level = level1;
@@ -22,6 +28,9 @@ class World {
         this.startWorld();
     }
 
+    /**
+     * Starts the world by adding status bars, drawing the world, setting the world, and running the world.
+     */
     startWorld() {
         this.addStatusBars();
         this.draw();
@@ -29,6 +38,10 @@ class World {
         this.run();
     }
 
+    /**
+     * Initializes the status bars for the game, creates and assigns new instances of the StatusBarHealth, StatusBarCoins,
+     * StatusBarBottles, and StatusBarEndboss classes to the corresponding instance variables.
+     */
     addStatusBars() {
         this.statusBarHealth = new StatusBarHealth();
         this.statusBarCoins = new StatusBarCoins();

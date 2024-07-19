@@ -19,7 +19,7 @@ class World {
     constructor(canvas, sounds, keyboard) {
         this.character = new Character(sounds);
         this.level = level1;
-        this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss); // Find the endboss in the level
+        this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
@@ -49,11 +49,18 @@ class World {
         this.statusBarEndboss = new StatusBarEndboss();
     }
 
+    /**
+     * Sets the world of the character to the current object.
+     * This function assigns the current object to the `world` property of the `character` object.
+     * This allows the character to access the world and its properties.
+     */
     setWorld() {
-        this.character.world = this;   //hier wird der Charakter mit der Welt verbunden 
+        this.character.world = this;
     }
 
-
+    /**
+     * Executes a series of game actions at a regular interval.
+     */
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -63,18 +70,18 @@ class World {
         }, 50);
     }
 
+    /**
+     * Checks if conditions are met to throw a bottle and initiates the bottle throw process.
+     */
     checkThrowObjects() {
         let currentTime = Date.now();
         if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && !this.character.isAboveGround()
             && this.charactersBottles > 0) {
             let xOffset = 80;
             let yOffset = 120;
-
-            // Adjust the xOffset based on the direction the character is facing
             if (this.character.otherDirection) {
-                xOffset = -xOffset + 100; // If facing left, offset should be negative
+                xOffset = -xOffset + 100;
             }
-
             let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection, sounds);
             this.throwableObjects.push(bottle);
             this.decreaseStatusBar(this.statusBarBottles, 20);
@@ -83,6 +90,9 @@ class World {
         }
     }
 
+    /**
+     * Checks for collisions between different elements in the game world.
+     */
     checkCollisions() {
         this.collectBottle();
         this.collectCoin();
@@ -90,13 +100,16 @@ class World {
             this.buyBottle();
             this.buyBottleTriggered = true;
         }
-
         this.characterJumpingOnEnemy();
         this.characterThrowsBottle();
         this.enemyHurtsCharacter();
     }
 
-
+    /**
+     * Checks if the character is colliding from the top with an enemy.
+     * If the enemy is not an instance of Endboss, it is marked as dead,
+     * a sound is played, and the character kills the enemy.
+     */
     characterJumpingOnEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromTop(enemy) && !(enemy instanceof Endboss)) {
@@ -107,6 +120,9 @@ class World {
         });
     }
 
+    /**
+     * Checks if the character's bottles are colliding with enemies.
+     */
     characterThrowsBottle() {
         this.throwableObjects.forEach((bottle, index) => {
             this.level.enemies.forEach((enemy) => {
@@ -124,10 +140,18 @@ class World {
         });
     }
 
+    /**
+     * Removes the killedEnemy from the level's list of enemies.
+     * @param {Object} killedEnemy - The enemy to be removed from the list.
+     * @return {Array} The updated list of enemies after removing the killedEnemy.
+     */
     characterKillsEnemy(killedEnemy) {
         this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
     }
 
+    /**
+     * Iterates over each enemy in the level to check if the character is colliding with them. If a collision is detected, the character gets hit and the health status is updated on the status bar.
+     */
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromSide(enemy)) {
@@ -138,6 +162,10 @@ class World {
         );
     }
 
+    /**
+     * Checks if any enemies in the level are dead and removes them from the level after a delay of 18000 milliseconds.
+     * This function iterates over each enemy in the level using the `forEach` method. If an enemy is not an instance of `Endboss` and is dead, it is removed from the level using the `splice` method.
+      */
     checkDeadEnemies() {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
@@ -148,6 +176,9 @@ class World {
         }, 18000);
     }
 
+    /**
+     * Collects bottles based on character collision, updates status bar, and plays bottle sound.
+     */
     collectBottle() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -159,19 +190,22 @@ class World {
         })
     }
 
+    /**
+     * Buys a bottle if the "B" key is pressed and enough coins are available.
+     */
     buyBottle() {
         if (this.keyboard.B && this.charactersCoins >= 5) {
-
             this.charactersCoins -= 5;
             this.statusBarCoins.setCoins(this.charactersCoins);
-
             this.increaseStatusBar(this.statusBarBottles, 20);
             this.charactersBottles++;
             this.sounds.playSound(this.sounds.buy_bottle_sound);
-
         }
     }
 
+    /**
+     * Collects coins based on character collision, updates status bar, and plays coin sound.
+     */
     collectCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -183,7 +217,9 @@ class World {
         })
     }
 
-
+    /**
+     * Draws the game world on the canvas.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -200,11 +236,18 @@ class World {
         requestAnimationFrame(function () { self.draw() });
     }
 
+    /**
+     * Draws the background objects on the map.
+     * @param {Array} objects - The array of background objects to draw on the map.
+     */
     drawBackgroundObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
     }
 
+    /**
+     * Draws the fixed objects on the map.
+     */
     drawFixedObjects() {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
@@ -212,22 +255,31 @@ class World {
         this.addToMap(this.statusBarEndboss);
     }
 
-
+    /**
+     * Draws the moveable objects on the map.
+     */
     drawMoveableObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
     }
 
+    /**
+     * Adds multiple objects to the map.
+     * @param {Array} objects - The array of objects to add to the map.
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         })
     }
 
+    /**
+     * Adds a moveable object to the map, potentially flipping its image horizontally and drawing it on the canvas.
+     * @param {Object} mo - The moveable object to add to the map.
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -239,31 +291,43 @@ class World {
         }
     }
 
+    /**
+     * Flips the image horizontally.
+     * @param {Object} mo - The moveable object to flip.
+     */
     flipImage(mo) {
         this.ctx.save();
-        this.ctx.translate(mo.width, 0);        //weil ja Angelpunkt jetzt rechts oben, die Breite von Pepe einmal wegnehmen
+        this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Reverts the image back to its original state by restoring the canvas context.
+     * @param {Object} mo - The moveable object to flip back.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
-
+    /**
+     * Increases the percentage of the given status bar by the specified value.
+     * @param {Object} statusBar - The status bar object to increase.
+     * @param {number} value - The value to increase the percentage by.
+     */
     increaseStatusBar(statusBar, value) {
         statusBar.percentage += value;
         statusBar.setPercentage(statusBar.percentage);
     }
 
+    /**
+     * Decreases the percentage of the given status bar by the specified value.
+     * @param {Object} statusBar - The status bar object to decrease.
+     * @param {number} value - The value to decrease the percentage by.
+     */
     decreaseStatusBar(statusBar, value) {
         statusBar.percentage -= value;
         statusBar.setPercentage(statusBar.percentage);
     }
-
-
 }
-
-
-//mo = moveableObject

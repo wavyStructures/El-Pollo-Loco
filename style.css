@@ -17,6 +17,12 @@
   display: none;
 }
 
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -165,7 +171,6 @@ canvas {
   position: absolute;
   overflow: hidden;
   display: none;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   background-color: rgba(99, 102, 95, 0.9);
@@ -213,21 +218,16 @@ canvas {
   letter-spacing: 2px;
 }
 
-button {
-  outline: none;
-  border: none;
-  background-color: transparent;
-}
-
 .mobile-buttons > img {
   width: 48px;
   height: 48px;
 }
 
 .panel-wrapper {
+  padding: 0 24px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .bottom-info {
@@ -244,7 +244,6 @@ button {
 
 .you-won {
   flex-direction: column;
-  /* display: flex; */
   position: absolute;
   top: 0;
   left: 0;
@@ -293,7 +292,6 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* padding-top: 42px; */
   position: absolute;
   bottom: 10%;
 
@@ -316,9 +314,6 @@ button {
 }
 
 @media screen and (max-width: 720px) {
-  /* canvas {
-    width: 100svw;
-  } */
   h1 {
     display: none;
   }
@@ -366,19 +361,16 @@ button {
     gap: 24px;
     top: 16px;
     left: 48px;
-    flex-direction: column;
   }
 
   .full-screen {
-    margin: 16px 8px 0 0;
+    margin: 16px 24px 0 0;
   }
 
   canvas,
   .start-page-background {
     width: 100vw;
     height: 100vh;
-    /* height: 100%;
-    width: 100%; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -386,7 +378,6 @@ button {
 
   .endscreen-buttons {
     bottom: 8px;
-
     > button {
       width: unset;
       height: unset;
@@ -401,12 +392,31 @@ button {
   }
 
   .bottom-info {
-    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 32px;
+    gap: 12px;
+    align-self: auto;
+  }
+
+  .canvas-bottom-info {
+    display: flex;
   }
 
   .bottom-info-mobile {
     position: absolute;
     bottom: 8px;
+  }
+  .panel {
+    width: 100vw;
+  }
+
+  .btn-panel-left,
+  .btn-panel-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
   }
 }
 

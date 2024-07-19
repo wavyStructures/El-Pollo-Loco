@@ -1,46 +1,28 @@
 class ThrowableObject extends MoveableObject {
 
-    IMAGES_THROWING = [
-        './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-        './img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-        './img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-        './img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    ]
-
-
-    IMAGES_SPLASHING = [
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        './img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
-    ];
-
-
-    // throw_sound = new Audio('audio/throw.mp3');
-
-    constructor(x, y, direction) {
+    constructor(x, y, direction, sounds) {
         super();
-        this.loadImage(this.IMAGES_THROWING[0]);
-        this.loadImages(this.IMAGES_THROWING);
-        this.loadImages(this.IMAGES_SPLASHING);
+        this.loadImage(BOTTLE_THROWING[0]);
+        this.loadBottleImages();
         this.x = x;
         this.y = y;
         this.height = 70;
         this.width = 60;
         this.otherDirection = direction;
+        this.sounds = sounds;
         this.animate();
         this.throw();
+    }
 
+    loadBottleImages() {
+        this.loadImages(BOTTLE_THROWING);
+        this.loadImages(BOTTLE_SPLASHING);
     }
 
     throw() {
         this.speedY = 25;
         this.applyGravity();
-        // this.throw_sound.play();
-        // this.sounds.playSound(this.sounds.throw_sound);
-
+        this.sounds.playSound(this.sounds.throw_bottle_sound);
 
         if (this.otherDirection == true) {
             setInterval(() => {
@@ -56,9 +38,9 @@ class ThrowableObject extends MoveableObject {
     animate() {
         this.animationInterval = setInterval(() => {
             if (this.isFlying()) {
-                this.playAnimation(this.IMAGES_THROWING);
+                this.playAnimation(BOTTLE_THROWING);
             } else {
-                this.playAnimation(this.IMAGES_SPLASHING);
+                this.playAnimation(BOTTLE_SPLASHING);
                 this.cleanupAfterThrow();
             }
         }, 60);
@@ -70,15 +52,5 @@ class ThrowableObject extends MoveableObject {
 
     cleanupAfterThrow() {
         clearInterval(this.animationInterval);
-
-
-
-        // this.animationInterval;
-        // clearAllIntervals();
-
-        // clearInterval(this.throwInterval......);
-        //more objects to be removed e.g.
     }
-
-
 }   

@@ -52,10 +52,8 @@ class World {
 
     checkThrowObjects() {
         let currentTime = Date.now();
-        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && !this.character.isAboveGround())
-        // && !this.character.isAboveGround()
-        // && this.charactersBottles > 0
-        {
+        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && !this.character.isAboveGround()
+            && this.charactersBottles > 0) {
             let xOffset = 80;
             let yOffset = 120;
 
@@ -64,7 +62,7 @@ class World {
                 xOffset = -xOffset + 100; // If facing left, offset should be negative
             }
 
-            let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection);
+            let bottle = new ThrowableObject(this.character.x + xOffset, this.character.y + yOffset, this.character.otherDirection, sounds);
             this.throwableObjects.push(bottle);
             this.decreaseStatusBar(this.statusBarBottles, 20);
             this.charactersBottles--;

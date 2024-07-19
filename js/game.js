@@ -41,7 +41,9 @@ function adaptToMobile() {
 }
 
 function checkMobileBtns() {
-    if (window.innerHeight <= 620 && window.matchMedia("(orientation: landscape)").matches) {
+    // && window.matchMedia("(orientation: landscape)").matches 
+    // && window.matchMedia("(orientation: 90)").matches
+    if (window.innerHeight <= 620) {
         showMobileBtns();
     } else {
         hideMobileBtns();
@@ -57,12 +59,11 @@ function showMobileBtns() {
 }
 
 function hideMobileBtns() {
-    document.getElementById('bottom-info').classList.remove('d-none');
+    // document.getElementById('bottom-info').classList.remove('d-none');
     document.getElementById('bottom-info-mobile').classList.remove('flex');
-    document.getElementById('bottom-info').classList.add('flex');
+    // document.getElementById('bottom-info').classList.add('flex');
     document.getElementById('bottom-info-mobile').classList.add('d-none');
 }
-
 
 /**
  * Adapts width and height of a canvas based on the window's inner width. If the window's inner width is less than 500, 
@@ -75,18 +76,10 @@ function adaptInnerWidth() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     } else {
-        // canvas.backgroundSize = 720, 480;
         canvas.width = 720;
         canvas.height = 480;
     }
-    // adaptCanvasBackground();
 }
-
-// function adaptCanvasBackground() {
-//     canvas.style.backgroundSize = `${canvas.width}px ${canvas.height}px`;
-// }
-
-
 
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
@@ -146,6 +139,10 @@ function startGame() {
     startGameSounds();
     init();
     hideStartInfo();
+    console.log('hide start info should have been done now.');
+    checkMobileBtns();
+    console.log('mobile Btns should be there now.');
+
     removeWinOverlay();
     removeLostOverlay();
 }
@@ -160,8 +157,8 @@ function hideStartInfo() {
     document.getElementById('startScreenTop').classList.remove('flex');
     document.getElementById('startScreenTop').classList.add('d-none');
 
-    // document.getElementById('bottom-info').classList.remove('flex');
-    // document.getElementById('bottom-info').classList.add('d-none');
+    document.getElementById('bottom-info').classList.remove('flex');
+    document.getElementById('bottom-info').classList.add('d-none');
 }
 
 

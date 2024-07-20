@@ -12,6 +12,7 @@ class MoveableObject extends DrawableObject {
         right: 0,
     };
 
+
     /**
      * Constructor for initializing the object with sounds.
      * @param {type} sounds - The sounds for the object.
@@ -72,6 +73,7 @@ class MoveableObject extends DrawableObject {
             this.x + this.width - 20 > mo.x;
         return isCollidingFromTop;
     }
+
     /**
      * Decreases the energy of the object by the specified loss.
      * @param {number} [loss=5] - The amount of energy to be subtracted.
@@ -146,7 +148,7 @@ class MoveableObject extends DrawableObject {
      * @return {boolean} Returns true if the object is above the ground, false otherwise.
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) {  //should always fall
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 130;

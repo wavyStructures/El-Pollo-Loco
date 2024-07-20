@@ -6,13 +6,14 @@ class Character extends MoveableObject {
     height = 300;
     speed = 10;
     offset = {
-        top: 120,
-        right: 30,
-        bottom: 30,
-        left: 40
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
     }
     world;
     isIdle = false;
+    isFalling = false;
     lastKeyPress = 0;
     sounds;
 
@@ -103,7 +104,6 @@ class Character extends MoveableObject {
                 this.sounds.playSound(this.sounds.jumping_sound);
             }
         }, 1000 / 20);
-
     }
 
     animateHurt() {
@@ -150,9 +150,9 @@ class Character extends MoveableObject {
     handleIdleState() {
         const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
         if (Keyboard.noKeyPressed(this.world)) {
-            if (timeSinceLastPress <= 500) {
+            if (timeSinceLastPress <= 1000) {
                 this.playAnimation(CHARACTER_IDLE);
-            } else if (timeSinceLastPress > 5000) {
+            } else if (timeSinceLastPress > 6000) {
                 this.playAnimation(CHARACTER_LONG_IDLE);
                 this.sounds.playSound(this.sounds.long_idle_sound);
             }

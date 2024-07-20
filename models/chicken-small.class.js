@@ -6,10 +6,10 @@ class SmallChicken extends MoveableObject {
     height = 40;
     isDead = false;
     offset = {
-        left: 2,
-        top: 2,
-        right: 2,
-        bottom: 2,
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
     };
 
     /**

@@ -88,7 +88,7 @@ class Character extends MoveableObject {
                 this.sounds.stopSound(this.sounds.walking_sound);
             }
             this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
-        }, 1000 / 60);
+        }, 1000 / 20);
     }
 
     /**
@@ -100,7 +100,7 @@ class Character extends MoveableObject {
                 this.jump();
                 this.sounds.playSound(this.sounds.jumping_sound);
             }
-        }, 1000 / 60);
+        }, 1000 / 20);
 
     }
 
@@ -109,7 +109,7 @@ class Character extends MoveableObject {
             if (this.isHurt()) {
                 this.sounds.playSound(this.sounds.isHurt_sound);
             }
-        }, 1000 / 60);
+        }, 1000 / 20);
     }
 
     /**
@@ -127,7 +127,7 @@ class Character extends MoveableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(CHARACTER_WALKING);
             }
-        }, 1000 / 60);
+        }, 1000 / 20);
     }
 
 
@@ -148,9 +148,9 @@ class Character extends MoveableObject {
     handleIdleState() {
         const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
         if (Keyboard.noKeyPressed(this.world)) {
-            if (timeSinceLastPress <= 10000) {
+            if (timeSinceLastPress <= 1500) {
                 this.playAnimation(CHARACTER_IDLE);
-            } else if (timeSinceLastPress > 20000) {
+            } else if (timeSinceLastPress > 3000) {
                 this.playAnimation(CHARACTER_LONG_IDLE);
                 this.sounds.playSound(this.sounds.long_idle_sound);
             }

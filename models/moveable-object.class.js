@@ -49,12 +49,12 @@ class MoveableObject extends DrawableObject {
      * @return {boolean} True if colliding from the side, false otherwise.
      */
     isCollidingFromSide(mo) {
-        let isCollidingFromLeft = this.x + this.width - 10 >= mo.x &&
-            this.x + this.width - 10 <= mo.x + mo.width &&
+        let isCollidingFromLeft = this.x + this.width - 200 >= mo.x &&
+            this.x + this.width - 200 <= mo.x + mo.width &&
             this.y < mo.y + mo.height &&
             this.y + this.height > mo.y;
-        let isCollidingFromRight = this.x + 10 <= mo.x + mo.width &&
-            this.x + 10 >= mo.x &&
+        let isCollidingFromRight = this.x + 75 <= mo.x + mo.width &&
+            this.x + 75 >= mo.x &&
             this.y < mo.y + mo.height &&
             this.y + this.height > mo.y;
         return isCollidingFromLeft || isCollidingFromRight;
@@ -68,8 +68,8 @@ class MoveableObject extends DrawableObject {
     isCollidingFromTop(mo) {
         let isCollidingFromTop = this.y + this.height >= mo.y &&
             this.y + this.height <= mo.y + mo.height &&
-            this.x + 50 < mo.x + mo.width &&
-            this.x + this.width - 50 > mo.x;
+            this.x + 20 < mo.x + mo.width &&
+            this.x + this.width - 20 > mo.x;
         return isCollidingFromTop;
     }
     /**

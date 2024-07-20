@@ -14,7 +14,6 @@ class Chicken extends MoveableObject {
     energy = 5;
     isDead = false;
 
-
     /**
      * Creates a new instance of the Chicken class.
      * @param {Object} sounds - The sounds object.

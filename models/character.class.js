@@ -1,14 +1,15 @@
 class Character extends MoveableObject {
+
     x = 120;
     y = 120;
     width = 150;
     height = 300;
     speed = 10;
     offset = {
-        top: 30,
-        right: 20,
-        bottom: 10,
-        left: 20
+        top: 120,
+        right: 30,
+        bottom: 30,
+        left: 40
     }
     world;
     isIdle = false;
@@ -97,6 +98,7 @@ class Character extends MoveableObject {
     animateJumping() {
         setInterval(() => {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.wakeUp();
                 this.jump();
                 this.sounds.playSound(this.sounds.jumping_sound);
             }
@@ -148,9 +150,9 @@ class Character extends MoveableObject {
     handleIdleState() {
         const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
         if (Keyboard.noKeyPressed(this.world)) {
-            if (timeSinceLastPress <= 1500) {
+            if (timeSinceLastPress <= 500) {
                 this.playAnimation(CHARACTER_IDLE);
-            } else if (timeSinceLastPress > 3000) {
+            } else if (timeSinceLastPress > 5000) {
                 this.playAnimation(CHARACTER_LONG_IDLE);
                 this.sounds.playSound(this.sounds.long_idle_sound);
             }

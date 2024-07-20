@@ -5,15 +5,14 @@ class Character extends MoveableObject {
     height = 300;
     speed = 10;
     offset = {
-        top: 120,
-        right: 30,
-        bottom: 30,
-        left: 40
+        top: 30,
+        right: 20,
+        bottom: 10,
+        left: 20
     }
     world;
-    isJumping = false;
     isIdle = false;
-    lastKeyPress = Date.now();
+    lastKeyPress = 0;
     sounds;
 
     /**
@@ -45,36 +44,71 @@ class Character extends MoveableObject {
      * Animates the character's different movements and actions.
      */
     animate() {
-        this.animateWalkingAndJumping();
+        this.animateWalking();
+        this.animateJumping();
+        this.animateHurt();
         this.animateImages();
         this.animateIdle();
         this.wakeUp();
     }
 
     /**
-     * Animates the character's walking and jumping movements based on keyboard input, sets up an interval to handle different 
-     * character animations based on the character's state and keyboard input.
-     * If the right arrow key is pressed and the character is not at the end of the level, the character moves to the right.
-     * If the left arrow key is pressed and the character is not at the beginning, the character moves to the left.
-     * If the space bar is pressed and the character is not above the ground, the character jumps.
-     * The camera is positioned to follow the character's x-coordinate.
+         * Makes the character walk right.
+         */
+    walkRight() {
+        this.moveRight();
+        this.wakeUp();
+        this.otherDirection = false;
+        this.sounds.playSound(this.sounds.walking_sound);
+    }
+
+    /**
+     * Makes the character walk left.
      */
-    animateWalkingAndJumping() {
+    walkLeft() {
+        this.moveLeft();
+        this.wakeUp();
+        this.otherDirection = true;
+        this.sounds.playSound(this.sounds.walking_sound);
+    }
+
+    /**
+     * Animates the character's walking movement, uses setInterval method to continuously check for keyboard input to determine if the character
+     * should walk right or left if character is within level boundaries. If no keyboard input is detected, the walking sound
+     * is stopped. Additionally, the camera is updated to follow the character's movement.
+     */
+    animateWalking() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
+                this.walkRight();
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.sounds.playSound(this.sounds.walking_sound);
+            else if (this.world.keyboard.LEFT && this.x > 0) {
+                this.walkLeft();
+            } else {
+                this.sounds.stopSound(this.sounds.walking_sound);
             }
+            this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
+        }, 1000 / 60);
+    }
+
+    /**
+     * Animates the character's jumping movement, triggers a jump action and plays a jumping sound when the space key is pressed and the character is not above the ground.
+     */
+    animateJumping() {
+        setInterval(() => {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.sounds.playSound(this.sounds.jumping_sound);
             }
-            this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
+        }, 1000 / 60);
+
+    }
+
+    animateHurt() {
+        setInterval(() => {
+            if (this.isHurt()) {
+                this.sounds.playSound(this.sounds.isHurt_sound);
+            }
         }, 1000 / 60);
     }
 
@@ -85,10 +119,7 @@ class Character extends MoveableObject {
         let animationInterval = setInterval(() => {
             if (this.energy === 0) {
                 this.playAnimation(CHARACTER_DEAD);
-                clearInterval(animationInterval);
-                this.sounds.playSound(this.sounds.character_dying_sound);
-                this.sounds.stopSound(this.sounds.walking_sound);
-                this.showLostOverlay();
+                this.stopGameAfterDying(animationInterval);
             } else if (this.isHurt()) {
                 this.playAnimation(CHARACTER_HURT);
             } else if (this.isAboveGround()) {
@@ -96,36 +127,85 @@ class Character extends MoveableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(CHARACTER_WALKING);
             }
-        }, 50);
+        }, 1000 / 60);
+    }
+
+
+    /**
+     * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
+     */
+    handleKeyPress() {
+        this.lastKeyPressTime = Date.now();
+        this.isIdle = false;
+        this.sounds.stopSound(this.sounds.long_idle_sound);
+        this.wakeUp();
     }
 
     /**
-     * Sets up an interval to handle character idle animations based on keyboard input.
+     * Handles the idle state of the character.If no key is pressed, it checks the time since the last key press 
+     * and plays the idle animation for the character accordingly. 
+     */
+    handleIdleState() {
+        const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
+        if (Keyboard.noKeyPressed(this.world)) {
+            if (timeSinceLastPress <= 10000) {
+                this.playAnimation(CHARACTER_IDLE);
+            } else if (timeSinceLastPress > 20000) {
+                this.playAnimation(CHARACTER_LONG_IDLE);
+                this.sounds.playSound(this.sounds.long_idle_sound);
+            }
+            this.isIdle = true;
+        }
+    }
+
+    /**
+     * Sets up an interval to handle character animations for idle state based on keyboard input.
      */
     animateIdle() {
         setInterval(() => {
             if (Keyboard.aKeyWasPressed(this.world)) {
-                this.lastKeyPressTime = Date.now();
-                this.isIdle = false;
-                this.wakeUp();
-            }
-            if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime <= 10000) {
-                this.playAnimation(CHARACTER_IDLE);
-                this.isIdle = true;
-            } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 20000) {
-                this.playAnimation(CHARACTER_LONG_IDLE);
-                this.sounds.playSound(this.sounds.long_idle_sound);
-                this.isIdle = true;
+                this.handleKeyPress();
+            } else {
+                this.handleIdleState();
             }
         }, 200);
     }
+    // animateIdle() {
+    //     setInterval(() => {
+    //         if (Keyboard.aKeyWasPressed(this.world)) {
+    //             this.lastKeyPressTime = Date.now();
+    //             this.isIdle = false;
+    //             this.wakeUp();
+    //         }
+    //         if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime <= 10000) {
+    //             this.playAnimation(CHARACTER_IDLE);
+    //             this.isIdle = true;
+    //         } else if (Keyboard.noKeyPressed(this.world) && Date.now() - this.lastKeyPressTime > 20000) {
+    //             this.playAnimation(CHARACTER_LONG_IDLE);
+    //             this.sounds.playSound(this.sounds.long_idle_sound);
+    //             this.isIdle = true;
+    //         }
+    //     }, 200);
+    // }
 
     /**
      * Loads the idle character image and sets the character's state to awake.
      */
     wakeUp() {
         this.loadImage(CHARACTER_IDLE[0]);
+        this.sounds.stopSound(this.sounds.long_idle_sound);
         this.isIdle = false;
+    }
+
+    /**
+     * Stops the game after the character dies.
+     * @param {number} animationInterval - The interval ID of the animation.
+     */
+    stopGameAfterDying(animationInterval) {
+        clearInterval(animationInterval);
+        this.sounds.stopSound(this.sounds.walking_sound);
+        this.sounds.playSound(this.sounds.character_dying_sound);
+        this.showLostOverlay();
     }
 
     /**

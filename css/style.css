@@ -1,7 +1,6 @@
 @font-face {
   font-family: "zabars";
-  src: url("/EPL/fonts/zabars.ttf");
-  /* src: url("/fonts/zabars.ttf"); */
+  src: url("../fonts/zabars.ttf");
 }
 
 * {
@@ -43,7 +42,7 @@ body {
   justify-content: center;
   height: 100dvh;
   max-height: 100dvh;
-  background-image: url("./img/desert_NEU.png");
+  background-image: url("/img/desert_NEU.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -109,7 +108,7 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  align-items: center;
+  align-items: end;
   padding: 0 8px 0 8px;
 }
 
@@ -128,7 +127,8 @@ canvas {
 }
 
 .start-page-background {
-  background-image: url("img/9_intro_outro_screens/start/startscreen_1.png");
+  background-image: url("/img/9_intro_outro_screens/start/startscreen_1.png");
+
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -252,7 +252,7 @@ canvas {
   align-items: center;
   z-index: 1;
   background-color: yellow;
-  background-image: url("./img/desert_NEU.png");
+  background-image: url("/img/desert_NEU.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -270,7 +270,7 @@ canvas {
   align-items: center;
   z-index: 1;
   background-color: yellow;
-  background-image: url("./img/desert_NEU.png");
+  background-image: url("/img/desert_NEU.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

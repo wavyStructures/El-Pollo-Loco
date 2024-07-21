@@ -1,4 +1,5 @@
 class Level {
+
     enemies;
     clouds;
     backgroundObjects;
@@ -17,7 +18,6 @@ class Level {
      * @param {type} sounds - The sounds to be initialized.
      */
     constructor(enemies, clouds, backgroundObjects, coins, bottles, sounds) {
-
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;

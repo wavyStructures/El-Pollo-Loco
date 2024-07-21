@@ -79,16 +79,17 @@ class MoveableObject extends DrawableObject {
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
     hit(loss = 5) {
-        this.energy -= loss;
+        if (!this instanceof Character)
+            this.energy -= loss;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
+            if (this instanceof Character) {
+                this.characterIsHit();
+            }
             if (this instanceof Endboss) {
-                this.hitCount++;
-                if (this.hitCount >= 8) {
-                    this.energy = 0;
-                }
+                this.endbossHitCount();
             }
         }
     }
@@ -100,7 +101,7 @@ class MoveableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 3;
+        return timepassed < 3000;
     }
 
     /**
@@ -160,12 +161,20 @@ class MoveableObject extends DrawableObject {
      */
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() || !this.isFalling()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
                 this.speedY = 0;
             }
         }, 1000 / 25);
+    }
+
+    /**
+     * Checks if the object is falling.
+     * @return {boolean} Returns true if the object is falling, false otherwise.
+     */
+    isFalling() {
+        return this.speedY < 0;
     }
 }

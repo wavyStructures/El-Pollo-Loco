@@ -77,6 +77,13 @@ class Endboss extends MoveableObject {
         }, 200);
     }
 
+    endbossHitCound() {
+        this.hitCount++;
+        if (this.hitCount >= 8) {
+            this.energy = 0;
+        }
+    }
+
     deadAnimation() {
         setInterval(() => {
             this.playAnimation(ENDBOSS_DEAD);

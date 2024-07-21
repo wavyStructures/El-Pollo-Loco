@@ -112,7 +112,7 @@ class World {
      */
     characterJumpingOnEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingFromTop(enemy) && (this.character.speedY < 0) && !(enemy instanceof Endboss)) {
+            if (this.character.isCollidingFromTop(enemy) && (this.character.isFalling()) && !(enemy instanceof Endboss)) {
                 enemy.isDead = true;
                 this.sounds.playSound(this.sounds.chicken_dead_sound);
                 this.characterKillsEnemy(enemy);
@@ -155,7 +155,7 @@ class World {
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromSide(enemy)) {
-                this.character.hit();
+                this.character.characterIsHit();
                 this.statusBarHealth.setPercentage(this.character.energy);
             };
         }

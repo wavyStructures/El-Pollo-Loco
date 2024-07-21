@@ -1,7 +1,7 @@
 class Character extends MoveableObject {
 
     x = 120;
-    y = 120;
+    y = 130;
     width = 150;
     height = 300;
     speed = 10;
@@ -17,7 +17,10 @@ class Character extends MoveableObject {
     isIdle = false;
     isPlayingHurtSound = false;
     hitImmunity = false;
+    isHit = false;
     lastHit = 0;
+    hurtDuration = 1500;
+    hurtStartTime = 0;
     lastKeyPressTime = 0;
     sounds;
 
@@ -26,12 +29,14 @@ class Character extends MoveableObject {
      * @param {type} sounds - The sounds associated with the character.
      */
     constructor(sounds) {
-        super().loadImage(CHARACTER_IDLE[0]);
+        super();
+        this.loadImage(CHARACTER_IDLE[0]);
+        this.currentImage = 0;
         this.world = world;
         this.sounds = sounds;
         this.loadCharacterImages();
         this.applyGravity();
-        setTimeout(() => { this.animate(); }, 1000);
+        setTimeout(() => { this.animate(); }, 2000);
     }
 
     /**
@@ -54,7 +59,6 @@ class Character extends MoveableObject {
         this.animateJumping();
         this.animateHurt();
         this.animateImages();
-        setTimeout(() => { this.animateIdle(); }, 2000);
     }
 
     /**
@@ -71,7 +75,7 @@ class Character extends MoveableObject {
             } else {
                 this.sounds.stopSound(this.sounds.walking_sound);
             }
-            this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
     }
 
@@ -114,7 +118,8 @@ class Character extends MoveableObject {
             if (this.isHurt() && !this.isPlayingHurtSound) {
                 this.sounds.playSound(this.sounds.isHurt_sound);
                 this.isPlayingHurtSound = true;
-            } else if (!this.isHurt()) {
+                this.hurtStartTime = Date.now();
+            } else if (!this.isHurt() && Date.now() - this.hurtStartTime > this.hurtDuration) {
                 this.isPlayingHurtSound = false;
             }
         }, 100);
@@ -131,14 +136,16 @@ class Character extends MoveableObject {
                 deathFrame++;
                 if (deathFrame == CHARACTER_DEAD.length - 1) {
                     clearInterval(characterInterval)
-                    // setTimeout(() => { this.stopGameAfterDying(characterInterval); }, 2000);
+                    setTimeout(() => { this.stopGameAfterDying(characterInterval); }, 1000);
                 }
-            } else if (this.isHurt()) {
+            } else if (this.isHurt() && Date.now() - this.hurtStartTime <= this.hurtDuration) {
                 this.playAnimation(CHARACTER_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(CHARACTER_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(CHARACTER_WALKING);
+            } else {
+                this.handleIdleState();
             }
         }, 1000 / 60);
     }
@@ -159,7 +166,7 @@ class Character extends MoveableObject {
      */
     handleIdleState() {
         const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
-        if (Keyboard.noKeyPressed(this.world)) {
+        if (Keyboard.noKeyPressed(this.world) && this.energy > 10) {
             if (timeSinceLastPress <= 2000) {
                 this.playAnimation(CHARACTER_IDLE);
             } else if (timeSinceLastPress > 10000) {
@@ -192,33 +199,33 @@ class Character extends MoveableObject {
         this.isIdle = false;
     }
 
-    /**
- * Decreases the character's energy by 5 and triggers the animation for being hurt if the character is not immune to hits.
- * If the character's energy reaches 0, they will be animated as dead. The immunity to hits lasts for 1.5 seconds.
- */
-    characterIsHit() {
-        const now = new Date().getTime();
-        this.lastHit = now;
-        if (!this.hitImmunity) {
-            this.hitImmunity = true;
+    //     /**
+    //  * Decreases the character's energy by 5 and triggers the animation for being hurt if the character is not immune to hits.
+    //  * If the character's energy reaches 0, they will be animated as dead. The immunity to hits lasts for 1.5 seconds.
+    //  */
+    //     characterIsHit() {
+    //         const now = new Date().getTime();
+    //         this.lastHit = now;
+    //         if (!this.hitImmunity) {
+    //             this.hitImmunity = true;
 
-            const processHit = () => {
-                if (this.lastHit === new Date().getTime()) {
-                    this.energy -= 5;
-                    console.log('CH energy: ', this.energy);
+    //             const processHit = () => {
+    //                 if (this.lastHit === new Date().getTime()) {
+    //                     this.energy -= 5;
+    //                     console.log('CH energy: ', this.energy);
 
-                    if (this.energy <= 0) {
-                        this.energy = 0;
-                        // this.animateDead();
-                    }
-                }
-                // setTimeout(() => {
-                this.hitImmunity = false;
-                // }, 1500);
-            };
-            processHit();
-        }
-    }
+    //                     if (this.energy <= 0) {
+    //                         this.energy = 0;
+    //                         // this.animateDead();
+    //                     }
+    //                 }
+    //                 // setTimeout(() => {
+    //                 this.hitImmunity = false;
+    //                 // }, 1500);
+    //             };
+    //             processHit();
+    //         }
+    //     }
 
     /**
      * Stops the game after the character dies.

@@ -94,7 +94,7 @@ class Endboss extends MoveableObject {
         setInterval(() => {
             this.playAnimation(ENDBOSS_DEAD);
         }, 200);
-        this.isDead = true;  // Add a flag to indicate the boss is dead
+        this.isDead = true;
         setTimeout(() => { this.endOfGame(); }, 1500);
     }
 

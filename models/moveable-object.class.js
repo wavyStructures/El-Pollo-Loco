@@ -79,20 +79,16 @@ class MoveableObject extends DrawableObject {
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
     hit(loss = 5) {
-        if (!this instanceof Character)
-            this.energy -= loss;
+        this.energy -= loss;
         if (this.energy < 0) {
             this.energy = 0;
+        } else if (this instanceof Endboss) {
+            this.endbossHitCount();
         } else {
             this.lastHit = new Date().getTime();
-            if (this instanceof Character) {
-                this.characterIsHit();
-            }
-            if (this instanceof Endboss) {
-                this.endbossHitCount();
-            }
         }
     }
+
 
     /**
      * Checks if the object is hurt.
@@ -101,7 +97,7 @@ class MoveableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 3000;
+        return timepassed < 1000;
     }
 
     /**
@@ -117,7 +113,7 @@ class MoveableObject extends DrawableObject {
      * @param {Array<string>} images - An array of image paths.
      */
     playAnimation(images) {
-        // console.log('this.currentImage und images in playAnimation', this.currentImage, images);
+        console.log('this.currentImage und images in playAnimation', this.currentImage, images);
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];

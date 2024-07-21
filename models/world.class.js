@@ -133,7 +133,7 @@ class World {
                     console.log('charactersBottles: ', this.charactersBottles);
 
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
-                    this.endboss.hit(10);
+                    this.endboss.hit(20);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
                     this.throwableObjects.splice(index, 1);
                 }
@@ -155,8 +155,14 @@ class World {
      */
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingFromSide(enemy)) {
-                this.character.characterIsHit();
+            let enemyIsAlive = (enemy.energy >= 5);
+            if (this.character.isCollidingFromSide(enemy) && enemyIsAlive && !this.isHit) {
+                this.sounds.playSound(this.sounds.isHurt_sound)
+                this.character.hit();
+                this.isHit = true;
+                setTimeout(() => {
+                    this.isHit = false;
+                }, 500);
                 this.statusBarHealth.setPercentage(this.character.energy);
             };
         }

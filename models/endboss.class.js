@@ -13,6 +13,7 @@ class Endboss extends MoveableObject {
     hitCount = 0;
     hadFirstContact = false;
     isDead = false;
+    world;
 
     /**
      * Constructor for initializing the Endboss with sounds, image, energy, and animation.
@@ -23,6 +24,7 @@ class Endboss extends MoveableObject {
     constructor(sounds) {
         super();
         this.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
+        this.world = world;
         this.sounds = sounds;
         this.loadEndbossImages();
         this.x = 2500;

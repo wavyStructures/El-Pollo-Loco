@@ -319,7 +319,7 @@ canvas {
   }
 }
 
-@media screen and (max-width: 620px) and (orientation: portrait) {
+@media screen and (max-width: 820px) and (orientation: portrait) {
   .start-screen-top {
     width: 100%;
     position: absolute;
@@ -350,7 +350,7 @@ canvas {
   }
 }
 
-@media screen and (max-height: 620px) and (orientation: landscape) {
+@media screen and (max-height: 820px) and (orientation: landscape) {
   h1 {
     display: none;
   }

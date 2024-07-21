@@ -130,8 +130,6 @@ class World {
                 if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
                     enemy.isDead = true;
                     this.throwableObjects.splice(index, 1);
-                    console.log('charactersBottles: ', this.charactersBottles);
-
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
                     this.endboss.hit(20);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
@@ -155,15 +153,14 @@ class World {
      */
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
-            let enemyIsAlive = (enemy.energy >= 5);
-            if (this.character.isCollidingFromSide(enemy) && enemyIsAlive && !this.isHit) {
-                this.sounds.playSound(this.sounds.isHurt_sound)
+            if (this.character.isCollidingFromSide(enemy) && !this.character.isHit) {
                 this.character.hit();
-                this.isHit = true;
-                setTimeout(() => {
-                    this.isHit = false;
-                }, 500);
                 this.statusBarHealth.setPercentage(this.character.energy);
+                this.sounds.playSound(this.sounds.isHurt_sound)
+                this.character.isHit = true;
+                setTimeout(() => {
+                    this.character.isHit = false;
+                }, 500);
             };
         }
         );

@@ -62,7 +62,7 @@ function adaptToMobile() {
  * Checks the window inner height and shows or hides mobile buttons accordingly.
  */
 function checkMobileBtns() {
-    if (window.innerHeight <= 620) {
+    if (window.innerHeight <= 821) {
         showMobileBtns();
     } else {
         hideMobileBtns();

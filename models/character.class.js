@@ -1,7 +1,7 @@
 class Character extends MoveableObject {
 
     x = 120;
-    y = 130;
+    y = 150;
     width = 150;
     height = 300;
     speed = 10;
@@ -13,14 +13,14 @@ class Character extends MoveableObject {
         left: 10
     }
     world;
-    currentImage = 0;
+    currentImage;
     isIdle = false;
     isPlayingHurtSound = false;
     hitImmunity = false;
     isHit = false;
     lastHit = 0;
-    hurtDuration = 1500;
-    hurtStartTime = 0;
+    // hurtDuration = 1500;
+    // hurtStartTime = 0;
     lastKeyPressTime = 0;
     sounds;
 
@@ -144,9 +144,10 @@ class Character extends MoveableObject {
                 this.playAnimation(CHARACTER_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(CHARACTER_WALKING);
-            } else {
-                this.handleIdleState();
             }
+            // } else {
+            //     this.handleIdleState();
+            // }
         }, 1000 / 60);
     }
 

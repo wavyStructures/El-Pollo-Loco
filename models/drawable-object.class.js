@@ -1,17 +1,16 @@
 class DrawableObject {
+
     x = 120;
     y = 280;
     width = 100;
     height = 150;
     img;
-    imageCache = {};
     currentImage = 0;
+    imageCache = {};
 
     /**
      * Loads an image from the specified path.
-     *
      * @param {type} path - The path of the image to load.
-     * @return {type} undefined
      */
     loadImage(path) {
         this.img = new Image();

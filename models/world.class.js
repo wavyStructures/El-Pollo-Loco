@@ -268,9 +268,9 @@ class World {
     }
 
     /**
-     * Adds multiple objects to the map.
-     * @param {Array} objects - The array of objects to add to the map.
-     */
+    * Adds multiple objects to the map.
+    * @param {Array} objects - The array of objects to add to the map.
+    */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);

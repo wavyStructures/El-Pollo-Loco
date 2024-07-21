@@ -53,12 +53,7 @@ class Endboss extends MoveableObject {
     // }
 
     checkFirstContact() {
-        console.log('world:', world);
-        console.log('world.character:', world.character);
-        if (world && world.character) {
-            return world.character.x >= 2200;
-        }
-        return false;
+        return world.character.x >= 2200;
     }
 
     /**

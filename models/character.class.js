@@ -30,8 +30,7 @@ class Character extends MoveableObject {
         this.sounds = sounds;
         this.loadCharacterImages();
         this.applyGravity();
-        requestAnimationFrame(() => this.animate());
-
+        setTimeout(() => { this.animate(); }, 1000);
     }
 
     /**
@@ -50,47 +49,12 @@ class Character extends MoveableObject {
      * Animates the character's different movements and actions.
      */
     animate() {
-        this.update();
-        this.draw();
-        requestAnimationFrame(() => this.animate());
-    }
-    // this.animateWalking();
-    // this.animateJumping();
-    // this.animateHurt();
-    // this.animateImages();
-    // this.animateIdle();
-
-    // this.wakeUp();
-
-    update() {
-        if (this.isDead()) {
-            this.playAnimation(CHARACTER_DEAD);
-            this.stopGameAfterDying();
-        } else if (this.isHurt()) {
-            this.playAnimation(CHARACTER_HURT);
-            if (!this.isPlayingHurtSound) {
-                this.sounds.playSound(this.sounds.isHurt_sound);
-                this.isPlayingHurtSound = true;
-            }
-        } else if (this.isAboveGround()) {
-            this.playAnimation(CHARACTER_JUMPING);
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.walkRight();
-            } else if (this.world.keyboard.LEFT && this.x > 0) {
-                this.walkLeft();
-            }
-        } else {
-            this.handleIdleState();
-            this.sounds.stopSound(this.sounds.walking_sound);
-        }
-        this.world.camera_x = -this.x + 100;
-    }
-
-    draw() {
-        this.world.ctx.clearRect(0, 0, this.world.canvas.width, this.world.canvas.height);
-        super.draw(this.world.ctx);
-        this.drawFrame(this.world.ctx);
+        this.animateWalking();
+        this.animateJumping();
+        this.animateHurt();
+        this.animateImages();
+        this.animateIdle();
+        // this.wakeUp();
     }
 
     /**
@@ -113,56 +77,56 @@ class Character extends MoveableObject {
         this.sounds.playSound(this.sounds.walking_sound);
     }
 
-    // /**
-    //  * Animates the character's walking movement, uses setInterval method to continuously check for keyboard input to determine if the character
-    //  * should walk right or left if character is within level boundaries. If no keyboard input is detected, the walking sound
-    //  * is stopped. Additionally, the camera is updated to follow the character's movement.
-    //  */
-    // animateWalking() {
-    //     setInterval(() => {
-    //         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-    //             this.walkRight();
-    //         } else if (this.world.keyboard.LEFT && this.x > 0) {
-    //             this.walkLeft();
-    //         } else {
-    //             this.sounds.stopSound(this.sounds.walking_sound);
-    //         }
-    //         this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
-    //     }, 1000 / 20);
-    // }
+    /**
+     * Animates the character's walking movement, uses setInterval method to continuously check for keyboard input to determine if the character
+     * should walk right or left if character is within level boundaries. If no keyboard input is detected, the walking sound
+     * is stopped. Additionally, the camera is updated to follow the character's movement.
+     */
+    animateWalking() {
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.walkRight();
+            } else if (this.world.keyboard.LEFT && this.x > 0) {
+                this.walkLeft();
+            } else {
+                this.sounds.stopSound(this.sounds.walking_sound);
+            }
+            this.world.camera_x = -this.x + 100;   //camera auf die gegenteilige x-Koordinate von Pepe setzen
+        }, 1000 / 20);
+    }
 
-    // /**
-    //  * Animates the character's jumping movement, triggers a jump action and plays a jumping sound when the space key is pressed and the character is not above the ground.
-    //  */
-    // animateJumping() {
-    //     setInterval(() => {
-    //         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-    //             this.wakeUp();
-    //             this.jump();
-    //             this.sounds.playSound(this.sounds.jumping_sound);
-    //         }
-    //     }, 1000 / 20);
-    // }
-
-    // // animateHurt() {
-    // //     setInterval(() => {
-    // //         if (this.isHurt(5000)) {
-    // //             this.sounds.playSound(this.sounds.isHurt_sound);
-    // //         }
-    // //     }, 1000 / 20);
-    // // }
-
+    /**
+     * Animates the character's jumping movement, triggers a jump action and plays a jumping sound when the space key is pressed and the character is not above the ground.
+     */
+    animateJumping() {
+        setInterval(() => {
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.wakeUp();
+                this.jump();
+                this.sounds.playSound(this.sounds.jumping_sound);
+            }
+        }, 1000 / 20);
+    }
 
     // animateHurt() {
     //     setInterval(() => {
-    //         if (this.isHurt() && !this.isPlayingHurtSound) {
+    //         if (this.isHurt(5000)) {
     //             this.sounds.playSound(this.sounds.isHurt_sound);
-    //             this.isPlayingHurtSound = true;
-    //         } else if (!this.isHurt()) {
-    //             this.isPlayingHurtSound = false;
     //         }
-    //     }, 100);
+    //     }, 1000 / 20);
     // }
+
+
+    animateHurt() {
+        setInterval(() => {
+            if (this.isHurt() && !this.isPlayingHurtSound) {
+                this.sounds.playSound(this.sounds.isHurt_sound);
+                this.isPlayingHurtSound = true;
+            } else if (!this.isHurt()) {
+                this.isPlayingHurtSound = false;
+            }
+        }, 100);
+    }
 
     characterIsHit() {
         const now = new Date().getTime();
@@ -171,7 +135,7 @@ class Character extends MoveableObject {
             this.hitImmunity = true;
 
             const processHit = () => {
-                if (this.lastHit === now) {
+                if (this.lastHit === new Date().getTime()) {
                     this.energy -= 5;
                     console.log('CH energy: ', this.energy);
 
@@ -184,42 +148,42 @@ class Character extends MoveableObject {
                     this.hitImmunity = false;
                 }, 1500);
             };
-            setTimeout(processHit, 0);
+            setTimeout(processHit, 1000);
         }
     }
 
 
-    // /**
-    //  * Sets up an interval to handle different character animations based on the character's state and keyboard input.
-    //  */
-    // animateImages() {
-    //     let animationInterval = setInterval(() => {
-    //         if (this.isDead()) {
-    //             this.playAnimation(CHARACTER_DEAD);
-    //             this.stopGameAfterDying(animationInterval);
-    //         } else if (this.isHurt()) {
-    //             this.playAnimation(CHARACTER_HURT);
-    //         } else if (this.isAboveGround()) {
-    //             this.playAnimation(CHARACTER_JUMPING);
-    //         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-    //             this.playAnimation(CHARACTER_WALKING);
-    //         }
-    //         //  else if (!this.isIdle) {
-    //         //     this.playAnimation(CHARACTER_IDLE);
-    //         // }
-    //     }, 100);
-    // }
+    /**
+     * Sets up an interval to handle different character animations based on the character's state and keyboard input.
+     */
+    animateImages() {
+        let animationInterval = setInterval(() => {
+            if (this.isDead()) {
+                this.playAnimation(CHARACTER_DEAD);
+                this.stopGameAfterDying(animationInterval);
+            } else if (this.isHurt()) {
+                this.playAnimation(CHARACTER_HURT);
+            } else if (this.isAboveGround()) {
+                this.playAnimation(CHARACTER_JUMPING);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(CHARACTER_WALKING);
+            }
+            //  else if (!this.isIdle) {
+            //     this.playAnimation(CHARACTER_IDLE);
+            // }
+        }, 100);
+    }
 
 
-    // /**
-    //  * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
-    //  */
-    // handleKeyPress() {
-    //     this.lastKeyPressTime = Date.now();
-    //     this.isIdle = false;
-    //     this.sounds.stopSound(this.sounds.long_idle_sound);
-    //     this.wakeUp();
-    // }
+    /**
+     * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
+     */
+    handleKeyPress() {
+        this.lastKeyPressTime = Date.now();
+        this.isIdle = false;
+        this.sounds.stopSound(this.sounds.long_idle_sound);
+        this.wakeUp();
+    }
 
     /**
      * Handles the idle state of the character.If no key is pressed, it checks the time since the last key press 
@@ -238,18 +202,18 @@ class Character extends MoveableObject {
         }
     }
 
-    // /**
-    //  * Sets up an interval to handle character animations for idle state based on keyboard input.
-    //  */
-    // animateIdle() {
-    //     setInterval(() => {
-    //         if (Keyboard.aKeyWasPressed(this.world)) {
-    //             this.handleKeyPress();
-    //         } else {
-    //             this.handleIdleState();
-    //         }
-    //     }, 50);
-    // }
+    /**
+     * Sets up an interval to handle character animations for idle state based on keyboard input.
+     */
+    animateIdle() {
+        setInterval(() => {
+            if (Keyboard.aKeyWasPressed(this.world)) {
+                this.handleKeyPress();
+            } else {
+                this.handleIdleState();
+            }
+        }, 50);
+    }
     // animateIdle() {
     //     setInterval(() => {
     //         if (Keyboard.aKeyWasPressed(this.world)) {

@@ -27,13 +27,12 @@ class DrawableObject {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
-            // console.log("images array img is", img);
         });
     }
 
     /**
-     * Draws the image on the canvas using the specified context.
-     * @param {CanvasRenderingContext2D} ctx - The context to draw on.
+     * Draws the image (this.img) on the canvas using the specified context (at position this.x and this.y).
+     * @param {CanvasRenderingContext2D, HTML 5 element} ctx - The context to draw on.
      */
     draw(ctx) {
         try {

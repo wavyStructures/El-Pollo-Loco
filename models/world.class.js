@@ -76,7 +76,7 @@ class World {
      */
     checkThrowObjects() {
         let currentTime = Date.now();
-        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && !this.character.isAboveGround()
+        if (this.keyboard.D && currentTime - this.lastBottleThrowTime > this.bottleThrowCooldown && this.statusBarBottles.percentage >= 20 && !this.character.isAboveGround()
             && this.charactersBottles > 0) {
             let xOffset = 80;
             let yOffset = 120;
@@ -114,8 +114,7 @@ class World {
     characterJumpingOnEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingFromTop(enemy) && (this.character.isFalling()) && !(enemy instanceof Endboss)) {
-                enemy.isDead = true;
-                this.sounds.playSound(this.sounds.chicken_dead_sound);
+                enemy.hit();
                 this.characterKillsEnemy(enemy);
             }
         });
@@ -145,7 +144,9 @@ class World {
      * @return {Array} The updated list of enemies after removing the killedEnemy.
      */
     characterKillsEnemy(killedEnemy) {
-        this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
+        killedEnemy.isDead = true;
+        this.sounds.playSound(this.sounds.chicken_dead_sound);
+        this.checkDeadEnemies(killedEnemy);
     }
 
     /**
@@ -170,13 +171,16 @@ class World {
      * Checks if any enemies in the level are dead and removes them from the level after a delay of 18000 milliseconds.
      * This function iterates over each enemy in the level using the `forEach` method. If an enemy is not an instance of `Endboss` and is dead, it is removed from the level using the `splice` method.
       */
-    checkDeadEnemies() {
+    checkDeadEnemies(killedEnemy) {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
                 if (!(enemy instanceof Endboss) && enemy.isDead) {
                     this.level.enemies.splice(index, 1)
                 }
             });
+
+            this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
+
         }, 18000);
     }
 
@@ -198,7 +202,7 @@ class World {
      * Buys a bottle if the "B" key is pressed and enough coins are available.
      */
     buyBottle() {
-        if (this.keyboard.B && this.charactersCoins >= 5) {
+        if (this.keyboard.B && this.charactersCoins >= 5 && this.statusBarCoins.percentage >= 50) {
             this.charactersCoins -= 5;
             this.statusBarCoins.setCoins(this.charactersCoins);
             this.increaseStatusBar(this.statusBarBottles, 20);

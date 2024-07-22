@@ -4,7 +4,7 @@ class MoveableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-    // lastHit = 0;
+    lastHit = 0;
     offset = {
         top: 0,
         bottom: 0,
@@ -50,8 +50,8 @@ class MoveableObject extends DrawableObject {
      * @return {boolean} True if colliding from the side, false otherwise.
      */
     isCollidingFromSide(mo) {
-        let isCollidingFromLeft = this.x + this.width - 200 >= mo.x &&
-            this.x + this.width - 200 <= mo.x + mo.width &&
+        let isCollidingFromLeft = this.x + 100 >= mo.x &&
+            this.x + 100 <= mo.x + mo.width &&
             this.y < mo.y + mo.height &&
             this.y + this.height > mo.y;
         let isCollidingFromRight = this.x + 75 <= mo.x + mo.width &&
@@ -78,8 +78,9 @@ class MoveableObject extends DrawableObject {
      * Decreases the energy of the object by the specified loss.
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
-    hit(loss = 5) {
-        this.energy -= loss;
+    hit() {
+        this.energy -= 5;
+        console.log('just lsot 5 energy points', this);
         if (this.energy < 0) {
             this.energy = 0;
         } else if (this instanceof Endboss) {
@@ -106,6 +107,14 @@ class MoveableObject extends DrawableObject {
      */
     isDead() {
         return this.energy == 0;
+    }
+
+    /**
+ * Checks if the object is alive.
+ * @returns {boolean} True if the object is alive, otherwise false.
+ */
+    isAlive() {
+        return this.energy >= 5;
     }
 
     /**
@@ -153,7 +162,7 @@ class MoveableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 150;
+            return this.y < 140;
         }
     }
 

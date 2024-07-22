@@ -10,7 +10,7 @@ class Chicken extends MoveableObject {
         right: 4,
         bottom: 4,
     };
-    speed = 0.15 + Math.random() * 0.25;
+    speed = 0.2 + Math.random() * 0.25;
     energy = 5;
     isDead = false;
 
@@ -34,7 +34,7 @@ class Chicken extends MoveableObject {
      * Function to animate the chicken object.
      */
     animate() {
-        setInterval(() => {
+        let chickenWalk = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
@@ -44,9 +44,8 @@ class Chicken extends MoveableObject {
                 this.sounds.playSound(this.sounds.chicken_sound);
             } else {
                 this.sounds.stopSound(this.sounds.chicken_sound);
-                this.isDead = true;
                 this.playAnimation(CHICKEN_DEAD);
-                this.sounds.playSound(this.sounds.chicken_dead_sound);
+                clearInterval(chickenWalk);
             }
         }, 200);
     }

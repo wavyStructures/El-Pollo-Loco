@@ -4,17 +4,17 @@ class SmallChicken extends MoveableObject {
     y = 390;
     width = 40;
     height = 40;
-    isDead = false;
     offset = {
-        left: 2,
+        left: 20,
         top: 2,
-        right: 2,
+        right: 20,
         bottom: 2,
     };
+    energy = 5;
+    isDead = false;
 
     /**
      * Constructor for SmallChicken class.
-     *
      * @param {type} sounds - The sounds for the chicken.
      */
     constructor(sounds) {
@@ -30,34 +30,28 @@ class SmallChicken extends MoveableObject {
      * Loads the small chicken images for walking and dead states.
      */
     loadSmallChickenImages() {
-        this.loadImages(SMALL_CHICKEN_WALKING);
-        this.loadImages(SMALL_CHICKEN_DEAD);
+        this.loadImages(CHICKEN_SMALL_WALKING);
+        this.loadImages(CHICKEN_SMALL_DEAD);
     }
 
     /**
      * Function to animate the small chicken's movement and actions.
      */
     animate() {
-        setInterval(() => {
+        let smallChickenWalking = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
         setInterval(() => {
-            if (!this.isDead) {
-                this.playAnimation(SMALL_CHICKEN_WALKING);
+            if (!this.energy <= 0) {
+                this.playAnimation(CHICKEN_SMALL_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);
-            }
-            else {
-                if (!this.deadSoundPlayed) {
-                    this.deadSoundPlayed = true;
-                    this.sounds.stopSound(this.sounds.chicken_sound);
-                    this.playAnimation(SMALL_CHICKEN_DEAD);
-                    this.sounds.playSound(this.sounds.small_chicken_dies_sound);
-                }
+
+            } else {
+                this.sounds.stopSound(this.sounds.chicken_sound);
+                this.playAnimation(CHICKEN_SMALL_DEAD);
+                clearInterval(smallChickenWalking);
             }
         }, 200);
     }
 }
-
-
-

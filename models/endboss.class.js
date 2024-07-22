@@ -8,8 +8,8 @@ class Endboss extends MoveableObject {
         left: 15,
         right: 15
     }
-    energy = 100;
-    speed = 5;
+    energy = 200;
+    speed = 35;
     hitCount = 0;
     hadFirstContact = false;
     isDead = false;
@@ -28,7 +28,7 @@ class Endboss extends MoveableObject {
         this.sounds = sounds;
         this.loadEndbossImages();
         this.x = 2500;
-        this.energy = 100;
+        this.energy = 200;
         this.animate();
     }
 
@@ -67,25 +67,36 @@ class Endboss extends MoveableObject {
      * @return {void}
      */
     animate() {
-        this.endbossInterval = setInterval(() => {
-            if (this.energy === 0) {
+        let endbossInterval = setInterval(() => {
+            if (this.energy == 0) {
                 console.log('endboss ZERO ENERGY');
                 this.deadAnimation();
             }
-            else if (this.isHurt()) {
-                this.hurtAnimation();
-            } else if (this.checkFirstContact()) {
+            else if (this.isHurt() && this.energy >= 120) {
+                this.playAnimation(ENDBOSS_HURT);
+            } else if (this.energy <= 140) {
+                this.walkLeft();
+                this.speed += 0.5;
+            } else if (this.checkFirstContact() && this.energy <= 160) {
                 this.attackAnimation();
             }
             else {
-                this.playAnimation(ENDBOSS_WALKING);
+                this.playAnimation(ENDBOSS_ALERT);
             }
         }, 200);
     }
 
-    endbossHitCound() {
+    /**
+     * Moves the end boss character left.
+     */
+    walkLeft() {
+        this.playAnimation(this.IMAGES_WALKING);
+        this.moveLeft();
+    }
+
+    endbossHitCount() {
         this.hitCount++;
-        if (this.hitCount >= 8) {
+        if (this.hitCount >= 20) {
             this.energy = 0;
         }
     }
@@ -122,13 +133,6 @@ class Endboss extends MoveableObject {
         this.playAnimation(ENDBOSS_ATTACK);
         this.jump();
         this.walkLeft();
-    }
-
-    /**
-     * Moves the character left.
-    */
-    walkLeft() {
-        this.moveLeft();
     }
 
     /**

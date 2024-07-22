@@ -1,16 +1,16 @@
 class Character extends MoveableObject {
 
     x = 120;
-    y = 150;
+    y = 140;
     width = 150;
     height = 300;
     speed = 10;
     energy = 100;
     offset = {
-        top: 10,
-        right: 10,
-        bottom: 10,
-        left: 10
+        top: 120,
+        right: 40,
+        bottom: 30,
+        left: 40
     }
     world;
     currentImage;

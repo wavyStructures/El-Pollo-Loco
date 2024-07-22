@@ -9,24 +9,6 @@ class Keyboard {
     B = false;
 
     /**
-     * Checks if any key on the keyboard is pressed.
-     * @param {Object} world - The world object containing the keyboard state.
-     * @return {boolean} Returns true if any key is pressed, false otherwise.
-     */
-    static aKeyWasPressed(world) {
-        return world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN || world.keyboard.SPACE || world.keyboard.D || world.keyboard.B;
-    }
-
-    /**
-     * Checks if no key is pressed in the given world.
-     * @param {Object} world - The world object containing the keyboard state.
-     * @return {boolean} Returns true if no key is pressed, false otherwise.
-     */
-    static noKeyPressed(world) {
-        return !world.keyboard.LEFT && !world.keyboard.RIGHT && !world.keyboard.UP && !world.keyboard.DOWN && !world.keyboard.SPACE && !world.keyboard.D && !world.keyboard.B;
-    }
-
-    /**
      * Constructor for the Keyboard class, initializes key event bindings.
      */
     constructor() {
@@ -142,4 +124,23 @@ class Keyboard {
             this.B = false;
         });
     }
+
+    /**
+    * Checks if any key on the keyboard is pressed.
+    * @param {Object} world - The world object containing the keyboard state.
+    * @return {boolean} Returns true if any key is pressed, false otherwise.
+    */
+    static aKeyWasPressed(world) {
+        return world.keyboard.LEFT || world.keyboard.RIGHT || world.keyboard.UP || world.keyboard.DOWN || world.keyboard.SPACE || world.keyboard.D || world.keyboard.B;
+    }
+
+    /**
+     * Checks if no key is pressed in the given world.
+     * @param {Object} world - The world object containing the keyboard state.
+     * @return {boolean} Returns true if no key is pressed, false otherwise.
+     */
+    static noKeyPressed(world) {
+        return !world.keyboard.LEFT && !world.keyboard.RIGHT && !world.keyboard.UP && !world.keyboard.DOWN && !world.keyboard.SPACE && !world.keyboard.D && !world.keyboard.B;
+    }
+
 }

@@ -146,7 +146,6 @@ class World {
     characterKillsEnemy(killedEnemy) {
         killedEnemy.isDead = true;
         this.sounds.playSound(this.sounds.chicken_dead_sound);
-        this.checkDeadEnemies(killedEnemy);
     }
 
     /**
@@ -171,18 +170,20 @@ class World {
      * Checks if any enemies in the level are dead and removes them from the level after a delay of 18000 milliseconds.
      * This function iterates over each enemy in the level using the `forEach` method. If an enemy is not an instance of `Endboss` and is dead, it is removed from the level using the `splice` method.
       */
-    checkDeadEnemies(killedEnemy) {
+    checkDeadEnemies() {
         setInterval(() => {
             this.level.enemies.forEach((enemy, index) => {
-                if (!(enemy instanceof Endboss) && enemy.isDead) {
+                if (!(enemy instanceof Endboss) && enemy.toBeRemoved) {
                     this.level.enemies.splice(index, 1)
                 }
             });
 
-            this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
+            // this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
 
         }, 18000);
     }
+
+
 
     /**
      * Collects bottles based on character collision, updates status bar, and plays bottle sound.

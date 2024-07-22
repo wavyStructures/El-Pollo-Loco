@@ -11,7 +11,7 @@ class MoveableObject extends DrawableObject {
         left: 0,
         right: 0,
     };
-
+    toBeRemoved = false;
 
     /**
      * Constructor for initializing the object with sounds.
@@ -80,7 +80,6 @@ class MoveableObject extends DrawableObject {
      */
     hit() {
         this.energy -= 5;
-        console.log('just lsot 5 energy points', this);
         if (this.energy < 0) {
             this.energy = 0;
         } else if (this instanceof Endboss) {
@@ -107,6 +106,13 @@ class MoveableObject extends DrawableObject {
      */
     isDead() {
         return this.energy == 0;
+    }
+
+    /**
+    * Marks the object for removal from the game.
+    */
+    markForRemoval() {
+        this.toBeRemoved = true;
     }
 
     /**

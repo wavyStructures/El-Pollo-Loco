@@ -55,10 +55,11 @@ class Character extends MoveableObject {
      * Animates the character's different movements and actions.
      */
     animate() {
+        this.animateImages();
+
         this.animateWalking();
         this.animateJumping();
         this.animateHurt();
-        this.animateImages();
     }
 
     /**

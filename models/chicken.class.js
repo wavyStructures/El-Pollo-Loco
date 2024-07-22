@@ -13,6 +13,7 @@ class Chicken extends MoveableObject {
     speed = 0.2 + Math.random() * 0.25;
     energy = 5;
     isDead = false;
+    toBeRemoved = false;
 
     /**
      * Creates a new instance of the Chicken class.
@@ -43,10 +44,16 @@ class Chicken extends MoveableObject {
                 this.playAnimation(CHICKEN_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);
             } else {
+                this.isDead;
                 this.sounds.stopSound(this.sounds.chicken_sound);
                 this.playAnimation(CHICKEN_DEAD);
                 clearInterval(chickenWalk);
+                setTimeout(() => {
+                    this.markForRemoval();
+                }, 500);
             }
         }, 200);
+
+
     }
 }   

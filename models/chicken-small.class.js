@@ -51,6 +51,9 @@ class SmallChicken extends MoveableObject {
                 this.sounds.stopSound(this.sounds.chicken_sound);
                 this.playAnimation(CHICKEN_SMALL_DEAD);
                 clearInterval(smallChickenWalking);
+                setTimeout(() => {
+                    this.markForRemoval();
+                }, 1500);
             }
         }, 200);
     }

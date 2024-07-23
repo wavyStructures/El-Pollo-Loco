@@ -40,9 +40,7 @@ class SmallChicken extends MoveableObject {
     animate() {
         let smallChickenWalking = setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60);
 
-        setInterval(() => {
             if (!this.energy <= 0) {
                 this.playAnimation(CHICKEN_SMALL_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);

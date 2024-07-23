@@ -43,7 +43,7 @@ class Level {
             new SmallChicken(this.sounds),
             new SmallChicken(this.sounds),
             new SmallChicken(this.sounds),
-            // new Endboss(this.sounds)
+            new Endboss(this.sounds)
         ];
     }
 }

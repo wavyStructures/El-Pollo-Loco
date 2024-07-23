@@ -19,6 +19,7 @@ class MoveableObject extends DrawableObject {
      */
     constructor(sounds) {
         super();
+        this.animations = {};
         this.sounds = sounds;
     }
 
@@ -78,8 +79,8 @@ class MoveableObject extends DrawableObject {
      * Decreases the energy of the object by the specified loss.
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
-    hit() {
-        this.energy -= 5;
+    hit(loss = 5) {
+        this.energy -= loss;
         if (this.energy < 0) {
             this.energy = 0;
         } else if (this instanceof Endboss) {

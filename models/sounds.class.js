@@ -42,6 +42,15 @@ class Sounds {
     }
 
     /**
+     * Checks if the given sound is currently playing.
+     * @param {Audio} sound - The sound to check.
+     * @return {boolean} Returns true if the sound is currently playing, false otherwise.
+     */
+    isPlaying(sound) {
+        return !sound.paused;
+    }
+
+    /**
      * Pauses the given sound.
      * @param {type} sound - The sound to be paused.
      */

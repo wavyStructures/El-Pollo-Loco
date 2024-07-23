@@ -45,15 +45,15 @@ class Endboss extends MoveableObject {
 
     /**
      * Checks if the character in the world has reached a certain x-coordinate to indicate the first contact.
-     *
      * @return {boolean} Returns true if the character's x-coordinate is greater than or equal to 2200, false otherwise.
      */
-    // checkFirstContact() {
-    //     return world.character.x >= 2200;
-    // }
-
     checkFirstContact() {
-        return world.character.x >= 2200;
+        return this.world.character.x >= 2200;
+    }
+
+
+    commingCloser() {
+        return this.world.character.x >= 2000;
     }
 
     /**
@@ -69,43 +69,37 @@ class Endboss extends MoveableObject {
     animate() {
         let endbossInterval = setInterval(() => {
             if (this.energy == 0) {
+                this.playAnimation(ENDBOSS_DEAD);
                 console.log('endboss ZERO ENERGY');
                 this.deadAnimation();
             }
-            else if (this.isHurt() && this.energy >= 120) {
-                this.playAnimation(ENDBOSS_HURT);
-            } else if (this.energy <= 140) {
+            else if (this.isHurt() && this.energy >= 125) {
+                this.hurtAnimation();
+            } else if (this.energy <= 150) {
+                this.playAnimation(ENDBOSS_WALKING);
                 this.walkLeft();
-                this.speed += 0.5;
-            } else if (this.checkFirstContact() && this.energy <= 160) {
+                this.speed += 0.15;
+            } else if (this.checkFirstContact()) {
+                this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
-            }
-            else {
+            } else if (this.commingCloser()) {
                 this.playAnimation(ENDBOSS_ALERT);
+                this.sounds.playSound(this.sounds.endboss_alert_sound);
             }
         }, 200);
     }
 
-    /**
-     * Moves the end boss character left.
-     */
-    walkLeft() {
-        this.playAnimation(this.IMAGES_WALKING);
-        this.moveLeft();
-    }
-
     endbossHitCount() {
+        this.sounds.playSound(this.sounds.endboss_hit_sound);
         this.hitCount++;
         if (this.hitCount >= 20) {
             this.energy = 0;
         }
     }
-
+    g
     deadAnimation() {
-        setInterval(() => {
-            this.playAnimation(ENDBOSS_DEAD);
-        }, 200);
         this.isDead = true;
+        this.sounds.playSound(this.sounds.endboss_dying_sound);
         setTimeout(() => { this.endOfGame(); }, 1500);
     }
 
@@ -130,7 +124,6 @@ class Endboss extends MoveableObject {
      * making the character jump, and moving the character to the left.
      */
     attackAnimation() {
-        this.playAnimation(ENDBOSS_ATTACK);
         this.jump();
         this.walkLeft();
     }
@@ -150,5 +143,12 @@ class Endboss extends MoveableObject {
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
         document.getElementById('startScreenAndCanvas').classList.add('d-none');
+    }
+
+    /**
+     * Moves the end boss character left.
+     */
+    walkLeft() {
+        this.moveLeft();
     }
 }

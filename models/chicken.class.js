@@ -50,7 +50,7 @@ class Chicken extends MoveableObject {
                 clearInterval(chickenWalk);
                 setTimeout(() => {
                     this.markForRemoval();
-                }, 500);
+                }, 1500);
             }
         }, 200);
 

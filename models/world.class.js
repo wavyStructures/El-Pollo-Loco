@@ -130,7 +130,8 @@ class World {
                     enemy.isDead = true;
                     this.throwableObjects.splice(index, 1);
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
-                    this.endboss.hit(20);
+                    this.endboss.hit(25);
+                    console.log('endboss was hit and now has energy of:', this.endboss.energy);
                     this.statusBarEndboss.setPercentage(this.endboss.energy);
                     this.throwableObjects.splice(index, 1);
                 }

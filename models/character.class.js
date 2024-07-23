@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     y = 140;
     width = 150;
     height = 300;
-    speed = 10;
+    speed = 20;
     energy = 100;
     offset = {
         top: 120,
@@ -23,6 +23,7 @@ class Character extends MoveableObject {
     // hurtStartTime = 0;
     lastKeyPressTime = 0;
     sounds;
+    characterInterval;
 
     /**
      * Initializes the character with the provided sounds and sets up initial properties and actions.
@@ -52,14 +53,15 @@ class Character extends MoveableObject {
     }
 
     /**
-     * Animates the character's different movements and actions.
+     * Animates the character's different movements and actions via Interval.
      */
     animate() {
-        this.animateImages();
-
-        this.animateWalking();
-        this.animateJumping();
-        this.animateHurt();
+        this.characterInterval = setInterval(() => {
+            this.animateWalking();
+            this.animateJumping();
+            this.animateHurt();
+            this.animateImages();
+        }, 200);
     }
 
     /**
@@ -68,16 +70,16 @@ class Character extends MoveableObject {
      * is stopped. Additionally, the camera is updated to follow the character's movement.
      */
     animateWalking() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.walkRight();
-            } else if (this.world.keyboard.LEFT && this.x > 0) {
-                this.walkLeft();
-            } else {
-                this.sounds.stopSound(this.sounds.walking_sound);
-            }
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.walkRight();
+        }
+        else if (this.world.keyboard.LEFT && this.x > 0) {
+            this.walkLeft();
+        }
+        else {
+            this.sounds.stopSound(this.sounds.walking_sound);
+        }
+        this.world.camera_x = -this.x + 100;
     }
 
     /**
@@ -87,7 +89,10 @@ class Character extends MoveableObject {
         this.moveRight();
         this.wakeUp();
         this.otherDirection = false;
+        // if (!this.sounds.isPlaying(this.sounds.walking_sound)) {
+
         this.sounds.playSound(this.sounds.walking_sound);
+        // }
     }
 
     /**
@@ -97,33 +102,32 @@ class Character extends MoveableObject {
         this.moveLeft();
         this.wakeUp();
         this.otherDirection = true;
+        // if (!this.sounds.isPlaying(this.sounds.walking_sound)) {
+
         this.sounds.playSound(this.sounds.walking_sound);
+        // }
     }
 
     /**
      * Animates the character's jumping movement, triggers a jump action and plays a jumping sound when the space key is pressed and the character is not above the ground.
      */
     animateJumping() {
-        setInterval(() => {
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.wakeUp();
-                this.jump();
-                this.sounds.playSound(this.sounds.jumping_sound);
-            }
-        }, 1000 / 60);
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.wakeUp();
+            this.jump();
+            this.sounds.playSound(this.sounds.jumping_sound);
+        }
     }
 
 
     animateHurt() {
-        setInterval(() => {
-            if (this.isHurt() && !this.isPlayingHurtSound) {
-                this.sounds.playSound(this.sounds.isHurt_sound);
-                this.isPlayingHurtSound = true;
-                this.hurtStartTime = Date.now();
-            } else if (!this.isHurt() && Date.now() - this.hurtStartTime > this.hurtDuration) {
-                this.isPlayingHurtSound = false;
-            }
-        }, 100);
+        if (this.isHurt() && !this.isPlayingHurtSound) {
+            this.sounds.playSound(this.sounds.isHurt_sound);
+            this.isPlayingHurtSound = true;
+            this.hurtStartTime = Date.now();
+        } else if (!this.isHurt() && Date.now() - this.hurtStartTime > this.hurtDuration) {
+            this.isPlayingHurtSound = false;
+        }
     }
 
     /**
@@ -131,25 +135,22 @@ class Character extends MoveableObject {
      */
     animateImages() {
         let deathFrame = 0;
-        let characterInterval = setInterval(() => {
-            if (this.energy <= 0) {
-                this.playAnimation(CHARACTER_DEAD);
-                deathFrame++;
-                if (deathFrame == CHARACTER_DEAD.length - 1) {
-                    clearInterval(characterInterval)
-                    setTimeout(() => { this.stopGameAfterDying(characterInterval); }, 1000);
-                }
-            } else if (this.isHurt() && Date.now() - this.hurtStartTime <= this.hurtDuration) {
-                this.playAnimation(CHARACTER_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(CHARACTER_JUMPING);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(CHARACTER_WALKING);
-            }
-            // } else {
-            //     this.handleIdleState();
+        if (this.energy <= 0) {
+            this.playAnimation(CHARACTER_DEAD);
+            // deathFrame++;
+            // if (deathFrame == CHARACTER_DEAD.length - 1) {
+            setTimeout(() => { this.stopGameAfterDying(); }, 1000);
             // }
-        }, 1000 / 60);
+        } else if (this.isHurt() && Date.now() - this.hurtStartTime <= this.hurtDuration) {
+            this.playAnimation(CHARACTER_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(CHARACTER_JUMPING);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(CHARACTER_WALKING);
+        }
+        // } else {
+        //     this.handleIdleState();
+        // }
     }
 
     /**
@@ -233,8 +234,8 @@ class Character extends MoveableObject {
      * Stops the game after the character dies.
      * @param {number} characterInterval - The interval ID of the animation.
      */
-    stopGameAfterDying(characterInterval) {
-        clearInterval(characterInterval);
+    stopGameAfterDying() {
+        clearInterval(this.characterInterval);
         this.sounds.stopSound(this.sounds.walking_sound);
         this.sounds.playSound(this.sounds.character_dying_sound);
         this.showLostOverlay();

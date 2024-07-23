@@ -37,9 +37,8 @@ class Chicken extends MoveableObject {
     animate() {
         let chickenWalk = setInterval(() => {
             this.moveLeft();
-        }, 1000 / 60);
 
-        setInterval(() => {
+
             if (!this.energy <= 0) {
                 this.playAnimation(CHICKEN_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);

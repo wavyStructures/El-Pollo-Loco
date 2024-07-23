@@ -89,10 +89,7 @@ class Character extends MoveableObject {
         this.moveRight();
         this.wakeUp();
         this.otherDirection = false;
-        // if (!this.sounds.isPlaying(this.sounds.walking_sound)) {
-
         this.sounds.playSound(this.sounds.walking_sound);
-        // }
     }
 
     /**
@@ -102,10 +99,7 @@ class Character extends MoveableObject {
         this.moveLeft();
         this.wakeUp();
         this.otherDirection = true;
-        // if (!this.sounds.isPlaying(this.sounds.walking_sound)) {
-
         this.sounds.playSound(this.sounds.walking_sound);
-        // }
     }
 
     /**

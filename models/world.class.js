@@ -154,7 +154,7 @@ class World {
      */
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingFromSide(enemy) && !this.character.isHit) {
+            if (!enemy.isDead && this.character.isCollidingFromSide(enemy) && !this.character.isHit && !(this.character.isFalling())) {
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
                 this.sounds.playSound(this.sounds.isHurt_sound)

@@ -15,6 +15,7 @@ class Endboss extends MoveableObject {
     hadFirstContact = false;
     isDead = false;
     world;
+    endbossInterval;
 
     /**
      * Constructor for initializing the Endboss with sounds, image, energy, and animation.
@@ -68,7 +69,7 @@ class Endboss extends MoveableObject {
      * @return {void}
      */
     animate() {
-        let endbossInterval = setInterval(() => {
+        this.endbossInterval = setInterval(() => {
             if (this.energy == 0) {
                 this.playAnimation(ENDBOSS_DEAD);
                 console.log('endboss ZERO ENERGY');
@@ -80,12 +81,15 @@ class Endboss extends MoveableObject {
                 this.playAnimation(ENDBOSS_WALKING);
                 this.walkLeft();
                 this.speed += 0.15;
+                this.world.character.speed += 0.18;
             } else if (this.checkFirstContact() || (this.x == this.world.character.x)) {
                 this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
             } else if (this.commingCloser()) {
                 this.playAnimation(ENDBOSS_ALERT);
                 this.sounds.playSound(this.sounds.endboss_alert_sound);
+            } else {
+                this.playAnimation(ENDBOSS_ALERT);
             }
         }, 200);
     }
@@ -150,7 +154,7 @@ class Endboss extends MoveableObject {
      * Moves the end boss character left.
      */
     walkLeft() {
-        if (this.x > this.world.character.x) {
+        if (this.x > this.world.character.x + this.world.character.width) {
             this.moveLeft();
         }
     }

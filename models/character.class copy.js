@@ -29,7 +29,6 @@ class Character extends MoveableObject {
     lastKeyPressTime = Date.now();
     sounds;
     characterInterval;
-    idleInterval;
 
     /**
      * Initializes the character with the provided sounds and sets up initial properties and actions.
@@ -65,6 +64,7 @@ class Character extends MoveableObject {
         this.characterInterval = setInterval(() => {
             this.animateWalking();
             this.animateJumping();
+            // this.animateHurt();
             this.animateImages();
         }, 200);
     }
@@ -135,7 +135,6 @@ class Character extends MoveableObject {
      * Sets up an interval to handle different character animations based on the character's state and keyboard input.
      */
     animateImages() {
-        clearInterval(this.idleInterval);
         let deathFrame = 0;
         if (this.energy <= 0 && (deathFrame <= CHARACTER_DEAD.length - 1)) {
             this.playAnimation(CHARACTER_DEAD);
@@ -143,8 +142,7 @@ class Character extends MoveableObject {
 
             setTimeout(() => { this.stopGameAfterDying(); }, 1000);
 
-        } else if (this.isHurt() && !this.hurtAnimationPlayed && this.hurtState) {
-            console.log('hurtState and hurtAnimationPlayed  ', this.hurtState, this.hurtAnimationPlayed);
+        } else if (this.isHurt() && !this.hurtAnimationPlayed && this.hurtState === true) {
 
             this.playAnimation(CHARACTER_HURT);
             this.regulateHurt();
@@ -167,55 +165,37 @@ class Character extends MoveableObject {
         }, 1500);
     }
 
-    // 
-    handleIdleState() {
-        this.idleInterval = setInterval(() => {
-            if (this.aKeyWasPressed()) {
-                this.lastKeyPressTime = Date.now();
-            }
-            if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
-                this.playAnimation(this.IMAGES_IDLE);
-            } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-                world.playAudio(this.long_idle_sound);
-            }
-        }, 200);
+    /**
+     * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
+     */
+    handleKeyPress() {
+        this.lastKeyPressTime = Date.now();
+        this.sounds.stopSound(this.sounds.long_idle_sound);
+        this.wakeUp();
     }
 
-    /**
-        //  * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
-        //  */
-    // handleKeyPress() {
-    //     this.lastKeyPressTime = Date.now();
-    //     this.sounds.stopSound(this.sounds.long_idle_sound);
-    //     this.wakeUp();
-    // }
+    handleIdleState() {
+        const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
+        if (Keyboard.aKeyWasPressed(this.world)) {
+            this.handleKeyPress();
+        } else if (Keyboard.noKeyPressed(this.world) && this.energy > 10) {
+            if (timeSinceLastPress <= 2000) {
+                this.playAnimation(CHARACTER_IDLE);
+            } else {
+                this.checkForLongIdle(timeSinceLastPress);
+            }
+        }
+    }
 
-
-
-
-    // handleIdleState() {
-    //     const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
-    //     if (Keyboard.aKeyWasPressed(this.world)) {
-    //         this.handleKeyPress();
-    //     } else if (Keyboard.noKeyPressed(this.world) && this.energy > 10) {
-    //         if (timeSinceLastPress <= 2000) {
-    //             this.playAnimation(CHARACTER_IDLE);
-    //         } else {
-    //             this.checkForLongIdle(timeSinceLastPress);
-    //         }
-    //     }
-    // }
-
-    // checkForLongIdle(timeSinceLastPress) {
-    //     if (timeSinceLastPress > 6000) {
-    //         console.log('long idleis on and timeSinceLastPress:', timeSinceLastPress);
-    //         setTimeout(() => {
-    //             this.playAnimation(CHARACTER_LONG_IDLE);
-    //             this.sounds.playSound(this.sounds.long_idle_sound);
-    //         }, 1500);
-    //     }
-    // }
+    checkForLongIdle(timeSinceLastPress) {
+        if (timeSinceLastPress > 6000) {
+            console.log('long idleis on and timeSinceLastPress:', timeSinceLastPress);
+            setTimeout(() => {
+                this.playAnimation(CHARACTER_LONG_IDLE);
+                this.sounds.playSound(this.sounds.long_idle_sound);
+            }, 1500);
+        }
+    }
 
     /**
      * Loads the idle character image and sets the character's state to awake.

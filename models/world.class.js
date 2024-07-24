@@ -159,6 +159,7 @@ class World {
                 this.character.hit(10);
 
                 console.log('character was hit and now has energy of :', this.character.energy);
+                
                 this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);
                 // this.sounds.playSound(this.sounds.isHurt_sound)

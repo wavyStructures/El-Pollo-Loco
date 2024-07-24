@@ -1,4 +1,5 @@
 class Endboss extends MoveableObject {
+
     height = 400;
     width = 250;
     y = 60;
@@ -79,7 +80,7 @@ class Endboss extends MoveableObject {
                 this.playAnimation(ENDBOSS_WALKING);
                 this.walkLeft();
                 this.speed += 0.15;
-            } else if (this.checkFirstContact()) {
+            } else if (this.checkFirstContact() || (this.x == this.world.character.x)) {
                 this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
             } else if (this.commingCloser()) {
@@ -96,7 +97,7 @@ class Endboss extends MoveableObject {
             this.energy = 0;
         }
     }
-    g
+
     deadAnimation() {
         this.isDead = true;
         this.sounds.playSound(this.sounds.endboss_dying_sound);
@@ -149,6 +150,8 @@ class Endboss extends MoveableObject {
      * Moves the end boss character left.
      */
     walkLeft() {
-        this.moveLeft();
+        if (this.x > this.world.character.x) {
+            this.moveLeft();
+        }
     }
 }

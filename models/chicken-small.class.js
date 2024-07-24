@@ -10,6 +10,7 @@ class SmallChicken extends MoveableObject {
         right: 20,
         bottom: 2,
     };
+    speed = 0.7 + Math.random() * 2;
     energy = 5;
     isDead = false;
 
@@ -21,8 +22,8 @@ class SmallChicken extends MoveableObject {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.sounds = sounds;
         this.loadSmallChickenImages();
-        this.x = 730 + Math.random() * 500;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.x = 140 + Math.random() * (2000 - 140);
+        // this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
@@ -40,11 +41,9 @@ class SmallChicken extends MoveableObject {
     animate() {
         let smallChickenWalking = setInterval(() => {
             this.moveLeft();
-
             if (!this.energy <= 0) {
                 this.playAnimation(CHICKEN_SMALL_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);
-
             } else {
                 this.sounds.stopSound(this.sounds.chicken_sound);
                 this.playAnimation(CHICKEN_SMALL_DEAD);

@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     y = 140;
     width = 150;
     height = 300;
-    speed = 20;
+    speed = 30;
     energy = 100;
     offset = {
         top: 120,
@@ -18,9 +18,9 @@ class Character extends MoveableObject {
     isPlayingHurtSound = false;
     hitImmunity = false;
     isHit = false;
-    lastHit = 0;
-    // hurtDuration = 1500;
-    // hurtStartTime = 0;
+    cHhitCount = 0;
+    hurtDuration = 1500;
+    hurtStartTime = 0;
     lastKeyPressTime = 0;
     sounds;
     characterInterval;
@@ -59,9 +59,9 @@ class Character extends MoveableObject {
         this.characterInterval = setInterval(() => {
             this.animateWalking();
             this.animateJumping();
-            this.animateHurt();
+            // this.animateHurt();
             this.animateImages();
-        }, 200);
+        }, 150);
     }
 
     /**
@@ -86,10 +86,12 @@ class Character extends MoveableObject {
      * Makes the character walk right.
      */
     walkRight() {
-        this.moveRight();
-        this.wakeUp();
-        this.otherDirection = false;
-        this.sounds.playSound(this.sounds.walking_sound);
+        if (this.x < this.world.endboss.x) {
+            this.moveRight();
+            this.wakeUp();
+            this.otherDirection = false;
+            this.sounds.playSound(this.sounds.walking_sound);
+        }
     }
 
     /**
@@ -102,6 +104,7 @@ class Character extends MoveableObject {
         this.sounds.playSound(this.sounds.walking_sound);
     }
 
+
     /**
      * Animates the character's jumping movement, triggers a jump action and plays a jumping sound when the space key is pressed and the character is not above the ground.
      */
@@ -113,30 +116,37 @@ class Character extends MoveableObject {
         }
     }
 
-
-    animateHurt() {
-        if (this.isHurt() && !this.isPlayingHurtSound) {
-            this.sounds.playSound(this.sounds.isHurt_sound);
-            this.isPlayingHurtSound = true;
-            this.hurtStartTime = Date.now();
-        } else if (!this.isHurt() && Date.now() - this.hurtStartTime > this.hurtDuration) {
-            this.isPlayingHurtSound = false;
-        }
+    characterHitCount() {
+        this.sounds.playSound(this.sounds.isHurt_sound);
+        this.cHhitCount++;
     }
+
+    // animateHurt() {
+    //     if (this.isHurt()) {
+    //         this.isPlayingHurtSound = true;
+    //         this.hurtStartTime = Date.now();
+    //     } else if (!this.isHurt() && Date.now() - this.hurtStartTime > this.hurtDuration) {
+    //         this.isPlayingHurtSound = false;
+    //     }
+    // }
 
     /**
      * Sets up an interval to handle different character animations based on the character's state and keyboard input.
      */
     animateImages() {
         let deathFrame = 0;
-        if (this.energy <= 0) {
+        if (this.energy <= 0 && (deathFrame <= CHARACTER_DEAD.length - 1)) {
             this.playAnimation(CHARACTER_DEAD);
-            // deathFrame++;
-            // if (deathFrame == CHARACTER_DEAD.length - 1) {
+            deathFrame++;
+
             setTimeout(() => { this.stopGameAfterDying(); }, 1000);
-            // }
-        } else if (this.isHurt() && Date.now() - this.hurtStartTime <= this.hurtDuration) {
+
+        } else if (this.isHurt()) {
+            console.log('in IMAGES is hurt', this.isHurt);
+            // && Date.now() - this.hurtStartTime <= this.hurtDuration) 
+            // {
             this.playAnimation(CHARACTER_HURT);
+            console.log('now executing play IMAGES CH HURTt()');
         } else if (this.isAboveGround()) {
             this.playAnimation(CHARACTER_JUMPING);
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -195,34 +205,6 @@ class Character extends MoveableObject {
         this.sounds.stopSound(this.sounds.long_idle_sound);
         this.isIdle = false;
     }
-
-    //     /**
-    //  * Decreases the character's energy by 5 and triggers the animation for being hurt if the character is not immune to hits.
-    //  * If the character's energy reaches 0, they will be animated as dead. The immunity to hits lasts for 1.5 seconds.
-    //  */
-    //     characterIsHit() {
-    //         const now = new Date().getTime();
-    //         this.lastHit = now;
-    //         if (!this.hitImmunity) {
-    //             this.hitImmunity = true;
-
-    //             const processHit = () => {
-    //                 if (this.lastHit === new Date().getTime()) {
-    //                     this.energy -= 5;
-    //                     console.log('CH energy: ', this.energy);
-
-    //                     if (this.energy <= 0) {
-    //                         this.energy = 0;
-    //                         // this.animateDead();
-    //                     }
-    //                 }
-    //                 // setTimeout(() => {
-    //                 this.hitImmunity = false;
-    //                 // }, 1500);
-    //             };
-    //             processHit();
-    //         }
-    //     }
 
     /**
      * Stops the game after the character dies.

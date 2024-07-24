@@ -1,5 +1,5 @@
 class MoveableObject extends DrawableObject {
-    speed = 0.15;
+    speed = 20;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
@@ -85,11 +85,12 @@ class MoveableObject extends DrawableObject {
             this.energy = 0;
         } else if (this instanceof Endboss) {
             this.endbossHitCount();
+        } else if (this instanceof Character) {
+            this.characterHitCount();
         } else {
             this.lastHit = new Date().getTime();
         }
     }
-
 
     /**
      * Checks if the object is hurt.

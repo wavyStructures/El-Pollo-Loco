@@ -10,7 +10,7 @@ class Chicken extends MoveableObject {
         right: 4,
         bottom: 4,
     };
-    speed = 0.2 + Math.random() * 0.25;
+    speed = 0.9 + Math.random() * 0.5;
     energy = 5;
     isDead = false;
     toBeRemoved = false;
@@ -26,6 +26,9 @@ class Chicken extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Loads the chicken images for walking and dead states.
+      */
     loadChickenImages() {
         this.loadImages(CHICKEN_WALKING);
         this.loadImages(CHICKEN_DEAD);
@@ -37,7 +40,6 @@ class Chicken extends MoveableObject {
     animate() {
         let chickenWalk = setInterval(() => {
             this.moveLeft();
-
             if (!this.energy <= 0) {
                 this.playAnimation(CHICKEN_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);

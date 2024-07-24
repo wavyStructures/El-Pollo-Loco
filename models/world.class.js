@@ -10,6 +10,7 @@ class World {
     lastBottleThrowTime = 0;
     bottleThrowCooldown = 500;
 
+
     /**
      * Constructor function for creating a new World instance.
      * @param {Canvas} canvas - The canvas element to render the world on.
@@ -155,13 +156,16 @@ class World {
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead && this.character.isCollidingFromSide(enemy) && !this.character.isHit && !(this.character.isFalling())) {
-                this.character.hit();
+                this.character.hit(10);
+
+                console.log('character was hit and now has energy of :', this.character.energy);
+                this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);
-                this.sounds.playSound(this.sounds.isHurt_sound)
+                // this.sounds.playSound(this.sounds.isHurt_sound)
                 this.character.isHit = true;
                 setTimeout(() => {
                     this.character.isHit = false;
-                }, 500);
+                }, this.character.hurtDuration);
             };
         }
         );

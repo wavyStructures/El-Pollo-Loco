@@ -117,9 +117,9 @@ class MoveableObject extends DrawableObject {
     }
 
     /**
- * Checks if the object is alive.
- * @returns {boolean} True if the object is alive, otherwise false.
- */
+     * Checks if the object is alive.
+    * @returns {boolean} True if the object is alive, otherwise false.
+    */
     isAlive() {
         return this.energy >= 5;
     }

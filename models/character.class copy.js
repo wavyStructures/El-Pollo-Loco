@@ -122,6 +122,7 @@ class Character extends MoveableObject {
     }
 
     characterHitCount() {
+        this.wakeUp();
         this.sounds.playSound(this.sounds.isHurt_sound);
         this.cHhitCount++;
         if (this.cHhitCount % 3 === 0) {
@@ -204,6 +205,7 @@ class Character extends MoveableObject {
         this.hurtState = false;
         // this.loadImage(CHARACTER_IDLE[0]);
         this.sounds.stopSound(this.sounds.long_idle_sound);
+        this.playAnimation(CHARACTER_IDLE)
     }
 
     /**

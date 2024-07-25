@@ -93,8 +93,28 @@ class Endboss extends MoveableObject {
 
     speedingUpWalk() {
         this.walkLeft();
-        this.speed += 0.15;
-        this.world.character.speed += 0.18;
+        // this.speed += 0.15;
+        // this.world.character.speed += 0.18;
+
+        // Random factor between -0.05 and 0.05 for chicken speed
+        const chickenSpeedVariation = (Math.random() * 0.1) - 0.05;
+        // Random factor between -0.05 and 0.05 for character speed
+        const characterSpeedVariation = (Math.random() * 0.1) - 0.05;
+
+        // Base speed increments
+        const baseChickenSpeed = 0.15;
+        const baseCharacterSpeed = 0.18;
+
+        // Apply base speed and random variation
+        this.speed += baseChickenSpeed + chickenSpeedVariation;
+        this.world.character.speed += baseCharacterSpeed + characterSpeedVariation;
+
+        // 20% chance to give the character a speed boost
+        if (Math.random() < 0.2) {
+            this.world.character.speed += 0.1; // Additional speed boost
+        }
+
+
     }
 
     endbossHitCount() {

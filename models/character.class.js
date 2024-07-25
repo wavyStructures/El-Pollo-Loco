@@ -17,6 +17,7 @@ class Character extends MoveableObject {
 
     hitImmunity = false;
     isHit = false;
+    awake = true;
 
     cHhitCount = 0;
     hurtState = false;
@@ -123,6 +124,9 @@ class Character extends MoveableObject {
     }
 
     characterHitCount() {
+        if (this.awake === false) {
+            this.wakeUp();
+        }
         this.sounds.playSound(this.sounds.isHurt_sound);
         this.cHhitCount++;
         if (this.cHhitCount % 3 === 0) {
@@ -178,6 +182,7 @@ class Character extends MoveableObject {
         } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
             this.playAnimation(CHARACTER_LONG_IDLE);
             this.sounds.playSound(this.sounds.long_idle_sound);
+            this.awake = false;
         }
     }
 

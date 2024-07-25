@@ -72,16 +72,13 @@ class Endboss extends MoveableObject {
         this.endbossInterval = setInterval(() => {
             if (this.energy == 0) {
                 this.playAnimation(ENDBOSS_DEAD);
-                console.log('endboss ZERO ENERGY');
                 this.deadAnimation();
             }
             else if (this.isHurt() && this.energy >= 125) {
                 this.hurtAnimation();
             } else if (this.energy <= 150) {
                 this.playAnimation(ENDBOSS_WALKING);
-                this.walkLeft();
-                this.speed += 0.15;
-                this.world.character.speed += 0.18;
+                this.speedingUpWalk();
             } else if (this.checkFirstContact() || (this.x == this.world.character.x)) {
                 this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
@@ -92,6 +89,12 @@ class Endboss extends MoveableObject {
                 this.playAnimation(ENDBOSS_ALERT);
             }
         }, 200);
+    }
+
+    speedingUpWalk() {
+        this.walkLeft();
+        this.speed += 0.15;
+        this.world.character.speed += 0.18;
     }
 
     endbossHitCount() {
@@ -154,7 +157,7 @@ class Endboss extends MoveableObject {
      * Moves the end boss character left.
      */
     walkLeft() {
-        if (this.x > this.world.character.x + this.world.character.width) {
+        if (this.x > this.world.character.x + 100) {
             this.moveLeft();
         }
     }

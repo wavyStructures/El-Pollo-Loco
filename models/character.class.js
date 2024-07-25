@@ -124,6 +124,7 @@ class Character extends MoveableObject {
     }
 
     characterHitCount() {
+        this.isHit = true;
         if (this.awake === false) {
             this.wakeUp();
         }
@@ -132,6 +133,9 @@ class Character extends MoveableObject {
         if (this.cHhitCount % 3 === 0) {
             this.hurtState = true;
         }
+        setTimeout(() => {
+            this.isHit = false;
+        }, 1500);
         console.log('cHhitCount and hurtState', this.cHhitCount, this.hurtState);
     }
 
@@ -160,9 +164,6 @@ class Character extends MoveableObject {
             this.playAnimation(CHARACTER_WALKING);
 
         }
-        // else {
-        //     this.handleIdleState();
-        // }
     }
 
     regulateHurt() {
@@ -174,10 +175,10 @@ class Character extends MoveableObject {
 
     // 
     handleIdleState() {
-        if (this.aKeyWasPressed()) {
+        if (this.aKeyWasPressed() || this.isHit === true) {
             this.lastKeyPressTime = Date.now();
         }
-        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
+        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000) && this.awake) {
             this.playAnimation(CHARACTER_IDLE);
         } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
             this.playAnimation(CHARACTER_LONG_IDLE);
@@ -187,44 +188,14 @@ class Character extends MoveableObject {
     }
 
     /**
-        //  * Updates the last key press time, sets the character to not idle, stops the long idle sound, and wakes up the character.
-        //  */
-    // handleKeyPress() {
-    //     this.lastKeyPressTime = Date.now();
-    //     this.sounds.stopSound(this.sounds.long_idle_sound);
-    //     this.wakeUp();
-    // }
-
-    // handleIdleState() {
-    //     const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
-    //     if (Keyboard.aKeyWasPressed(this.world)) {
-    //         this.handleKeyPress();
-    //     } else if (Keyboard.noKeyPressed(this.world) && this.energy > 10) {
-    //         if (timeSinceLastPress <= 2000) {
-    //             this.playAnimation(CHARACTER_IDLE);
-    //         } else {
-    //             this.checkForLongIdle(timeSinceLastPress);
-    //         }
-    //     }
-    // }
-
-    // checkForLongIdle(timeSinceLastPress) {
-    //     if (timeSinceLastPress > 6000) {
-    //         console.log('long idleis on and timeSinceLastPress:', timeSinceLastPress);
-    //         setTimeout(() => {
-    //             this.playAnimation(CHARACTER_LONG_IDLE);
-    //             this.sounds.playSound(this.sounds.long_idle_sound);
-    //         }, 1500);
-    //     }
-    // }
-
-    /**
      * Loads the idle character image and sets the character's state to awake.
      */
     wakeUp() {
         this.hurtState = false;
         // this.loadImage(CHARACTER_IDLE[0]);
         this.sounds.stopSound(this.sounds.long_idle_sound);
+        this.playAnimation(CHARACTER_IDLE);
+        this.awake = true;
     }
 
     /**

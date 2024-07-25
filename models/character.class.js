@@ -66,6 +66,7 @@ class Character extends MoveableObject {
             this.animateWalking();
             this.animateJumping();
             this.animateImages();
+            this.handleIdleState();
         }, 200);
     }
 
@@ -135,7 +136,6 @@ class Character extends MoveableObject {
      * Sets up an interval to handle different character animations based on the character's state and keyboard input.
      */
     animateImages() {
-        clearInterval(this.idleInterval);
         let deathFrame = 0;
         if (this.energy <= 0 && (deathFrame <= CHARACTER_DEAD.length - 1)) {
             this.playAnimation(CHARACTER_DEAD);
@@ -155,9 +155,10 @@ class Character extends MoveableObject {
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(CHARACTER_WALKING);
 
-        } else {
-            this.handleIdleState();
         }
+        // else {
+        //     this.handleIdleState();
+        // }
     }
 
     regulateHurt() {
@@ -169,17 +170,15 @@ class Character extends MoveableObject {
 
     // 
     handleIdleState() {
-        this.idleInterval = setInterval(() => {
-            if (this.aKeyWasPressed()) {
-                this.lastKeyPressTime = Date.now();
-            }
-            if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
-                this.playAnimation(this.IMAGES_IDLE);
-            } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-                world.playAudio(this.long_idle_sound);
-            }
-        }, 200);
+        if (this.aKeyWasPressed()) {
+            this.lastKeyPressTime = Date.now();
+        }
+        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
+            this.playAnimation(CHARACTER_IDLE);
+        } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
+            this.playAnimation(CHARACTER_LONG_IDLE);
+            this.sounds.playSound(this.sounds.long_idle_sound);
+        }
     }
 
     /**
@@ -190,9 +189,6 @@ class Character extends MoveableObject {
     //     this.sounds.stopSound(this.sounds.long_idle_sound);
     //     this.wakeUp();
     // }
-
-
-
 
     // handleIdleState() {
     //     const timeSinceLastPress = Date.now() - this.lastKeyPressTime;
@@ -252,4 +248,21 @@ class Character extends MoveableObject {
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
     }
+
+    /**
+        * Checks if any key on the keyboard is pressed.
+        * @return {boolean} Returns true if any key is pressed, false otherwise.
+        */
+    aKeyWasPressed() {
+        return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D || this.world.keyboard.B;
+    }
+
+    /**
+     * Checks if no key is pressed in the given world.
+     * @return {boolean} Returns true if no key is pressed, false otherwise.
+     */
+    noKeyPressed() {
+        return !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.UP && !this.world.keyboard.DOWN && !this.world.keyboard.SPACE && !this.world.keyboard.D && !this.world.keyboard.B;
+    }
+
 }

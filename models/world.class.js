@@ -133,7 +133,7 @@ class World {
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
                     this.endboss.hit(25);
                     console.log('endboss was hit and now has energy of:', this.endboss.energy);
-                    this.statusBarEndboss.setPercentage(this.endboss.energy);
+                    this.statusBarEndboss.setPercentage((this.endboss.energy / 200) * 100);
                     this.throwableObjects.splice(index, 1);
                 }
             });
@@ -159,7 +159,7 @@ class World {
                 this.character.hit(10);
 
                 console.log('character was hit and now has energy of :', this.character.energy);
-                
+
                 this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);
                 // this.sounds.playSound(this.sounds.isHurt_sound)

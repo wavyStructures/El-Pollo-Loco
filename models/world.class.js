@@ -33,6 +33,7 @@ class World {
      * Starts the world by adding status bars, drawing the world, setting the world, and running the world.
      */
     startWorld() {
+        this.canvas.focus();
         this.addStatusBars();
         this.draw();
         this.setWorld();

@@ -66,7 +66,9 @@ class Character extends MoveableObject {
         this.characterInterval = setInterval(() => {
             this.animateWalking();
             this.animateJumping();
+
             this.animateImages();
+
             this.handleIdleState();
         }, 200);
     }
@@ -130,7 +132,7 @@ class Character extends MoveableObject {
         }
         this.sounds.playSound(this.sounds.isHurt_sound);
         this.cHhitCount++;
-        if (this.cHhitCount % 3 === 0) {
+        if (this.cHhitCount % 3 === 0 || this.cHhitCount % 4 === 0) {
             this.hurtState = true;
         }
         setTimeout(() => {
@@ -152,10 +154,13 @@ class Character extends MoveableObject {
             setTimeout(() => { this.stopGameAfterDying(); }, 1000);
 
         } else if (this.isHurt() && !this.hurtAnimationPlayed && this.hurtState) {
-            console.log('hurtState and hurtAnimationPlayed  ', this.hurtState, this.hurtAnimationPlayed);
+            // console.log('hurtState and hurtAnimationPlayed  ', this.hurtState, this.hurtAnimationPlayed);
 
-            this.playAnimation(CHARACTER_HURT);
+            // this.playAnimation(CHARACTER_HURT);
             this.regulateHurt();
+
+            // } else if (this.isHurt()) {
+            //     this.playAnimation(CHARACTER_HURT);
 
         } else if (this.isAboveGround()) {
             this.playAnimation(CHARACTER_JUMPING);
@@ -168,9 +173,14 @@ class Character extends MoveableObject {
 
     regulateHurt() {
         this.hurtAnimationPlayed = true;
+        if (this.hurtAnimationPlayed) {
+
+            this.playAnimation(CHARACTER_HURT);
+
+        }
         setTimeout(() => {
             this.hurtAnimationPlayed = false;
-        }, 1500);
+        }, 3500);
     }
 
     // 

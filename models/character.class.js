@@ -150,21 +150,11 @@ class Character extends MoveableObject {
         if (this.energy <= 0 && (deathFrame <= CHARACTER_DEAD.length - 1)) {
             this.playAnimation(CHARACTER_DEAD);
             deathFrame++;
-
             setTimeout(() => { this.stopGameAfterDying(); }, 1000);
-
         } else if (this.isHurt() && !this.hurtAnimationPlayed && this.hurtState) {
-            // console.log('hurtState and hurtAnimationPlayed  ', this.hurtState, this.hurtAnimationPlayed);
-
-            // this.playAnimation(CHARACTER_HURT);
             this.regulateHurt();
-
-            // } else if (this.isHurt()) {
-            //     this.playAnimation(CHARACTER_HURT);
-
         } else if (this.isAboveGround()) {
             this.playAnimation(CHARACTER_JUMPING);
-
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(CHARACTER_WALKING);
 
@@ -174,9 +164,7 @@ class Character extends MoveableObject {
     regulateHurt() {
         this.hurtAnimationPlayed = true;
         if (this.hurtAnimationPlayed) {
-
             this.playAnimation(CHARACTER_HURT);
-
         }
         setTimeout(() => {
             this.hurtAnimationPlayed = false;

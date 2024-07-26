@@ -1,4 +1,5 @@
 class MoveableObject extends DrawableObject {
+
     speed = 20;
     otherDirection = false;
     speedY = 0;
@@ -76,24 +77,30 @@ class MoveableObject extends DrawableObject {
     }
 
     /**
-     * Decreases the energy of the object by the specified loss.
+     * Decreases the energy of the object by the specified loss and sets the immune flag.
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
     hit(loss = 5) {
-        this.energy -= loss;
-        this.lastHit = new Date().getTime();
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else if (this instanceof Endboss) {
-            this.endbossHitCount();
-        } else if (this instanceof Character) {
-            this.characterHitCount();
+        if (this.immune === false) {
+
+            this.immune = true;
+            this.energy -= loss;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else if (this instanceof Endboss) {
+                this.endbossHitCount();
+            } else {
+                this.lastHit = new Date().getTime();
+            }
+            setTimeout(() => {
+                this.immune = false;
+            }, 1500);
         }
     }
 
     /**
      * Checks if the object is hurt.
-     * @return {boolean} Returns true if the object is hurt, false otherwise.
+     * @return {boolean} Returns true if the object is hurt by being hit in the last 1 second, false otherwise.
      */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
@@ -129,11 +136,6 @@ class MoveableObject extends DrawableObject {
      * @param {Array<string>} images - An array of image paths.
      */
     playAnimation(images) {
-        // console.log('this.currentImage und images in playAnimation', this.currentImage, images);
-        // if (this.currentAnimation !== images) {
-        //     this.currentAnimation = images;
-        //     this.currentImage = 0;
-        // }
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];

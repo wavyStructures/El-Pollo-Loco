@@ -102,7 +102,7 @@ class Endboss extends MoveableObject {
         const characterSpeedVariation = (Math.random() * 0.1) - 0.05;
 
         // Base speed increments
-        const baseChickenSpeed = 0.15;
+        const baseChickenSpeed = 0.12;
         const baseCharacterSpeed = 0.18;
 
         // Apply base speed and random variation
@@ -111,10 +111,8 @@ class Endboss extends MoveableObject {
 
         // 20% chance to give the character a speed boost
         if (Math.random() < 0.2) {
-            this.world.character.speed += 0.1; // Additional speed boost
+            this.world.character.speed += 0.25; // Additional speed boost
         }
-
-
     }
 
     endbossHitCount() {

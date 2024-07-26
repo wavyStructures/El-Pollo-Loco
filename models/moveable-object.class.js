@@ -85,6 +85,9 @@ class MoveableObject extends DrawableObject {
 
             this.immune = true;
             this.energy -= loss;
+
+            console.log('this.energy', this.energy);
+
             if (this.energy < 0) {
                 this.energy = 0;
             } else if (this instanceof Endboss) {

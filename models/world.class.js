@@ -4,6 +4,7 @@ class World {
     statusBarCoins
     statusBarBottles;
     statusBarEndboss;
+    character;
     charactersBottles = 0;
     charactersCoins = 0;
     buyBottleTriggered = false;
@@ -158,7 +159,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead && this.character.isCollidingFromSide(enemy) && !this.character.isHit && !(this.character.isFalling())) {
                 this.character.hit(10);
-                console.log('character was hit and now has energy of :', this.character.energy);
+                // console.log('character was hit and now has energy of :', this.character.energy);
 
                 // this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);

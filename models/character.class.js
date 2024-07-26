@@ -13,6 +13,7 @@ class Character extends MoveableObject {
         left: 40
     }
     world;
+    sounds;
     currentImage;
     immune = false;
     isHit = false;
@@ -20,7 +21,7 @@ class Character extends MoveableObject {
     isHitForHurtAnimation = false;
     awake = true;
     lastKeyPressTime = Date.now();
-    sounds;
+    deathFrame = 0;
 
     /**
      * Initializes the character with the provided sounds and sets up initial properties and actions.
@@ -69,7 +70,7 @@ class Character extends MoveableObject {
             this.characterHurt();
             this.characterDead();
             this.world.camera_x = -this.x + 100;
-        }, 200);
+        }, 1000 / 30);
     }
 
     /**
@@ -111,9 +112,17 @@ class Character extends MoveableObject {
      * Handles the character's idle state, playing stopping sound, based on keypresses and being hit or not.
      */
     characterIdle() {
+
+        //MOVEMENT
+        //Tastendruck gespeichert wenn Taste oder gehittet und awake ist true   UND WAKE UP - movement
         if (this.aKeyWasPressed() || this.isHitForHurt === true) {
             this.sounds.stopSound(this.sounds.long_idle_sound);
+
+            this.wakeUp();
+            this.awake = true;
             this.lastKeyPressTime = Date.now();
+
+            //keine Taste und länger her, dass Taste     schnarchen     und     awake FALSE
         } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
             this.sounds.playSound(this.sounds.long_idle_sound);
             this.awake = false;
@@ -162,28 +171,51 @@ class Character extends MoveableObject {
 
     animateHurt() {
         if (this.isHitForHurtAnimation === true) {
+            console.log('hurtFOR: ', this.isHitForHurtAnimation);
+            console.log('inside anmiateHurt: ', this.energy);
             this.playAnimation(CHARACTER_HURT);
         }
         setTimeout(() => { this.isHitForHurtAnimation = false; }, 500);
     }
 
     animateDead() {
-        let deathFrame = 0;
-        if (this.energy <= 0 && (deathFrame <= CHARACTER_DEAD.length - 1)) {
+        if (this.energy <= 0 && (this.deathFrame <= CHARACTER_DEAD.length - 1)) {
             this.playAnimation(CHARACTER_DEAD);
-            deathFrame++;
-            setTimeout(() => { this.stopGameAfterDying(); }, 10000);
+            this.deathFrame++;
+            setTimeout(() => { this.stopGameAfterDying(); }, 2000);
         }
     }
 
     handleIdleState() {
-        if (this.aKeyWasPressed() || this.isHitForHurt === true) {
-            this.lastKeyPressTime = Date.now();
-            this.wakeUp();
-        }
-        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000) && this.awake) {
-            this.playAnimation(CHARACTER_IDLE);
-        } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
+
+        //TASTEN oben bereits abgefragt deswegen        
+
+        // if (this.aKeyWasPressed() || this.isHitForHurt === true) {
+        //     this.sounds.stopSound(this.sounds.long_idle_sound);
+        //     this.lastKeyPressTime = Date.now();
+        //     this.wakeUp();
+
+        // } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
+        //     this.sounds.playSound(this.sounds.long_idle_sound);
+        //     this.awake = false;
+        // }
+
+        // else {
+        //     setTimeout(() => { this.awake = false; }, 3000);
+
+        // }
+
+        //------------------OBEN BEREITS:
+        // if (this.aKeyWasPressed() || this.isHitForHurt === true) {
+        //     this.lastKeyPressTime = Date.now();
+        //     this.wakeUp();
+        // // }
+        // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
+        //     this.playAnimation(CHARACTER_IDLE);
+
+
+        //             } else 
+        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
             this.playAnimation(CHARACTER_LONG_IDLE);
         }
     }

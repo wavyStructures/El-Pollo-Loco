@@ -15,6 +15,7 @@ class Character extends MoveableObject {
     world;
     sounds;
     currentImage;
+    isWalkingSoundPlaying = false;
     immune = false;
     isHit = false;
     isHitForHurt = false;
@@ -67,10 +68,11 @@ class Character extends MoveableObject {
             this.characterJump();
             this.characterHurt();
             this.characterDead();
-            this.characterMoveRight();
             this.characterMoveLeft();
+            this.characterMoveRight();
+
             this.world.camera_x = -this.x + 1
-        }, 1000 / 60);
+        }, 1000 / 20);
     }
 
     /**
@@ -79,10 +81,8 @@ class Character extends MoveableObject {
     characterMoveLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.walkLeft();
-            this.sounds.playSound(this.sounds.walking_sound);
-        } else {
-            this.sounds.stopSound(this.sounds.walking_sound);
         }
+        this.manageWalkingSound();
     }
 
     /**
@@ -92,10 +92,8 @@ class Character extends MoveableObject {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.sounds.playSound(this.sounds.walking_sound);
             this.walkRight();
-
-        } else {
-            this.sounds.stopSound(this.sounds.walking_sound);
         }
+        this.manageWalkingSound();
     }
 
     /**
@@ -113,23 +111,20 @@ class Character extends MoveableObject {
      * Handles the character's idle state, playing stopping sound, based on keypresses and being hit or not.
      */
     characterIdle() {
-
-        //MOVEMENT
-        //Tastendruck gespeichert wenn Taste oder gehittet und awake ist true   UND WAKE UP - movement
         if (this.aKeyWasPressed() || this.isHitForHurt === true) {
             this.sounds.stopSound(this.sounds.long_idle_sound);
-
             this.wakeUp();
             this.awake = true;
             this.lastKeyPressTime = Date.now();
-
-            //keine Taste und länger her, dass Taste     schnarchen     und     awake FALSE
         } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
             this.sounds.playSound(this.sounds.long_idle_sound);
             this.awake = false;
         }
     }
 
+    /**
+     * Plays a hurt sound if the character is marked as being hurt, and resets the isHitForHurt flag after 500ms.
+     */
     characterHurt() {
         if (this.isHitForHurt === true) {
             this.sounds.playSound(this.sounds.isHurt_sound);
@@ -138,16 +133,22 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Checks if the character is dead and plays the appropriate sounds.
+     */
     characterDead() {
         if (this.energy === 0) {
             this.sounds.stopSound(this.sounds.walking_sound);
             this.sounds.stopSound(this.sounds.isHurt_sound);
-
             this.sounds.playSound(this.sounds.character_dying_sound);
         }
     }
 
     characterAnimation() {
+        /**
+         * Executes the character animation by calling the necessary animation functions at regular intervals. This includes animating the character's dead state, hurt state,
+         * idle state, walking state, and jumping state. The animation is executed every 200ms.
+         */
         setInterval(() => {
             this.animateDead();
             this.animateHurt();
@@ -223,6 +224,23 @@ class Character extends MoveableObject {
         this.sounds.stopSound(this.sounds.long_idle_sound);
         this.playAnimation(CHARACTER_IDLE);
         this.awake = true;
+    }
+
+    manageWalkingSound() {
+        const isMovingLeft = this.world.keyboard.LEFT && this.x > 0;
+        const isMovingRight = this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+
+        if (isMovingLeft || isMovingRight) {
+            if (!this.isWalkingSoundPlaying) {
+                this.sounds.playSound(this.sounds.walking_sound);
+                this.isWalkingSoundPlaying = true;
+            }
+        } else {
+            if (this.isWalkingSoundPlaying) {
+                this.sounds.stopSound(this.sounds.walking_sound);
+                this.isWalkingSoundPlaying = false;
+            }
+        }
     }
 
     /**

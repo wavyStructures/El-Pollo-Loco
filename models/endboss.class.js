@@ -23,7 +23,7 @@ class Endboss extends MoveableObject {
      * @param {type} sounds - The sounds for the Endboss.
      * @return {type} description of return value
      */
-    constructor(sounds) {
+    constructor(sounds, world) {
         super();
         this.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
         this.world = world;
@@ -75,6 +75,7 @@ class Endboss extends MoveableObject {
                 this.deadAnimation();
             }
             else if (this.isHurt() && this.energy >= 125) {
+                this.playAnimation(ENDBOSS_HURT);
                 this.hurtAnimation();
             } else if (this.energy <= 150) {
                 this.playAnimation(ENDBOSS_WALKING);
@@ -93,35 +94,34 @@ class Endboss extends MoveableObject {
 
     speedingUpWalk() {
         this.walkLeft();
-        // this.speed += 0.15;
-        // this.world.character.speed += 0.18;
-
-        // Random factor between -0.05 and 0.05 for chicken speed
         const chickenSpeedVariation = (Math.random() * 0.1) - 0.05;
-        // Random factor between -0.05 and 0.05 for character speed
-        const characterSpeedVariation = (Math.random() * 0.1) - 0.05;
 
-        // Base speed increments
-        const baseChickenSpeed = 0.12;
-        const baseCharacterSpeed = 0.18;
+        const baseChickenSpeed = 0.15;
 
-        // Apply base speed and random variation
         this.speed += baseChickenSpeed + chickenSpeedVariation;
-        this.world.character.speed += baseCharacterSpeed + characterSpeedVariation;
 
-        // 20% chance to give the character a speed boost
         if (Math.random() < 0.2) {
-            this.world.character.speed += 0.25; // Additional speed boost
+            this.world.character.speed += 0.25;
+        }
+
+        if (this.x >= 920 && this.x <= 1100) {
+            if (Math.random() < 0.2) {
+                this.speed = 0;
+            }
         }
     }
 
     endbossHitCount() {
         this.sounds.playSound(this.sounds.endboss_hit_sound);
         this.hitCount++;
-        if (this.hitCount >= 20) {
+        if (this.hitCount >= 10) {
             this.energy = 0;
+        } else if (this.hitCount === 6) {
+            console.log('hitCount: ', this.hitCount);
+            this.speedingUpWalk();
         }
     }
+
 
     deadAnimation() {
         this.isDead = true;
@@ -141,7 +141,6 @@ class Endboss extends MoveableObject {
      * Plays the ENDBOSS_HURT animation and plays the endboss hurt sound.
     */
     hurtAnimation() {
-        this.playAnimation(ENDBOSS_HURT);
         this.sounds.playSound(this.sounds.endboss_hurt_sound);
     }
 
@@ -161,11 +160,14 @@ class Endboss extends MoveableObject {
      * and adding the 'd-none' class to the 'startScreenAndCanvas' element.
      */
     showWinOverlay() {
-        this.sounds.playSound(this.sounds.you_lose_sound);
+        this.sounds.playSound(this.sounds.you_win_sound);
         setTimeout(() => {
             this.sounds.muteAllSounds();
+
+        }, 8000);
+        setTimeout(() => {
             clearAllIntervals();
-        }, 3000);
+        }, 1000);
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
         document.getElementById('startScreenAndCanvas').classList.add('d-none');

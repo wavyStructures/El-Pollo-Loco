@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     y = 140;
     width = 150;
     height = 300;
-    speed = 30;
+    speed = 10;
     energy = 100;
     offset = {
         top: 120,
@@ -42,12 +42,12 @@ class Character extends MoveableObject {
      * Loads images for various character actions like walking, jumping, hurt, dead, idle, and long idle.
      */
     loadCharacterImages() {
+        this.loadImages(CHARACTER_IDLE);
+        this.loadImages(CHARACTER_LONG_IDLE);
         this.loadImages(CHARACTER_WALKING);
         this.loadImages(CHARACTER_JUMPING);
         this.loadImages(CHARACTER_HURT);
         this.loadImages(CHARACTER_DEAD);
-        this.loadImages(CHARACTER_IDLE);
-        this.loadImages(CHARACTER_LONG_IDLE);
     }
 
     /**
@@ -63,22 +63,22 @@ class Character extends MoveableObject {
      */
     characterMovement() {
         setInterval(() => {
-            this.characterMoveRight();
-            this.characterMoveLeft();
-            this.characterJump();
             this.characterIdle();
+            this.characterJump();
             this.characterHurt();
             this.characterDead();
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 30);
+            this.characterMoveRight();
+            this.characterMoveLeft();
+            this.world.camera_x = -this.x + 1
+        }, 1000 / 60);
     }
 
     /**
      * Moves the character to the right if the right arrow key is pressed and the character is within the level boundaries and plays sound accordingly.
      */
-    characterMoveRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-            this.walkRight();
+    characterMoveLeft() {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.walkLeft();
             this.sounds.playSound(this.sounds.walking_sound);
         } else {
             this.sounds.stopSound(this.sounds.walking_sound);
@@ -88,10 +88,11 @@ class Character extends MoveableObject {
     /**
      * Moves the character to the left if the left arrow key is pressed and the character is within the level boundaries and plays sound accordingly.
      */
-    characterMoveLeft() {
-        if (this.world.keyboard.LEFT && this.x > 0) {
-            this.walkLeft();
+    characterMoveRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.sounds.playSound(this.sounds.walking_sound);
+            this.walkRight();
+
         } else {
             this.sounds.stopSound(this.sounds.walking_sound);
         }
@@ -130,7 +131,6 @@ class Character extends MoveableObject {
     }
 
     characterHurt() {
-        // console.log('hurtFOR: ', this.isHitForHurt);
         if (this.isHitForHurt === true) {
             this.sounds.playSound(this.sounds.isHurt_sound);
         }
@@ -149,11 +149,11 @@ class Character extends MoveableObject {
 
     characterAnimation() {
         setInterval(() => {
+            this.animateDead();
+            this.animateHurt();
+            this.handleIdleState();
             this.animateWalking();
             this.animateJumping();
-            this.animateHurt();
-            this.animateDead();
-            this.handleIdleState();
         }, 200);
     }
 
@@ -188,28 +188,7 @@ class Character extends MoveableObject {
 
     handleIdleState() {
 
-        //TASTEN oben bereits abgefragt deswegen        
 
-        // if (this.aKeyWasPressed() || this.isHitForHurt === true) {
-        //     this.sounds.stopSound(this.sounds.long_idle_sound);
-        //     this.lastKeyPressTime = Date.now();
-        //     this.wakeUp();
-
-        // } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
-        //     this.sounds.playSound(this.sounds.long_idle_sound);
-        //     this.awake = false;
-        // }
-
-        // else {
-        //     setTimeout(() => { this.awake = false; }, 3000);
-
-        // }
-
-        //------------------OBEN BEREITS:
-        // if (this.aKeyWasPressed() || this.isHitForHurt === true) {
-        //     this.lastKeyPressTime = Date.now();
-        //     this.wakeUp();
-        // // }
         // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
         //     this.playAnimation(CHARACTER_IDLE);
 
@@ -278,14 +257,13 @@ class Character extends MoveableObject {
      * removing the 'd-none' class from the 'lostOverlay' element and adding the 'flex' class.
      */
     showLostOverlay() {
-        this.sounds.playSound(this.sounds.you_lose_sound);
-        setTimeout(() => {
-            this.sounds.muteAllSounds();
-            clearAllIntervals();
-        }, 500);
-
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
+        setTimeout(() => {
+            this.sounds.muteAllSounds();
+            this.sounds.playSound(this.sounds.you_lose_sound);
+            clearAllIntervals();
+        }, 500);
     }
 
     /**

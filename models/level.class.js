@@ -17,12 +17,13 @@ class Level {
      * @param {type} bottles - The bottles to be initialized.
      * @param {type} sounds - The sounds to be initialized.
      */
-    constructor(enemies, clouds, backgroundObjects, coins, bottles, sounds) {
+    constructor(enemies, clouds, backgroundObjects, coins, bottles, sounds, world) {
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.bottles = bottles;
         this.coins = coins;
+        this.world = world;
         this.sounds = sounds;
         this.createEnemies();
     }
@@ -43,7 +44,7 @@ class Level {
             new SmallChicken(this.sounds),
             new SmallChicken(this.sounds),
             new SmallChicken(this.sounds),
-            new Endboss(this.sounds)
+            new Endboss(this.sounds, this.world)
         ];
     }
 }

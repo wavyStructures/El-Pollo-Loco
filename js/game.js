@@ -190,6 +190,15 @@ function startGame() {
     init();
     hideStartInfo();
     checkMobileBtns();
+}
+
+async function restartGame() {
+    clearAllIntervals();
+    await initLevel1();
+    startGameSounds();
+    init();
+    hideStartInfo();
+    checkMobileBtns();
     removeWinOverlay();
     removeLostOverlay();
 }

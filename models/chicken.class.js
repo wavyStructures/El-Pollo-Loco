@@ -44,7 +44,6 @@ class Chicken extends MoveableObject {
                 this.playAnimation(CHICKEN_WALKING);
                 this.sounds.playSound(this.sounds.chicken_sound);
             } else {
-                this.isDead;
                 this.sounds.stopSound(this.sounds.chicken_sound);
                 this.playAnimation(CHICKEN_DEAD);
                 clearInterval(chickenWalk);
@@ -53,7 +52,5 @@ class Chicken extends MoveableObject {
                 }, 1500);
             }
         }, 200);
-
-
     }
 }   

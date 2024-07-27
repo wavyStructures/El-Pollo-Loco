@@ -19,7 +19,7 @@ class World {
      * @param {Keyboard} keyboard - The keyboard object for user input.
      */
     constructor(canvas, sounds, keyboard) {
-        this.character = new Character(sounds);
+        this.character = new Character(sounds, keyboard);
         this.level = level1;
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
         this.canvas = canvas;
@@ -159,7 +159,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead && this.character.isCollidingFromSide(enemy) && !this.character.isHit && !(this.character.isFalling())) {
                 this.character.hit(10);
-                // console.log('character was hit and now has energy of :', this.character.energy);
+                console.log('character was hit and now has energy of :', this.character.energy);
 
                 // this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);

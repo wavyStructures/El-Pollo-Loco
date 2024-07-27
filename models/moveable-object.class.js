@@ -81,23 +81,19 @@ class MoveableObject extends DrawableObject {
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
     hit(loss = 5) {
-        if (this.immune === false) {
-
-            this.immune = true;
+        if (!this.immune) {
             this.energy -= loss;
-
-            console.log('this.energy', this.energy);
-
             if (this.energy < 0) {
                 this.energy = 0;
-            } else if (this instanceof Endboss) {
-                this.endbossHitCount();
-            } else {
-                this.lastHit = new Date().getTime();
             }
+            this.immune = true;
             setTimeout(() => {
                 this.immune = false;
-            }, 1500);
+            }, 2500);
+            if (this instanceof Endboss) {
+                this.endbossHitCount();
+            }
+            this.lastHit = new Date().getTime();
         }
     }
 

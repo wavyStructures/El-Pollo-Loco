@@ -157,7 +157,9 @@ function toggleFullScreen(element) {
  */
 function removeWinOverlay() {
     document.getElementById('winOverlay').classList.remove('flex');
+    document.getElementById('winOverlay').classList.remove('you-won');
     document.getElementById('winOverlay').classList.add('d-none');
+    document.querySelector('div.endscreen-buttons').classList.add('d-none');
 }
 
 /**
@@ -166,7 +168,9 @@ function removeWinOverlay() {
 function removeLostOverlay() {
     if (removeLostOverlay) {
         document.getElementById('lostOverlay').classList.remove('flex');
+        document.getElementById('lostOverlay').classList.remove('you-lost');
         document.getElementById('lostOverlay').classList.add('d-none');
+        document.querySelector('div.endscreen-buttons').classList.add('d-none');
     }
 }
 

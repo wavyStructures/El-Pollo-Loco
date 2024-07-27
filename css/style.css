@@ -311,6 +311,10 @@ canvas {
     filter: brightness(1.2);
     cursor: pointer;
   }
+
+  .win-Overlay.d-none .endscreen-buttons {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 720px) {

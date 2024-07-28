@@ -135,7 +135,8 @@ class World {
         this.throwableObjects.forEach((bottle, index) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
-                    enemy.isDead = true;
+                    enemy.hit();
+                    this.characterKillsEnemy(enemy);
                     this.throwableObjects.splice(index, 1);
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
                     this.endboss.hit(25);

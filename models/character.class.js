@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     y = 140;
     width = 150;
     height = 300;
-    speed = 20;
+    speed = 10;
     energy = 100;
     offset = {
         top: 120,
@@ -66,12 +66,12 @@ class Character extends MoveableObject {
      */
     characterMovement() {
         let movementInterval = setInterval(() => {
-            this.characterIdle();
-            this.characterJump();
-            this.characterHurt();
             this.characterDead();
+            this.characterHurt();
+            this.characterJump();
             this.characterMoveLeft();
             this.characterMoveRight();
+            this.characterIdle();
 
             this.world.camera_x = -this.x + 100
         }, 1000 / 60);
@@ -150,55 +150,29 @@ class Character extends MoveableObject {
      */
     characterAnimation() {
         let animationInterval = setInterval(() => {
-            this.animateWalking();
-            this.animateDead();
-            this.animateHurt();
-            this.handleIdleState();
-            this.animateJumping();
-
-        }, 200);
+            if (this.energy <= 0 && (this.deathFrame <= CHARACTER_DEAD.length - 1)) {
+                this.playAnimation(CHARACTER_DEAD);
+                this.deathFrame++;
+                setTimeout(() => { this.stopGameAfterDying(); }, 2000);
+            }
+            else if (this.isHitForHurtAnimation === true) {
+                this.playAnimation(CHARACTER_HURT);
+                setTimeout(() => { this.isHitForHurtAnimation = false; }, 500);
+            }
+            else if (this.isAboveGround()) {
+                this.playAnimation(CHARACTER_JUMPING);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(CHARACTER_WALKING);
+            } else if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
+                this.playAnimation(CHARACTER_LONG_IDLE);
+            } else {
+                this.playAnimation(CHARACTER_IDLE);
+            }
+        }, 50);
     }
 
-    animateWalking() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(CHARACTER_WALKING);
-        }
-    }
-
-    animateJumping() {
-        if (this.isAboveGround()) {
-            this.playAnimation(CHARACTER_JUMPING);
-        }
-    }
-
-    animateHurt() {
-        if (this.isHitForHurtAnimation === true) {
-            console.log('inside anmiateHurt CH: ', this.energy);
-            this.playAnimation(CHARACTER_HURT);
-        }
-        setTimeout(() => { this.isHitForHurtAnimation = false; }, 500);
-    }
-
-    animateDead() {
-        if (this.energy <= 0 && (this.deathFrame <= CHARACTER_DEAD.length - 1)) {
-            this.playAnimation(CHARACTER_DEAD);
-            this.deathFrame++;
-            setTimeout(() => { this.stopGameAfterDying(); }, 2000);
-        }
-    }
-
-    handleIdleState() {
-
-
-        // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
-        //     this.playAnimation(CHARACTER_IDLE);
-
-
-        //             } else 
-        if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime >= 10000)) {
-            this.playAnimation(CHARACTER_LONG_IDLE);
-        }
-    }
+    // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
+    //     
 
     characterHit() {
         if (!this.immune) {
@@ -218,9 +192,7 @@ class Character extends MoveableObject {
      * Loads the idle character image and sets the character's state to awake.
      */
     wakeUp() {
-        // this.hurtState = false;
         this.sounds.stopSound(this.sounds.long_idle_sound);
-        this.playAnimation(CHARACTER_IDLE);
         this.awake = true;
     }
 

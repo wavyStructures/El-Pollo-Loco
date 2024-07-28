@@ -46,15 +46,6 @@ class Endboss extends MoveableObject {
     }
 
     /**
-     * Checks if the character in the world has reached a certain x-coordinate to indicate the first contact.
-     * @return {boolean} Returns true if the character's x-coordinate is greater than or equal to 2200, false otherwise.
-     */
-    // checkFirstContact() {
-    //     return this.world.character.x >= 2200;
-    // }
-
-
-    /**
      * Checks if the character in the world has reached a certain x-coordinate to indicate the endboss is comming closer.
      * @return {boolean} Returns true if the character's x-coordinate is greater than or equal to 2000.
      */

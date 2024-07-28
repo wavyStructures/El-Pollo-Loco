@@ -56,6 +56,7 @@ a {
   cursor: pointer;
   color: brown;
   font-size: 24px;
+  transition: transform 0.3s ease;
 }
 
 h1 {
@@ -112,6 +113,11 @@ h4 {
   padding: 0 8px 0 8px;
 }
 
+.link-instructions,
+.link-legal-notice {
+  transition: transform 0.3s ease;
+}
+
 .link-instructions:hover,
 .link-legal-notice:hover {
   transform: scale(1.1);
@@ -149,7 +155,7 @@ canvas {
   width: 22px;
   margin: 16px 24px 0 0;
   cursor: pointer;
-  transition: transform 125ms;
+  transition: transform 0.3s ease;
 }
 
 .full-screen:hover {
@@ -160,7 +166,7 @@ canvas {
   width: 25px;
   margin: 16px 8px 0 0;
   cursor: pointer;
-  transition: transform 125ms;
+  transition: transform 0.3s ease;
 }
 
 .audio-icon:hover {
@@ -197,7 +203,7 @@ canvas {
   p {
     position: absolute;
     top: 250px;
-    padding-left: 16px;
+    padding-left: 42px;
   }
 }
 
@@ -303,6 +309,7 @@ canvas {
     font-size: 52px;
     font-family: "zabars", Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
+    transition: transform 0.3s ease;
   }
 
   > button:hover {

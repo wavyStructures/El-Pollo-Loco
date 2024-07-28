@@ -145,13 +145,11 @@ class Character extends MoveableObject {
         }
     }
 
+    /**
+     * Executes the character animation by calling the necessary animation functions at regular intervals, includes animating the character's dead state, hurt state, idle state, walking state, and jumping state.
+     */
     characterAnimation() {
-        /**
-         * Executes the character animation by calling the necessary animation functions at regular intervals. This includes animating the character's dead state, hurt state,
-         * idle state, walking state, and jumping state. The animation is executed every 200ms.
-         */
         setInterval(() => {
-
             this.animateDead();
             this.animateHurt();
             this.handleIdleState();

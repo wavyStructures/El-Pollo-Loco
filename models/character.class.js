@@ -65,7 +65,7 @@ class Character extends MoveableObject {
      * Executes character movements at a fixed interval. Additionally, the camera position is updated based on the character's x position.
      */
     characterMovement() {
-        setInterval(() => {
+        let movementInterval = setInterval(() => {
             this.characterIdle();
             this.characterJump();
             this.characterHurt();
@@ -149,12 +149,13 @@ class Character extends MoveableObject {
      * Executes the character animation by calling the necessary animation functions at regular intervals, includes animating the character's dead state, hurt state, idle state, walking state, and jumping state.
      */
     characterAnimation() {
-        setInterval(() => {
+        let animationInterval = setInterval(() => {
+            this.animateWalking();
             this.animateDead();
             this.animateHurt();
             this.handleIdleState();
             this.animateJumping();
-            this.animateWalking();
+
         }, 200);
     }
 

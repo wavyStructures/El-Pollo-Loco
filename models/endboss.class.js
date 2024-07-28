@@ -72,13 +72,6 @@ class Endboss extends MoveableObject {
      */
     animate() {
         this.endbossInterval = setInterval(() => {
-            if (!this.world || !this.world.character) {
-                console.warn('World or character is not defined yet.');
-                return; // Skip this iteration if world or character is not defined
-            }
-
-
-
             if (this.energy == 0) {
                 this.playAnimation(ENDBOSS_DEAD);
                 this.deadAnimation();
@@ -90,8 +83,7 @@ class Endboss extends MoveableObject {
                 this.playAnimation(ENDBOSS_WALKING);
                 this.speedingUpWalk();
                 this.attackAnimation();
-            } else if (this.x <= this.world.character.x + 350) {
-                console.log('now firstContact +350 version');
+            } else if (this.x <= this.world.character.x + 350 && this.x > 600) {
                 this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
             } else if (this.commingCloser()) {

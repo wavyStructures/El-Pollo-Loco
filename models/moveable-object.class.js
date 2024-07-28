@@ -81,17 +81,10 @@ class MoveableObject extends DrawableObject {
      * @param {number} [loss=5] - The amount of energy to be subtracted.
      */
     hit(loss = 5) {
-        // if (!this.immune && this instanceof Character) {
-        //     this.characterHit();
-        // } else {
         this.energy -= loss;
         if (this.energy < 0) {
             this.energy = 0;
         }
-        // this.immune = true;
-        // setTimeout(() => {
-        //     this.immune = false;
-        // }, 2500);
         if (this instanceof Endboss) {
             this.endbossHitCount();
         }

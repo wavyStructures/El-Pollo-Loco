@@ -190,6 +190,7 @@ function restartPage() {
  * checking for mobile buttons, removing the win overlay, and removing the lost overlay.
  */
 function startGame() {
+    canvas = document.getElementById("canvas");
     canvas.classList.remove("start-page-background");
     startGameSound();
     init();
@@ -206,7 +207,7 @@ async function restartGame() {
     clearAllIntervalsAndTimeouts();
     removeOverlays();
     sounds.stopSound(sounds.you_win_sound);
-
+    canvas = document.getElementById("canvas");
     await initLevel1();
     startGameSound();
     init();

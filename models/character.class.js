@@ -168,7 +168,7 @@ class Character extends MoveableObject {
             } else {
                 this.playAnimation(CHARACTER_IDLE);
             }
-        }, 50);
+        }, 150);
     }
 
     // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
@@ -245,23 +245,21 @@ class Character extends MoveableObject {
      * removing the 'd-none' class from the 'lostOverlay' element and adding the 'flex' class.
      */
     showLostOverlay() {
+        this.sounds.playSound(this.sounds.you_lose_sound);
+        setTimeout(() => {
+            this.sounds.stopSound(this.sounds.you_lose_sound);
+        }, 3000);
+        setTimeout(() => {
+            clearAllIntervalsAndTimeouts();
+        }, 1000);
+        if (allIntervalsCleared) {
+            console.log("Verified CH : All intervals and timeouts are cleared.");
+        } else {
+            console.log("CH: There are still some intervals or timeouts running.");
+        }
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
         document.getElementById('lostOverlay').classList.add('you-lost');
-        setTimeout(() => {
-            this.sounds.muteAllSounds();
-            this.sounds.playSound(this.sounds.you_lose_sound);
-            clearAllIntervalsAndTimeouts();
-
-
-            // Check if all intervals are cleared
-            if (allIntervalsCleared) {
-                console.log("Verified: All intervals and timeouts are cleared.");
-            } else {
-                console.log("There are still some intervals or timeouts running.");
-            }
-
-        }, 500);
     }
 
     /**

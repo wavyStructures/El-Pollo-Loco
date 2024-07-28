@@ -23,7 +23,7 @@ class Endboss extends MoveableObject {
      * @param {type} sounds - The sounds for the Endboss.
      * @return {type} description of return value
      */
-    constructor(sounds, world) {
+    constructor(sounds) {
         super();
         this.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
         this.world = world;
@@ -103,18 +103,17 @@ class Endboss extends MoveableObject {
     speedingUpWalk() {
         this.walkLeft();
         const chickenSpeedVariation = (Math.random() * 0.1) - 0.05;
-
-        const baseChickenSpeed = 0.15;
-
+        const baseChickenSpeed = 0.14;
         this.speed += baseChickenSpeed + chickenSpeedVariation;
-
         if (Math.random() < 0.2) {
             this.world.character.speed += 0.25;
         }
-
-        if (this.x >= 920 && this.x <= 1100) {
-            if (Math.random() < 0.2) {
+        if (this.x >= 920 && this.x <= 1100 || this.x >= 320 && this.x <= 500) {
+            if (Math.random() < 0.4) {
                 this.speed = 0;
+                setTimeout(() => {
+                    this.speed = baseChickenSpeed + chickenSpeedVariation;
+                }, 750);
             }
         }
     }
@@ -124,7 +123,7 @@ class Endboss extends MoveableObject {
         this.hitCount++;
         if (this.hitCount >= 10) {
             this.energy = 0;
-        } else if (this.hitCount === 6) {
+        } else if (this.hitCount >= 6) {
             console.log('hitCount: ', this.hitCount);
             this.speedingUpWalk();
         }
@@ -168,6 +167,7 @@ class Endboss extends MoveableObject {
      * and adding the 'd-none' class to the 'startScreenAndCanvas' element.
      */
     showWinOverlay() {
+
         this.sounds.playSound(this.sounds.you_win_sound);
         setTimeout(() => {
             this.sounds.stopSound(this.sounds.you_win_sound);
@@ -175,6 +175,13 @@ class Endboss extends MoveableObject {
         setTimeout(() => {
             clearAllIntervalsAndTimeouts();
         }, 1000);
+
+        if (allIntervalsCleared) {
+            console.log("Verified ENDBOSS : All intervals and timeouts are cleared.");
+        } else {
+            console.log("ENDBOSS: There are still some intervals or timeouts running.");
+        }
+
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
         document.getElementById('winOverlay').classList.add('you-won');

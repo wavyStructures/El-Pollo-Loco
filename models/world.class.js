@@ -27,6 +27,11 @@ class World {
         this.keyboard = keyboard;
         this.sounds = sounds;
         this.camera_x = 0;
+
+        if (this.endboss) {
+            this.endboss.world = this;
+        }
+
         this.startWorld();
     }
 
@@ -158,16 +163,11 @@ class World {
     enemyHurtsCharacter() {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead && this.character.isCollidingFromSide(enemy) && !this.character.isHit && !(this.character.isFalling())) {
-                this.character.hit(10);
+                this.character.characterHit();
                 console.log('character was hit and now has energy of :', this.character.energy);
-
-                // this.character.loadImage(CHARACTER_HURT[0]);
                 this.statusBarHealth.setPercentage(this.character.energy);
-                // this.sounds.playSound(this.sounds.isHurt_sound)
                 this.character.isHitForHurt = true;
                 this.character.isHitForHurtAnimation = true;
-
-
                 setTimeout(() => {
                     this.character.isHit = false;
                 }, 1500);

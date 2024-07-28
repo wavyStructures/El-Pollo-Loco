@@ -6,6 +6,8 @@ let audioMute = true;
 let bgMusic;
 let gameIsOn = false;
 let fullscreenOn = false;
+let allIntervalsCleared = false;
+
 
 /**
  * Initializes the start page by setting up the canvas and playing the background music if audio is not muted.
@@ -179,8 +181,7 @@ function removeLostOverlay() {
  */
 function restartPage() {
     location.reload();
-    removeWinOverlay();
-    removeLostOverlay();
+    removeOverlays();
 }
 
 /**
@@ -190,19 +191,32 @@ function restartPage() {
  */
 function startGame() {
     canvas.classList.remove("start-page-background");
-    startGameSounds();
+    startGameSound();
     init();
     hideStartInfo();
     checkMobileBtns();
 }
 
+/**
+ * Asynchronously restarts the game by clearing all intervals and timeouts, removing overlays, initializing level 1, 
+ * starting game sounds, initializing the game, checking for mobile buttons and removing the win and lost overlays.
+ * @return {Promise<void>} A promise that resolves when the game has been restarted.
+ */
 async function restartGame() {
-    clearAllIntervals();
+    clearAllIntervalsAndTimeouts();
+    removeOverlays();
+    sounds.stopSound(sounds.you_win_sound);
+
     await initLevel1();
-    startGameSounds();
+    startGameSound();
     init();
-    hideStartInfo();
     checkMobileBtns();
+}
+
+/**
+ * Removes the win and lost overlays by calling the corresponding functions.
+ */
+function removeOverlays() {
     removeWinOverlay();
     removeLostOverlay();
 }
@@ -210,7 +224,7 @@ async function restartGame() {
 /**
  * Starts the game sounds by pausing the background music and playing the come on sound.
  */
-function startGameSounds() {
+function startGameSound() {
     let bgMusic = document.getElementById('bgMusic');
     bgMusic.pause();
     sounds.playSound(sounds.come_on_sound);
@@ -229,10 +243,16 @@ function hideStartInfo() {
 }
 
 /**
- * Clears all intervals from 1 to 9999.
+ * Clears all intervals and Timeouts from 1 to 9999.
 */
-function clearAllIntervals() {
-
+function clearAllIntervalsAndTimeouts() {
     for (let i = 1; i < 9999; i++)
         window.clearInterval(i);
+    for (let j = 1; j < 9999; j++)
+        clearTimeout(j);
+
+    allIntervalsCleared = true;
+    console.log("All intervals and timeouts have been cleared.");
+
 }
+

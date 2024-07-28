@@ -49,11 +49,15 @@ class Endboss extends MoveableObject {
      * Checks if the character in the world has reached a certain x-coordinate to indicate the first contact.
      * @return {boolean} Returns true if the character's x-coordinate is greater than or equal to 2200, false otherwise.
      */
-    checkFirstContact() {
-        return this.world.character.x >= 2200;
-    }
+    // checkFirstContact() {
+    //     return this.world.character.x >= 2200;
+    // }
 
 
+    /**
+     * Checks if the character in the world has reached a certain x-coordinate to indicate the endboss is comming closer.
+     * @return {boolean} Returns true if the character's x-coordinate is greater than or equal to 2000.
+     */
     commingCloser() {
         return this.world.character.x >= 2000;
     }
@@ -65,11 +69,16 @@ class Endboss extends MoveableObject {
      * If the endboss has had first contact with the character, it plays the attack animation.
      * Otherwise, it plays the walking animation.
      * The animation is updated every 200 milliseconds.
-     *
-     * @return {void}
      */
     animate() {
         this.endbossInterval = setInterval(() => {
+            if (!this.world || !this.world.character) {
+                console.warn('World or character is not defined yet.');
+                return; // Skip this iteration if world or character is not defined
+            }
+
+
+
             if (this.energy == 0) {
                 this.playAnimation(ENDBOSS_DEAD);
                 this.deadAnimation();
@@ -80,7 +89,9 @@ class Endboss extends MoveableObject {
             } else if (this.energy <= 150) {
                 this.playAnimation(ENDBOSS_WALKING);
                 this.speedingUpWalk();
-            } else if (this.checkFirstContact() || (this.x == this.world.character.x)) {
+                this.attackAnimation();
+            } else if (this.x <= this.world.character.x + 350) {
+                console.log('now firstContact +350 version');
                 this.playAnimation(ENDBOSS_ATTACK);
                 this.attackAnimation();
             } else if (this.commingCloser()) {
@@ -92,6 +103,11 @@ class Endboss extends MoveableObject {
         }, 200);
     }
 
+    /**
+     * Increases the speed of the endboss character while walking to the left by a random value between -0.05 and 0.05 of the base speed.
+     * If the endboss is within a certain range of the character's x-coordinate, its speed is set to 0.
+     * If a random number is less than 0.2, the character's speed is increased by 0.25.
+     */
     speedingUpWalk() {
         this.walkLeft();
         const chickenSpeedVariation = (Math.random() * 0.1) - 0.05;
@@ -162,11 +178,10 @@ class Endboss extends MoveableObject {
     showWinOverlay() {
         this.sounds.playSound(this.sounds.you_win_sound);
         setTimeout(() => {
-            this.sounds.muteAllSounds();
-
-        }, 8000);
+            this.sounds.stopSound(this.sounds.you_win_sound);
+        }, 3000);
         setTimeout(() => {
-            clearAllIntervals();
+            clearAllIntervalsAndTimeouts();
         }, 1000);
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');

@@ -135,17 +135,25 @@ class World {
         this.throwableObjects.forEach((bottle, index) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isCollidingFromSide(enemy) && !(enemy instanceof Endboss)) {
-                    enemy.hit();
-                    this.characterKillsEnemy(enemy);
-                    this.throwableObjects.splice(index, 1);
+                    this.bottleThrownAtChickens(enemy, bottle, index);
                 } else if (bottle.isCollidingFromSide(enemy) && enemy instanceof Endboss) {
-                    this.endboss.hit(25);
-                    console.log('endboss was hit and now has energy of:', this.endboss.energy);
-                    this.statusBarEndboss.setPercentage((this.endboss.energy / 200) * 100);
-                    this.throwableObjects.splice(index, 1);
+                    this.bottleThrownAtEndboss();
                 }
             });
         });
+    }
+
+    bottleThrownAtChickens(enemy, bottle, index) {
+        enemy.hit();
+        this.characterKillsEnemy(enemy);
+        this.throwableObjects.splice(index, 1);
+    }
+
+    bottleThrownAtEndboss(bottle, index) {
+        this.endboss.hit(25);
+        console.log('endboss was hit and now has energy of:', this.endboss.energy);
+        this.statusBarEndboss.setPercentage((this.endboss.energy / 200) * 100);
+        this.throwableObjects.splice(index, 1);
     }
 
     /**

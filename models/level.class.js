@@ -8,6 +8,7 @@ class Level {
     sounds;
     level_end_x = 2400;
 
+
     /**
      * Constructor for initializing enemies, clouds, background objects, coins, bottles, and sounds.
      * @param {type} enemies - The enemies to be initialized.

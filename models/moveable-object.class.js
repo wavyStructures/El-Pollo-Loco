@@ -14,6 +14,7 @@ class MoveableObject extends DrawableObject {
     };
     toBeRemoved = false;
 
+
     /**
      * Constructor for initializing the object with sounds.
      * @param {type} sounds - The sounds for the object.

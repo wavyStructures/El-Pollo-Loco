@@ -1,4 +1,5 @@
 class Coin extends MoveableObject {
+
     height = 120;
     width = 120;
     IMAGES_COINS = [
@@ -11,6 +12,7 @@ class Coin extends MoveableObject {
         right: 35,
         bottom: 35,
     };
+
 
     /**
      * Initializes a new instance of the Coin class.
@@ -32,6 +34,3 @@ class Coin extends MoveableObject {
         }, 400);
     }
 }
-
-
-

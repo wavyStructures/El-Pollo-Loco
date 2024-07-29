@@ -17,9 +17,9 @@ class Endboss extends MoveableObject {
     world;
     endbossInterval;
 
+
     /**
      * Constructor for initializing the Endboss with sounds, image, energy, and animation.
-     *
      * @param {type} sounds - The sounds for the Endboss.
      * @return {type} description of return value
      */
@@ -109,29 +109,40 @@ class Endboss extends MoveableObject {
         }
     }
 
+    /**
+     * Increments the hit count of the end boss and performs actions based on the hit count.
+     */
     endbossHitCount() {
         this.sounds.playSound(this.sounds.endboss_hit_sound);
         this.hitCount++;
         if (this.hitCount >= 10) {
             this.energy = 0;
         } else if (this.hitCount >= 6) {
-            console.log('hitCount: ', this.hitCount);
             this.speedingUpWalk();
         }
     }
 
-
+    /**
+     * Plays the endboss dying sound and sets the isDead flag to true. After 1500 milliseconds, calls the endOfGame function.
+     */
     deadAnimation() {
         this.isDead = true;
         this.sounds.playSound(this.sounds.endboss_dying_sound);
         setTimeout(() => { this.endOfGame(); }, 1500);
     }
 
+
     /**
-     * Ends the game by clearing the endboss interval and showing the win overlay.
-    */
+     * Ends the game by clearing the endboss interval, if fullscreen is on removing fullscreen and showing the win overlay.
+     */
     endOfGame() {
         clearInterval(this.endbossInterval);
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch((err) => {
+                console.warn("Could not exit fullscreen:", err);
+            });
+            fullscreenOn = !fullscreenOn;
+        }
         this.showWinOverlay();
     }
 
@@ -152,13 +163,10 @@ class Endboss extends MoveableObject {
     }
 
     /**
-     * Displays the win overlay by playing the "you_lose_sound" sound,
-     * setting a timeout to mute all sounds and clear all intervals after 1000ms,
-     * removing the 'd-none' class from the 'winOverlay' element and adding the 'flex' class,
-     * and adding the 'd-none' class to the 'startScreenAndCanvas' element.
+     * Displays the win overlay by playing the "you_lose_sound" sound, setting a timeout to mute all sounds and clear all intervals after 1000ms,
+     * removing the 'd-none' class from the 'winOverlay' element and adding the 'flex' class, and adding the 'd-none' class to the 'startScreenAndCanvas' element.
      */
     showWinOverlay() {
-
         this.sounds.playSound(this.sounds.you_win_sound);
         setTimeout(() => {
             this.sounds.stopSound(this.sounds.you_win_sound);
@@ -166,13 +174,15 @@ class Endboss extends MoveableObject {
         setTimeout(() => {
             clearAllIntervalsAndTimeouts();
         }, 1000);
+        this.handleWinOverlay();
+    }
 
-        if (allIntervalsCleared) {
-            console.log("Verified ENDBOSS : All intervals and timeouts are cleared.");
-        } else {
-            console.log("ENDBOSS: There are still some intervals or timeouts running.");
-        }
-
+    /**
+     * Handles the win overlay by hiding mobile buttons, removing the 'd-none' class from the 'winOverlay' element, adding the 'flex' and 'you-won' classes to the 'winOverlay' element, and adding the 'd-none' class to the
+     * 'startScreenAndCanvas' element.
+     */
+    handleWinOverlay() {
+        document.getElementById('bottom-info-mobile').style.display = 'none'
         document.getElementById('winOverlay').classList.remove('d-none');
         document.getElementById('winOverlay').classList.add('flex');
         document.getElementById('winOverlay').classList.add('you-won');

@@ -8,6 +8,7 @@ class Keyboard {
     D = false;
     B = false;
 
+
     /**
      * Constructor for the Keyboard class, initializes key event bindings.
      */
@@ -124,5 +125,4 @@ class Keyboard {
             this.B = false;
         });
     }
-
 }

@@ -137,6 +137,13 @@ canvas {
 
   background-repeat: no-repeat;
   background-position: center;
+
+  .bottom-info-mobile {
+    display: none !important;
+  }
+  body.fullscreen-mode .bottom-info-mobile {
+    display: none !important;
+  }
 }
 
 .canvas-bottom-info {
@@ -468,7 +475,7 @@ body.fullscreen-mode canvas {
 body.fullscreen-mode .bottom-info-mobile {
   display: flex !important;
   position: absolute; /* Adjust as needed */
-  bottom: 8px; /* Adjust as needed */
+  bottom: 2px; /* Adjust as needed */
   width: 100%; /* Ensure it spans across the screen */
   justify-content: center; /* Center buttons */
   z-index: 10; /* Ensure it is above other content */
@@ -481,4 +488,8 @@ body.fullscreen-mode .bottom-info {
   width: 100%; /* Ensure it spans across the screen */
   justify-content: center; /* Center buttons */
   z-index: 10; /* Ensure it is above other content */
+}
+
+body.fullscreen-mode .icon-container {
+  top: 16px;
 }

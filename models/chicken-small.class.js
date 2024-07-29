@@ -14,6 +14,7 @@ class SmallChicken extends MoveableObject {
     energy = 5;
     isDead = false;
 
+
     /**
      * Constructor for SmallChicken class.
      * @param {type} sounds - The sounds for the chicken.

@@ -1,4 +1,5 @@
 class ThrowableObject extends MoveableObject {
+
     /**
      * Constructor for creating a new ThrowableObject.
      *

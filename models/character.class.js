@@ -133,7 +133,6 @@ class Character extends MoveableObject {
         setTimeout(() => { this.isHitForHurt = false; }, 500);
     }
 
-
     /**
      * Checks if the character is dead and plays the appropriate sounds.
      */
@@ -171,9 +170,10 @@ class Character extends MoveableObject {
         }, 150);
     }
 
-    // if (this.noKeyPressed() && (Date.now() - this.lastKeyPressTime <= 10000)) {
-    //     
-
+    /**
+     * Decreases the character's energy by 10 and sets the immune flag to true for 2500ms. If the character's energy is less than 0 after the decrease, it is set to 0.
+     * Sets the last hit time to the current time.
+     */
     characterHit() {
         if (!this.immune) {
             this.energy -= 10;
@@ -196,6 +196,10 @@ class Character extends MoveableObject {
         this.awake = true;
     }
 
+    /**
+     * Manages the walking sound for the character based on their movement. If the character is moving left or right, it plays the walking sound.
+     * If the character is not moving, it stops the walking sound.
+     */
     manageWalkingSound() {
         const isMovingLeft = this.world.keyboard.LEFT && this.x > 0;
         const isMovingRight = this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
@@ -233,39 +237,43 @@ class Character extends MoveableObject {
 
 
     /**
-     * Stops the game after the character dies.
+     * Stops the game after the character dies, checks if the document is in fullscreen mode and if so, it attempts to exit fullscreen mode.
+     * If the document is not in fullscreen mode, it does nothing.     * 
+     * After attempting to exit fullscreen mode, it toggles the value of the `fullscreenOn` variable.
+     * Finally, calls the `showLostOverlay` method on the current instance of the class.
      */
     stopGameAfterDying() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch((err) => {
+                console.warn("Could not exit fullscreen:", err);
+            });
+            fullscreenOn = !fullscreenOn;
+        }
         this.showLostOverlay();
     }
 
     /**
-     * Displays the lost overlay by playing the "you_lose_sound" sound,
-     * setting a timeout to mute all sounds and clear all intervals after 500ms,
+     * Displays the lost overlay by playing the "you_lose_sound" sound,setting a timeout to mute all sounds and clear all intervals after 500ms,
      * removing the 'd-none' class from the 'lostOverlay' element and adding the 'flex' class.
      */
     showLostOverlay() {
         this.sounds.playSound(this.sounds.you_lose_sound);
         setTimeout(() => {
             this.sounds.stopSound(this.sounds.you_lose_sound);
-        }, 3000);
+        }, 1200);
         setTimeout(() => {
             clearAllIntervalsAndTimeouts();
         }, 1000);
-        if (allIntervalsCleared) {
-            console.log("Verified CH : All intervals and timeouts are cleared.");
-        } else {
-            console.log("CH: There are still some intervals or timeouts running.");
-        }
+        document.getElementById('bottom-info-mobile').style.display = 'none'
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');
         document.getElementById('lostOverlay').classList.add('you-lost');
     }
 
     /**
-        * Checks if any key on the keyboard is pressed.
-        * @return {boolean} Returns true if any key is pressed, false otherwise.
-        */
+     * Checks if any key on the keyboard is pressed.
+     * @return {boolean} Returns true if any key is pressed, false otherwise.
+     */
     aKeyWasPressed() {
         return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D || this.world.keyboard.B;
     }

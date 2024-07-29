@@ -15,6 +15,7 @@ class Chicken extends MoveableObject {
     isDead = false;
     toBeRemoved = false;
 
+
     /**
      * Creates a new instance of the Chicken class.
      * @param {Object} sounds - The sounds object.
@@ -28,7 +29,7 @@ class Chicken extends MoveableObject {
 
     /**
      * Loads the chicken images for walking and dead states.
-      */
+     */
     loadChickenImages() {
         this.loadImages(CHICKEN_WALKING);
         this.loadImages(CHICKEN_DEAD);

@@ -1,4 +1,6 @@
 let level1;
+
+
 /**
  * Initializes the level 1 of the game.
 */

@@ -12,6 +12,7 @@ class World {
     lastBottleThrowTime = 0;
     bottleThrowCooldown = 500;
 
+
     /**
      * Constructor function for creating a new World instance.
      * @param {Canvas} canvas - The canvas element to render the world on.
@@ -27,11 +28,9 @@ class World {
         this.keyboard = keyboard;
         this.sounds = sounds;
         this.camera_x = 0;
-
         if (this.endboss) {
             this.endboss.world = this;
         }
-
         this.startWorld();
     }
 
@@ -143,15 +142,25 @@ class World {
         });
     }
 
+    /**
+     * Marks the enemy as hit, kills the enemy for the character, and removes the thrown bottle from the list of throwable objects.
+     * @param {Object} enemy - The enemy object that is hit by the thrown bottle.
+     * @param {Object} bottle - The thrown bottle object that hits the enemy.
+     * @param {number} index - The index of the thrown bottle in the list of throwable objects.
+     */
     bottleThrownAtChickens(enemy, bottle, index) {
         enemy.hit();
         this.characterKillsEnemy(enemy);
         this.throwableObjects.splice(index, 1);
     }
 
+    /**
+     * Hits the endboss with a bottle and updates the endboss's energy and status bar.
+     * @param {Object} bottle - The bottle object used to hit the endboss.
+     * @param {number} index - The index of the bottle in the throwableObjects array.S
+     */
     bottleThrownAtEndboss(bottle, index) {
         this.endboss.hit(25);
-        console.log('endboss was hit and now has energy of:', this.endboss.energy);
         this.statusBarEndboss.setPercentage((this.endboss.energy / 200) * 100);
         this.throwableObjects.splice(index, 1);
     }
@@ -195,9 +204,6 @@ class World {
                     this.level.enemies.splice(index, 1)
                 }
             });
-
-            // this.level.enemies = this.level.enemies.filter((enemy) => enemy !== killedEnemy);
-
         }, 18000);
     }
 

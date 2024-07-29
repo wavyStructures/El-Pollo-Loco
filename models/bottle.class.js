@@ -18,6 +18,7 @@ class Bottle extends MoveableObject {
         right: 20
     };
 
+
     /**
      * Initializes a new instance of the class.
      */
@@ -29,7 +30,6 @@ class Bottle extends MoveableObject {
         this.setInitialPosition();
     }
 
-
     /**
      * Sets the initial position of the object based on width and random values.
      */
@@ -38,8 +38,7 @@ class Bottle extends MoveableObject {
     }
 
     /**
-     * Animate the object by playing an animation loop using the IMAGES_BOTTLE array
-     * every 500 milliseconds.
+     * Animate the object by playing an animation loop using the IMAGES_BOTTLE array every 500 milliseconds.
      */
     animate() {
         setInterval(() => {
@@ -47,5 +46,3 @@ class Bottle extends MoveableObject {
         }, 500);
     }
 }
-
-

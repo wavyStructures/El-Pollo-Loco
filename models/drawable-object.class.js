@@ -8,6 +8,7 @@ class DrawableObject {
     currentImage = 0;
     imageCache = {};
 
+
     /**
      * Loads an image from the specified path.
      * @param {type} path - The path of the image to load.
@@ -36,7 +37,6 @@ class DrawableObject {
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
         } catch (error) {
             console.warn('loading img failed: ', error);
             console.log('img : ', this.img);

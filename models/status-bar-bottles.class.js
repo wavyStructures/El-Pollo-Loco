@@ -1,4 +1,5 @@
 class StatusBarBottles extends DrawableObject {
+
     IMAGES = [
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
@@ -7,8 +8,8 @@ class StatusBarBottles extends DrawableObject {
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
     ];
-
     percentage = 0;
+
 
     /**
      * Constructor for initializing the status bar bottles with images, position, width, height, and percentage.
@@ -38,10 +39,6 @@ class StatusBarBottles extends DrawableObject {
      @return {number} The index of the image to be used.
      */
     resolveImageIndex() {
-
-        // if (this.percentage > 100) {
-        //     this.percentage = 100;
-        // }
         if (this.percentage >= 100) {
             return 5;
         }

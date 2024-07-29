@@ -14,6 +14,7 @@ let allIntervalsCleared = false;
  */
 function startPage() {
     startPageCanvas();
+    hideMobileBtns();
     bgMusic = document.getElementById('bgMusic');
     if (!audioMute) { bgMusic.play(); }
 }
@@ -65,16 +66,9 @@ function adaptToMobile() {
  */
 function checkMobileBtns() {
     const isPortrait = window.innerHeight > window.innerWidth;
-    // const isIPadAirPortrait = window.innerWidth <= 820 && window.innerHeight <= 1180;
-    // const isIPadAirLandscape = window.innerWidth <= 1180 && window.innerHeight <= 820;
     const isOtherMobilePortrait = window.innerWidth <= 915 && isPortrait;
-    // || isIPadAirPortrait || isIPadAirLandscape
     if (isOtherMobilePortrait) {
         showMobileBtns();
-        // } else if (window.innerHeight == 820 && window.innerWidth == 1180) {
-        //     showMobileBtns();
-        // } else if (window.innerHeight == 1180 && window.innerWidth == 820) {
-        //     showMobileBtns();
     }
     else {
         hideMobileBtns();
@@ -84,25 +78,14 @@ function checkMobileBtns() {
 /**
  * Shows the mobile buttons by removing the 'flex' class from the 'bottom-info' element and the 'd-none' class from the 'bottom-info-mobile' element.
  * Then, it adds the 'd-none' class to the 'bottom-info' element and the 'flex' class to the 'bottom-info-mobile' element.
- *
- * @return {void} This function does not return anything.
  */
 function showMobileBtns() {
-    // document.getElementById('bottom-info').classList.remove('flex');
-    // document.getElementById('bottom-info-mobile').classList.remove('d-none');
-
-    // document.getElementById('bottom-info').classList.add('d-none');
-    // document.getElementById('bottom-info-mobile').classList.add('flex');
-
     const bottomInfo = document.getElementById('bottom-info');
     const bottomInfoMobile = document.getElementById('bottom-info-mobile');
-
     bottomInfo.classList.remove('flex');
     bottomInfo.classList.add('d-none');
-
     bottomInfoMobile.classList.remove('d-none');
     bottomInfoMobile.classList.add('flex');
-
     bottomInfoMobile.style.setProperty('display', 'flex', 'important');
 }
 
@@ -112,6 +95,7 @@ function showMobileBtns() {
 function hideMobileBtns() {
     document.getElementById('bottom-info-mobile').classList.remove('flex');
     document.getElementById('bottom-info-mobile').classList.add('d-none');
+    // bottomInfoMobile.style.setProperty('display', 'none', 'important');
 }
 
 /**
@@ -160,15 +144,9 @@ function checkToggleFullScreen() {
 */
 function toggleFullScreen(element) {
     if (!fullscreenOn) {
-
-
         if (element.requestFullscreen) {
             element.requestFullscreen();
             document.body.classList.add('fullscreen-mode');
-
-            document.getElementById('bottom-info-mobile-fullscreen').classList.remove('d-none');
-            document.getElementById('bottom-info-mobile-fullscreen').classList.add('flex');
-
             checkMobileBtns();
         }
     } else {
@@ -230,6 +208,7 @@ function startGame() {
  * @return {Promise<void>} A promise that resolves when the game has been restarted.
  */
 async function restartGame() {
+    hideMobileBtns();
     clearAllIntervalsAndTimeouts();
     removeOverlays();
     sounds.stopSound(sounds.you_win_sound);
@@ -264,7 +243,6 @@ function startGameSound() {
 function hideStartInfo() {
     document.getElementById('startScreenTop').classList.remove('flex');
     document.getElementById('startScreenTop').classList.add('d-none');
-
     document.getElementById('bottom-info').classList.remove('flex');
     document.getElementById('bottom-info').classList.add('d-none');
 }
@@ -277,9 +255,6 @@ function clearAllIntervalsAndTimeouts() {
         window.clearInterval(i);
     for (let j = 1; j < 9999; j++)
         clearTimeout(j);
-
     allIntervalsCleared = true;
-    console.log("All intervals and timeouts have been cleared.");
-
 }
 

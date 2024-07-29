@@ -160,9 +160,16 @@ function checkToggleFullScreen() {
 */
 function toggleFullScreen(element) {
     if (!fullscreenOn) {
+
+
         if (element.requestFullscreen) {
             element.requestFullscreen();
             document.body.classList.add('fullscreen-mode');
+
+            document.getElementById('bottom-info-mobile-fullscreen').classList.remove('d-none');
+            document.getElementById('bottom-info-mobile-fullscreen').classList.add('flex');
+
+            checkMobileBtns();
         }
     } else {
         if (document.exitFullscreen) {

@@ -464,3 +464,21 @@ body.fullscreen-mode canvas {
   width: 100% !important;
   height: 100% !important;
 }
+
+body.fullscreen-mode .bottom-info-mobile {
+  display: flex !important;
+  position: absolute; /* Adjust as needed */
+  bottom: 8px; /* Adjust as needed */
+  width: 100%; /* Ensure it spans across the screen */
+  justify-content: center; /* Center buttons */
+  z-index: 10; /* Ensure it is above other content */
+}
+
+body.fullscreen-mode .bottom-info {
+  display: none;
+  position: absolute; /* Adjust as needed */
+  bottom: 8px; /* Adjust as needed */
+  width: 100%; /* Ensure it spans across the screen */
+  justify-content: center; /* Center buttons */
+  z-index: 10; /* Ensure it is above other content */
+}

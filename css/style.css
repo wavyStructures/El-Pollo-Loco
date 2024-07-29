@@ -229,11 +229,24 @@ canvas {
   height: 48px;
 }
 
+.panel {
+  flex-grow: 1;
+}
+
 .panel-wrapper {
   padding: 0 24px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 48px;
+}
+
+.btn-panel-left,
+.btn-panel-right {
+  display: flex;
+  /* justify-content: center;
+  align-items: center;*/
+  gap: 32px;
 }
 
 .bottom-info {
@@ -361,7 +374,7 @@ canvas {
   }
 }
 
-@media screen and (max-width: 1140px) and (orientation: landscape) {
+@media screen and (max-width: 1380px) and (max-height: 920px) and (orientation: landscape) {
   h1 {
     display: none;
   }
@@ -408,7 +421,7 @@ canvas {
     position: absolute;
     bottom: 0;
     left: 32px;
-    gap: 12px;
+    gap: 32px;
     align-self: auto;
   }
 
@@ -420,6 +433,7 @@ canvas {
     position: absolute;
     bottom: 8px;
   }
+
   .panel {
     width: 100vw;
   }

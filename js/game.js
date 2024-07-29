@@ -64,9 +64,19 @@ function adaptToMobile() {
  * Checks the window inner height and shows or hides mobile buttons accordingly.
  */
 function checkMobileBtns() {
-    if (window.innerHeight <= 821) {
+    const isPortrait = window.innerHeight > window.innerWidth;
+    // const isIPadAirPortrait = window.innerWidth <= 820 && window.innerHeight <= 1180;
+    // const isIPadAirLandscape = window.innerWidth <= 1180 && window.innerHeight <= 820;
+    const isOtherMobilePortrait = window.innerWidth <= 915 && isPortrait;
+    // || isIPadAirPortrait || isIPadAirLandscape
+    if (isOtherMobilePortrait) {
         showMobileBtns();
-    } else {
+        // } else if (window.innerHeight == 820 && window.innerWidth == 1180) {
+        //     showMobileBtns();
+        // } else if (window.innerHeight == 1180 && window.innerWidth == 820) {
+        //     showMobileBtns();
+    }
+    else {
         hideMobileBtns();
     }
 }
@@ -78,20 +88,29 @@ function checkMobileBtns() {
  * @return {void} This function does not return anything.
  */
 function showMobileBtns() {
-    document.getElementById('bottom-info').classList.remove('flex');
-    document.getElementById('bottom-info-mobile').classList.remove('d-none');
+    // document.getElementById('bottom-info').classList.remove('flex');
+    // document.getElementById('bottom-info-mobile').classList.remove('d-none');
 
-    document.getElementById('bottom-info').classList.add('d-none');
-    document.getElementById('bottom-info-mobile').classList.add('flex');
+    // document.getElementById('bottom-info').classList.add('d-none');
+    // document.getElementById('bottom-info-mobile').classList.add('flex');
+
+    const bottomInfo = document.getElementById('bottom-info');
+    const bottomInfoMobile = document.getElementById('bottom-info-mobile');
+
+    bottomInfo.classList.remove('flex');
+    bottomInfo.classList.add('d-none');
+
+    bottomInfoMobile.classList.remove('d-none');
+    bottomInfoMobile.classList.add('flex');
+
+    bottomInfoMobile.style.setProperty('display', 'flex', 'important');
 }
 
 /**
  * Hides the mobile buttons by removing the 'flex' class from the 'bottom-info-mobile' element and adding the 'd-none' class to it.
  */
 function hideMobileBtns() {
-    // document.getElementById('bottom-info').classList.remove('d-none');
     document.getElementById('bottom-info-mobile').classList.remove('flex');
-    // document.getElementById('bottom-info').classList.add('flex');
     document.getElementById('bottom-info-mobile').classList.add('d-none');
 }
 

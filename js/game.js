@@ -19,6 +19,18 @@ function startPage() {
     if (!audioMute) { bgMusic.play(); }
 }
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    var links = document.querySelectorAll(".instructionsAndLegalNotice a");
+
+    links.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    });
+});
+
+
 /**
  * Initializes the start page canvas by adding a start-page-background class to the canvas element and
  * setting the onclick event handler to startGame.

@@ -70,13 +70,14 @@ class Endboss extends MoveableObject {
             else if (this.isHurt() && this.energy >= 125) {
                 this.playAnimation(ENDBOSS_HURT);
                 this.hurtAnimation();
+                this.speedingUpWalk();
             } else if (this.energy <= 150) {
                 this.playAnimation(ENDBOSS_WALKING);
                 this.speedingUpWalk();
                 this.attackAnimation();
-            } else if (this.x <= this.world.character.x + 350 && this.x > 600) {
+            } else if (this.x <= this.world.character.x + 550 && this.x > 600) {
                 this.playAnimation(ENDBOSS_ATTACK);
-                this.attackAnimation();
+                setTimeout(() => { this.attackAnimation(); }, 1500);
             } else if (this.commingCloser()) {
                 this.playAnimation(ENDBOSS_ALERT);
                 this.sounds.playSound(this.sounds.endboss_alert_sound);
@@ -104,7 +105,7 @@ class Endboss extends MoveableObject {
                 this.speed = 0;
                 setTimeout(() => {
                     this.speed = baseChickenSpeed + chickenSpeedVariation;
-                }, 350);
+                }, 50);
             }
         }
     }

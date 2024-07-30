@@ -187,6 +187,7 @@ class Endboss extends MoveableObject {
         document.getElementById('winOverlay').classList.add('flex');
         document.getElementById('winOverlay').classList.add('you-won');
         document.getElementById('startScreenAndCanvas').classList.add('d-none');
+        document.body.classList.remove('game-on');
     }
 
     /**

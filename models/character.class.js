@@ -264,6 +264,7 @@ class Character extends MoveableObject {
         setTimeout(() => {
             clearAllIntervalsAndTimeouts();
         }, 1000);
+        document.body.classList.remove('game-on');
         document.getElementById('bottom-info-mobile').style.display = 'none'
         document.getElementById('lostOverlay').classList.remove('d-none');
         document.getElementById('lostOverlay').classList.add('flex');

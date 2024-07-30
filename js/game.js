@@ -95,7 +95,6 @@ function showMobileBtns() {
 function hideMobileBtns() {
     document.getElementById('bottom-info-mobile').classList.remove('flex');
     document.getElementById('bottom-info-mobile').classList.add('d-none');
-    // bottomInfoMobile.style.setProperty('display', 'none', 'important');
 }
 
 /**

@@ -100,11 +100,11 @@ class Endboss extends MoveableObject {
             this.world.character.speed += 0.25;
         }
         if (this.x >= 920 && this.x <= 1100 || this.x >= 320 && this.x <= 500) {
-            if (Math.random() < 0.4) {
+            if (Math.random() < 0.2) {
                 this.speed = 0;
                 setTimeout(() => {
                     this.speed = baseChickenSpeed + chickenSpeedVariation;
-                }, 750);
+                }, 350);
             }
         }
     }

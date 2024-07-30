@@ -82,8 +82,6 @@ function initLevel1() {
             new Bottle(),
             new Bottle(),
             new Bottle(),
-            new Bottle(),
-            new Bottle(),
             new Bottle()
         ],
         sounds

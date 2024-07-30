@@ -70,6 +70,11 @@ function checkMobileBtns() {
     if (isOtherMobilePortrait) {
         showMobileBtns();
     }
+    else if (gameIsOn) {
+        document.body.classList.add('game-on');
+    } else if (!gameIsOn) {
+        document.body.classList.remove('game-on');
+    }
     else {
         hideMobileBtns();
     }

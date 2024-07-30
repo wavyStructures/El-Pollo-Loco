@@ -381,7 +381,7 @@ canvas {
   }
 }
 
-@media screen and (max-width: 1380px) and (max-height: 920px) and (orientation: landscape) {
+@media screen and (max-height: 820px) and (orientation: landscape) {
   h1 {
     display: none;
   }
@@ -451,6 +451,10 @@ canvas {
     justify-content: space-between;
     align-items: center;
     gap: 32px;
+  }
+
+  .game-on .bottom-info-mobile {
+    display: flex !important;
   }
 }
 

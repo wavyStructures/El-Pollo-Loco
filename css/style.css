@@ -13,7 +13,7 @@
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 button {
@@ -351,7 +351,7 @@ canvas {
   }
 } */
 
-@media screen and (max-width: 820px) and (orientation: portrait) {
+@media screen and (max-width: 800px) and (orientation: portrait) {
   .start-screen-top {
     width: 100%;
     position: absolute;
@@ -373,7 +373,7 @@ canvas {
   }
 
   .turn-phone-overlay {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: flex-start;
     padding: 100px;
@@ -454,6 +454,7 @@ canvas {
     gap: 32px;
   }
 
+  /* .bottom-info-mobile */
   .game-on .bottom-info-mobile {
     display: flex !important;
   }
@@ -497,4 +498,30 @@ body.fullscreen-mode .bottom-info {
 
 body.fullscreen-mode .icon-container {
   top: 16px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  letter-spacing: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffde01;
+  z-index: 1000; /* Ensure it's above all other content */
+  background-color: #f1b51b;
+  background-image: url("../img/6_salsa_bottle/all_sequences.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.d-none {
+  display: none;
 }

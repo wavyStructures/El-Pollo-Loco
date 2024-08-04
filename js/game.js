@@ -9,16 +9,44 @@ let fullscreenOn = false;
 let allIntervalsCleared = false;
 
 
+// /**
+//  * Initializes the start page by setting up the canvas and playing the background music if audio is not muted.
+//  */
+// function startPage() {
+//     startPageCanvas();
+//     hideMobileBtns();
+//     bgMusic = document.getElementById('bgMusic');
+//     if (!audioMute) { bgMusic.play(); }
+// }
+
+
 /**
- * Initializes the start page by setting up the canvas and playing the background music if audio is not muted.
+ * Shows the loading overlay by removing the 'd-none' class from the '.loading-overlay' element.
+ */
+function showLoadingOverlay() {
+    document.querySelector('.loading-overlay').classList.remove('d-none');
+}
+
+/**
+ * Hides the loading overlay by adding the 'd-none' class to the '.loading-overlay' element.
+ */
+function hideLoadingOverlay() {
+    document.querySelector('.loading-overlay').classList.add('d-none');
+}
+
+/**
+ * Initializes the start page by setting up the canvas and playing the background music if audio is not muted, displaying loading overlay before.
  */
 function startPage() {
     startPageCanvas();
     hideMobileBtns();
     bgMusic = document.getElementById('bgMusic');
     if (!audioMute) { bgMusic.play(); }
-}
 
+    setTimeout(() => {
+        hideLoadingOverlay();
+    }, 1500);
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     var links = document.querySelectorAll(".instructionsAndLegalNotice a");
@@ -29,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
 
 /**
  * Initializes the start page canvas by adding a start-page-background class to the canvas element and
@@ -83,9 +110,10 @@ function checkMobileBtns() {
         showMobileBtns();
     }
     else if (gameIsOn) {
-        document.body.classList.add('game-on');
+        document.getElementById('gameOnContainer').classList.add('game-on');
+        // document.body.classList.
     } else if (!gameIsOn) {
-        document.body.classList.remove('game-on');
+        document.getElementById('gameOnContainer').classList.remove('game-on');
     }
     else {
         hideMobileBtns();
@@ -210,12 +238,18 @@ function restartPage() {
  * checking for mobile buttons, removing the win overlay, and removing the lost overlay.
  */
 function startGame() {
+    showLoadingOverlay();
     canvas = document.getElementById("canvas");
     canvas.classList.remove("start-page-background");
     startGameSound();
-    init();
     hideStartInfo();
     checkMobileBtns();
+    // setTimeout(() => {
+    init();
+    // }, 3000);
+    setTimeout(() => {
+        hideLoadingOverlay();
+    }, 3500);
 }
 
 /**

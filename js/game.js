@@ -162,10 +162,10 @@ function adaptInnerWidth() {
 function toggleAudio() {
     let audioIcon = document.getElementById('audioIcon');
     if (!audioMute) {
-        audioIcon.setAttribute('src', './icons/audio_off.svg');
+        audioIcon.setAttribute('src', './img/audio_off.svg');
         bgMusic.pause();
     } else {
-        audioIcon.setAttribute('src', './icons/audio_on.svg');
+        audioIcon.setAttribute('src', './img/audio_on.svg');
         if (gameIsOn) { bgMusic.pause(); } else { bgMusic.play(); }
     }
     audioMute = !audioMute;
